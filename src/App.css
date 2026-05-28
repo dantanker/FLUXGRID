@@ -1,0 +1,785 @@
+:root {
+  --navy-dark: #07111e;
+  --navy-main: #0b1a30;
+  --navy-light: #132a4a;
+  --orange-main: #ff9500;
+  --orange-hover: #e08400;
+  --text-light: #ffffff;
+  --text-muted: rgba(255, 255, 255, 0.7);
+  --success-green: #34c759;
+  --slate-bg: #f8fafc;
+  --slate-text: #1e293b;
+  --slate-muted: #64748b;
+  --border-color: rgba(255, 255, 255, 0.08);
+}
+
+.fluxgrid-app {
+  background-color: var(--navy-main);
+  color: var(--text-light);
+  overflow-x: hidden;
+  line-height: 1.6;
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+  scroll-behavior: smooth;
+}
+
+.fluxgrid-app .container {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 24px;
+}
+
+@keyframes fadeInUp {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes float {
+  0%,
+  100% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(-8px);
+  }
+}
+
+.fluxgrid-app .animate-fade {
+  animation: fadeInUp 0.6s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+}
+
+.fluxgrid-app .animate-float {
+  animation: float 4s ease-in-out infinite;
+}
+
+.fluxgrid-app .cta-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  background-color: var(--orange-main);
+  color: var(--navy-main);
+  padding: 16px 32px;
+  font-size: 15px;
+  font-weight: 700;
+  text-decoration: none;
+  border-radius: 8px;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  box-shadow: 0 8px 20px rgba(255, 149, 0, 0.25);
+  transition: all 0.2s ease;
+  border: none;
+  cursor: pointer;
+}
+
+.fluxgrid-app .cta-btn:hover {
+  background-color: var(--orange-hover);
+  transform: translateY(-2px);
+  box-shadow: 0 12px 24px rgba(255, 149, 0, 0.35);
+}
+
+.fluxgrid-app .cta-btn i {
+  margin-left: 8px;
+}
+
+.fluxgrid-app .cta-btn.nav {
+  padding: 8px 16px;
+  font-size: 13px;
+  box-shadow: none;
+}
+
+.fluxgrid-app header {
+  padding: 20px 0;
+  border-bottom: 1px solid var(--border-color);
+  background: rgba(11, 26, 48, 0.85);
+  backdrop-filter: blur(12px);
+  position: sticky;
+  top: 0;
+  z-index: 1000;
+}
+
+.fluxgrid-app .nav-container {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.fluxgrid-app .logo {
+  display: flex;
+  align-items: center;
+  text-decoration: none;
+}
+
+.fluxgrid-app .fluxgrid-logo {
+  display: inline-flex;
+}
+
+.fluxgrid-app nav a {
+  color: var(--text-muted);
+  text-decoration: none;
+  margin-left: 32px;
+  font-size: 15px;
+  font-weight: 500;
+  transition: color 0.2s ease;
+}
+
+.fluxgrid-app nav a:hover {
+  color: var(--orange-main);
+}
+
+.fluxgrid-app .hero-section {
+  padding: 80px 0 32px 0;
+}
+
+.fluxgrid-app .hero-grid {
+  display: grid;
+  grid-template-columns: 1.15fr 0.85fr;
+  gap: 64px;
+  align-items: center;
+}
+
+.fluxgrid-app .hero-left h1 {
+  font-size: 44px;
+  font-weight: 800;
+  line-height: 1.15;
+  letter-spacing: -1px;
+  margin-bottom: 24px;
+  text-transform: uppercase;
+}
+
+.fluxgrid-app .hero-left h1 span {
+  color: var(--orange-main);
+}
+
+.fluxgrid-app .hero-left p {
+  font-size: 18px;
+  color: var(--text-muted);
+  margin-bottom: 36px;
+  max-width: 560px;
+}
+
+.fluxgrid-app .ui-mockup {
+  background: linear-gradient(135deg, rgba(255, 255, 255, 0.04) 0%, rgba(255, 255, 255, 0.01) 100%);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  border-radius: 16px;
+  padding: 24px;
+  backdrop-filter: blur(20px);
+  box-shadow: 0 30px 60px rgba(0, 0, 0, 0.4);
+}
+
+.fluxgrid-app .ui-header {
+  display: flex;
+  justify-content: space-between;
+  font-size: 12px;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  color: rgba(255, 255, 255, 0.4);
+  margin-bottom: 20px;
+  padding-bottom: 10px;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+}
+
+.fluxgrid-app .ui-card {
+  background: rgba(255, 255, 255, 0.02);
+  border-left: 4px solid var(--orange-main);
+  padding: 12px 16px;
+  border-radius: 0 6px 6px 0;
+  margin-bottom: 12px;
+}
+
+.fluxgrid-app .ui-card.blue {
+  border-left-color: #007aff;
+}
+
+.fluxgrid-app .ui-card.success {
+  border-left-color: var(--success-green);
+}
+
+.fluxgrid-app .ui-meta {
+  font-size: 11px;
+  color: rgba(255, 255, 255, 0.4);
+  margin-bottom: 4px;
+}
+
+.fluxgrid-app .ui-body {
+  font-size: 14px;
+  font-weight: 500;
+}
+
+.fluxgrid-app .ui-body.success {
+  color: var(--success-green);
+}
+
+.fluxgrid-app .calculator-section {
+  padding: 120px 0;
+  background: radial-gradient(circle at top right, #0e223f 0%, var(--navy-dark) 70%);
+  border-top: 1px solid rgba(255, 255, 255, 0.05);
+  position: relative;
+}
+
+.fluxgrid-app .calc-box {
+  background: rgba(11, 26, 48, 0.4);
+  backdrop-filter: blur(24px);
+  -webkit-backdrop-filter: blur(24px);
+  border: 1px solid rgba(255, 255, 255, 0.06);
+  border-radius: 28px;
+  padding: 56px;
+  display: grid;
+  grid-template-columns: 1.1fr 0.9fr;
+  gap: 64px;
+  align-items: center;
+  box-shadow: 0 40px 100px rgba(0, 0, 0, 0.6);
+}
+
+.fluxgrid-app .calc-inputs {
+  display: flex;
+  flex-direction: column;
+  gap: 40px;
+}
+
+.fluxgrid-app .slider-group {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.fluxgrid-app .slider-label {
+  display: flex;
+  justify-content: space-between;
+  font-size: 14px;
+  font-weight: 500;
+  letter-spacing: 0.5px;
+  color: var(--text-muted);
+  text-transform: uppercase;
+}
+
+.fluxgrid-app .slider-label span.value-display {
+  color: var(--text-light);
+  font-size: 18px;
+  font-weight: 700;
+  background: rgba(255, 149, 0, 0.1);
+  padding: 4px 12px;
+  border-radius: 6px;
+  border: 1px solid rgba(255, 149, 0, 0.2);
+}
+
+.fluxgrid-app input[type='range'] {
+  -webkit-appearance: none;
+  appearance: none;
+  width: 100%;
+  background: rgba(255, 255, 255, 0.08);
+  height: 4px;
+  border-radius: 2px;
+  outline: none;
+}
+
+.fluxgrid-app input[type='range']::-webkit-slider-thumb {
+  -webkit-appearance: none;
+  height: 16px;
+  width: 16px;
+  border-radius: 50%;
+  background: var(--orange-main);
+  cursor: pointer;
+  box-shadow: 0 0 10px var(--orange-main);
+  transition: all 0.15s ease-in-out;
+}
+
+.fluxgrid-app input[type='range']::-webkit-slider-thumb:hover {
+  transform: scale(1.3);
+  box-shadow: 0 0 16px var(--orange-main);
+}
+
+.fluxgrid-app input[type='range']::-moz-range-thumb {
+  height: 16px;
+  width: 16px;
+  border-radius: 50%;
+  background: var(--orange-main);
+  cursor: pointer;
+  border: none;
+  box-shadow: 0 0 10px var(--orange-main);
+}
+
+.fluxgrid-app .calc-results {
+  text-align: center;
+  background: rgba(7, 17, 30, 0.8);
+  border: 1px solid rgba(255, 255, 255, 0.04);
+  padding: 48px 40px;
+  border-radius: 20px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  height: 100%;
+  position: relative;
+}
+
+.fluxgrid-app .calc-results h4 {
+  font-size: 11px;
+  text-transform: uppercase;
+  letter-spacing: 2px;
+  color: rgba(255, 255, 255, 0.4);
+  margin-bottom: 12px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+}
+
+.fluxgrid-app .pulse-dot {
+  width: 6px;
+  height: 6px;
+  background-color: #ff3b30;
+  border-radius: 50%;
+  box-shadow: 0 0 8px #ff3b30;
+  animation: pulse 2s infinite;
+}
+
+@keyframes pulse {
+  0% {
+    transform: scale(0.9);
+    opacity: 0.6;
+  }
+  50% {
+    transform: scale(1.2);
+    opacity: 1;
+    box-shadow: 0 0 12px #ff3b30;
+  }
+  100% {
+    transform: scale(0.9);
+    opacity: 0.6;
+  }
+}
+
+.fluxgrid-app .leak-counter {
+  font-size: 64px;
+  font-weight: 800;
+  color: #ff453a;
+  line-height: 1;
+  margin-bottom: 20px;
+  letter-spacing: -2px;
+  text-shadow: 0 0 20px rgba(255, 69, 58, 0.2);
+}
+
+.fluxgrid-app .leak-impact-tag {
+  font-size: 13px;
+  color: var(--orange-main);
+  background: rgba(255, 149, 0, 0.05);
+  padding: 6px 14px;
+  border-radius: 20px;
+  display: inline-block;
+  margin-bottom: 24px;
+  border: 1px solid rgba(255, 149, 0, 0.1);
+  font-weight: 500;
+}
+
+.fluxgrid-app .cta-btn.full-width {
+  width: 100%;
+}
+
+.fluxgrid-app .section-title {
+  text-align: center;
+  font-size: 32px;
+  font-weight: 800;
+  text-transform: uppercase;
+  letter-spacing: -0.5px;
+  margin-bottom: 16px;
+}
+
+.fluxgrid-app .section-subtitle {
+  text-align: center;
+  color: var(--text-muted);
+  max-width: 600px;
+  margin: 0 auto 60px auto;
+  font-size: 16px;
+}
+
+.fluxgrid-app .process-section {
+  background-color: #07111e;
+  color: var(--text-light);
+  padding: 120px 0;
+  border-top: 1px solid rgba(255, 255, 255, 0.05);
+  position: relative;
+}
+
+.fluxgrid-app .process-section .section-title {
+  color: var(--text-light);
+}
+
+.fluxgrid-app .process-section .section-subtitle {
+  color: var(--text-muted);
+}
+
+.fluxgrid-app .grid-3 {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 40px;
+  position: relative;
+  margin-top: 64px;
+}
+
+.fluxgrid-app .grid-3::before {
+  content: '';
+  position: absolute;
+  top: 44px;
+  left: 10%;
+  width: 80%;
+  height: 2px;
+  background: linear-gradient(
+    90deg,
+    rgba(255, 149, 0, 0) 0%,
+    rgba(255, 149, 0, 0.4) 20%,
+    rgba(52, 199, 89, 0.4) 80%,
+    rgba(52, 199, 89, 0) 100%
+  );
+  z-index: 1;
+}
+
+.fluxgrid-app .process-card {
+  background: rgba(19, 42, 74, 0.3);
+  border: 1px solid rgba(255, 255, 255, 0.05);
+  padding: 40px 28px;
+  border-radius: 20px;
+  position: relative;
+  z-index: 2;
+  backdrop-filter: blur(10px);
+  transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+
+.fluxgrid-app .process-card:hover {
+  transform: translateY(-4px);
+  border-color: rgba(255, 149, 0, 0.2);
+  box-shadow: 0 20px 40px rgba(0, 0, 0, 0.3);
+}
+
+.fluxgrid-app .icon-box {
+  width: 54px;
+  height: 54px;
+  background-color: var(--navy-dark);
+  border: 2px solid rgba(255, 255, 255, 0.08);
+  border-radius: 14px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: 24px;
+  transition: all 0.3s ease;
+}
+
+.fluxgrid-app .process-card:hover .icon-box {
+  border-color: var(--orange-main);
+  box-shadow: 0 0 15px rgba(255, 149, 0, 0.25);
+}
+
+.fluxgrid-app .icon-box i {
+  color: var(--orange-main);
+  font-size: 20px;
+}
+
+.fluxgrid-app .process-card h3 {
+  font-size: 20px;
+  font-weight: 700;
+  margin-bottom: 4px;
+  color: var(--text-light);
+}
+
+.fluxgrid-app .tech-subtitle {
+  font-size: 11px;
+  text-transform: uppercase;
+  letter-spacing: 1.5px;
+  color: var(--orange-main);
+  font-weight: 700;
+  margin-bottom: 16px;
+}
+
+.fluxgrid-app .process-card p {
+  color: var(--text-muted);
+  font-size: 14.5px;
+  line-height: 1.6;
+  margin-bottom: 24px;
+}
+
+.fluxgrid-app .engine-mini-log {
+  background: #040a12;
+  border: 1px solid rgba(255, 255, 255, 0.03);
+  border-radius: 8px;
+  padding: 12px 16px;
+  font-family: 'Courier New', Courier, monospace;
+  font-size: 11px;
+  color: rgba(255, 255, 255, 0.4);
+  text-align: left;
+}
+
+.fluxgrid-app .engine-mini-log span.log-success {
+  color: var(--success-green);
+  font-weight: bold;
+}
+
+.fluxgrid-app .engine-mini-log span.log-accent {
+  color: #007aff;
+}
+
+.fluxgrid-app .integrations-bar {
+  background: var(--navy-main);
+  padding: 32px 0 72px 0;
+  margin-top: 16px;
+}
+
+.fluxgrid-app .integrations-layout {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  gap: 20px;
+}
+
+.fluxgrid-app .integrations-bar p {
+  font-size: 12px;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  color: var(--text-muted);
+  margin: 0;
+  font-weight: 700;
+  text-align: left;
+  align-self: flex-start;
+  width: 100%;
+}
+
+.fluxgrid-app .app-flex-track {
+  width: 100%;
+  overflow: hidden;
+  mask-image: linear-gradient(to right, transparent, #000 8%, #000 92%, transparent);
+}
+
+.fluxgrid-app .app-flex-marquee {
+  display: flex;
+  width: max-content;
+  animation: integrations-scroll 36s linear infinite;
+}
+
+.fluxgrid-app .app-flex-set {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: nowrap;
+  align-items: center;
+  gap: 48px;
+  flex-shrink: 0;
+  padding-right: 48px;
+}
+
+@keyframes integrations-scroll {
+  from {
+    transform: translateX(-50%);
+  }
+  to {
+    transform: translateX(0);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .fluxgrid-app .app-flex-marquee {
+    animation: none;
+    transform: translateX(0);
+  }
+}
+
+.fluxgrid-app .app-flex {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: nowrap;
+  justify-content: flex-end;
+  align-items: center;
+  gap: 32px;
+  width: 100%;
+  overflow-x: auto;
+  padding-bottom: 4px;
+}
+
+.fluxgrid-app .app-logo {
+  background: transparent;
+  padding: 0;
+  border-radius: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 56px;
+  flex: 0 0 auto;
+  border: none;
+  transition: opacity 0.2s ease;
+}
+
+.fluxgrid-app .app-logo:hover {
+  transform: none;
+  box-shadow: none;
+  opacity: 0.8;
+}
+
+.fluxgrid-app .app-logo--text {
+  font-size: 17px;
+  font-weight: 700;
+  color: var(--text-light);
+  gap: 10px;
+  white-space: nowrap;
+  padding: 0;
+}
+
+.fluxgrid-app .app-logo--text i {
+  font-size: 22px;
+  color: var(--orange-main);
+}
+
+.fluxgrid-app .integration-logo {
+  display: block;
+  width: auto;
+  object-fit: contain;
+}
+
+.fluxgrid-app .integration-logo--servicetitan {
+  height: 56px;
+  width: auto;
+  color: #ffffff;
+}
+
+.fluxgrid-app .integration-logo--jobber {
+  height: 56px;
+  filter: brightness(0) invert(1);
+  opacity: 0.92;
+}
+
+.fluxgrid-app .integration-logo--housecallpro {
+  height: 56px;
+  filter: brightness(1.15);
+}
+
+.fluxgrid-app .closer-section {
+  padding: 100px 0;
+  background-color: var(--navy-main);
+}
+
+.fluxgrid-app .faq-container {
+  max-width: 700px;
+  margin: 0 auto 80px auto;
+}
+
+.fluxgrid-app .faq-item {
+  border-bottom: 1px solid var(--border-color);
+  padding: 20px 0;
+  cursor: pointer;
+}
+
+.fluxgrid-app .faq-question {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  font-weight: 600;
+  font-size: 17px;
+}
+
+.fluxgrid-app .faq-answer {
+  max-height: 0;
+  overflow: hidden;
+  color: var(--text-muted);
+  font-size: 15px;
+  margin-top: 0;
+  transition: max-height 0.3s ease, margin-top 0.3s ease;
+}
+
+.fluxgrid-app .faq-item.active .faq-answer {
+  max-height: 120px;
+  margin-top: 12px;
+}
+
+.fluxgrid-app .faq-item.active .faq-question i {
+  transform: rotate(180deg);
+  color: var(--orange-main);
+}
+
+.fluxgrid-app .faq-question i {
+  transition: transform 0.2s ease;
+  font-size: 14px;
+}
+
+.fluxgrid-app .final-box {
+  background: linear-gradient(135deg, var(--navy-light) 0%, var(--navy-dark) 100%);
+  border: 1px solid var(--border-color);
+  padding: 60px 40px;
+  border-radius: 20px;
+  text-align: center;
+  max-width: 800px;
+  margin: 0 auto;
+}
+
+.fluxgrid-app .final-box h2 {
+  font-size: 32px;
+  font-weight: 800;
+  margin-bottom: 16px;
+  text-transform: uppercase;
+}
+
+.fluxgrid-app .final-box p {
+  color: var(--text-muted);
+  margin-bottom: 32px;
+  font-size: 16px;
+  max-width: 500px;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+@media (max-width: 992px) {
+  .fluxgrid-app .hero-grid,
+  .fluxgrid-app .calc-box,
+  .fluxgrid-app .grid-3 {
+    grid-template-columns: 1fr;
+    gap: 40px;
+  }
+
+  .fluxgrid-app .calc-box {
+    padding: 32px 24px;
+  }
+
+  .fluxgrid-app .leak-counter {
+    font-size: 48px;
+  }
+
+  .fluxgrid-app .grid-3::before {
+    display: none;
+  }
+
+  .fluxgrid-app .hero-left {
+    text-align: center;
+  }
+
+  .fluxgrid-app .hero-left p {
+    margin-left: auto;
+    margin-right: auto;
+  }
+
+  .fluxgrid-app nav {
+    display: none;
+  }
+
+  .fluxgrid-app .integrations-layout {
+    align-items: stretch;
+  }
+
+  .fluxgrid-app .app-flex-set {
+    gap: 32px;
+    padding-right: 32px;
+  }
+
+  .fluxgrid-app .app-logo--text {
+    white-space: normal;
+    text-align: center;
+    font-size: 15px;
+  }
+
+  .fluxgrid-app .integration-logo--servicetitan,
+  .fluxgrid-app .integration-logo--jobber,
+  .fluxgrid-app .integration-logo--housecallpro {
+    height: 44px;
+    max-width: 100%;
+  }
+}

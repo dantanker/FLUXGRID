@@ -1,383 +1,322 @@
-import { useState, useEffect } from 'react';
-import { Menu, X, Zap, Clock, CheckCircle, Phone, FileText, Database, ChevronDown } from 'lucide-react';
+import { useState, useMemo } from 'react';
+import { FluxGridLogo } from './components/FluxGridLogo';
+import { ServiceTitanLogo } from './components/ServiceTitanLogo';
+import jobberLogo from './assets/integrations/jobber.png';
+import housecallproLogo from './assets/integrations/housecallpro.png';
+import './App.css';
+
+const CONVERSION_RATE = 0.4;
+const MONTHLY_WEEKS = 4.33;
+
+function getLeakImpact(calculatedLoss: number): string {
+  if (calculatedLoss < 2000) {
+    return '⚠️ Covers your monthly local Google Ads budget';
+  }
+  if (calculatedLoss < 6000) {
+    return '🚨 Equivalent to a full shop van payment & insurance';
+  }
+  return '💥 Equivalent to a full-time service technician\'s base payroll';
+}
+
+const faqItems = [
+  {
+    question: 'Do I have to change my phone number?',
+    answer:
+      'No. FluxGrid sits directly in the background of your current business line. You keep your number, your phone carriers, and your exact marketing channels.',
+  },
+  {
+    question: 'How does it know what an electrical emergency is?',
+    answer:
+      'The system is pre-loaded with comprehensive electrical trade safety rules. It knows how to ask follow-ups for sparking components, complete outages, or partial power failures to ensure high-priority safety routing.',
+  },
+  {
+    question: 'How long does integration take?',
+    answer:
+      'We link the dispatch engine to your field operations software and phone network hooks. Your system is fully ready to deploy in under 7 business days.',
+  },
+];
 
 function App() {
-  const [isMenuOpen, setIsMenuOpen] = useState(false);
-  const [isLogicMode, setIsLogicMode] = useState(false);
+  const [activeFaq, setActiveFaq] = useState<number | null>(null);
+  const [missedCalls, setMissedCalls] = useState(5);
+  const [ticketValue, setTicketValue] = useState(1200);
 
-  useEffect(() => {
-    const handleAnchorClick = (e: MouseEvent) => {
-      const target = e.target as HTMLAnchorElement;
-      if (target.hash) {
-        e.preventDefault();
-        const element = document.querySelector(target.hash);
-        if (element) {
-          element.scrollIntoView({ behavior: 'smooth' });
-          setIsMenuOpen(false);
-        }
-      }
-    };
+  const calculatedLoss = useMemo(
+    () => Math.round(missedCalls * CONVERSION_RATE * ticketValue * MONTHLY_WEEKS),
+    [missedCalls, ticketValue],
+  );
 
-    document.querySelectorAll('a[href^="#"]').forEach(anchor => {
-      anchor.addEventListener('click', handleAnchorClick as EventListener);
-    });
-  }, []);
+  const leakImpact = useMemo(() => getLeakImpact(calculatedLoss), [calculatedLoss]);
+
+  const toggleFaq = (index: number) => {
+    setActiveFaq(activeFaq === index ? null : index);
+  };
+
+  const handleDemoClick = () => {
+    alert('Demo scheduler placeholder triggered!');
+  };
 
   return (
-    <div className="min-h-screen bg-[#0F172A] text-white font-sans">
-      <nav className="fixed top-0 left-0 right-0 z-50 bg-[#0F172A]/95 backdrop-blur-sm border-b border-[#1E293B]">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="flex items-center justify-between h-16 lg:h-20">
-            <div className="flex items-center gap-2">
-              <div className="w-8 h-8 bg-[#F59E0B] rounded flex items-center justify-center">
-                <Zap className="w-5 h-5 text-[#0F172A]" />
+    <div className="fluxgrid-app">
+      <header>
+        <div className="container nav-container">
+          <a href="#" className="logo">
+            <FluxGridLogo size="md" variant="dark" />
+          </a>
+          <nav>
+            <a href="#leaks">The Problem</a>
+            <a href="#how-it-works">How It Works</a>
+            <a href="#faq">FAQ</a>
+            <a href="#demo" className="cta-btn nav">
+              Book Demo
+            </a>
+          </nav>
+        </div>
+      </header>
+
+      <section className="container hero-section">
+        <div className="hero-grid">
+          <div className="hero-left animate-fade">
+            <h1>
+              Stop losing electrical jobs because you <span>missed a call</span>.
+            </h1>
+            <p>
+              FluxGrid is the 24/7 Intelligent Dispatch Engine built specifically for electrical shop owners. It
+              instantly answers, qualifies with trade logic, and logs jobs straight into your CRM while you&apos;re out
+              in the field or asleep.
+            </p>
+            <a href="#demo" className="cta-btn">
+              See Engine Demo <i className="fa-solid fa-arrow-right" />
+            </a>
+          </div>
+
+          <div className="hero-right animate-float">
+            <div className="ui-mockup">
+              <div className="ui-header">
+                <span>
+                  <i
+                    className="fa-solid fa-circle"
+                    style={{ color: 'var(--orange-main)', fontSize: '8px', marginRight: '5px' }}
+                  />
+                  Live Engine Status
+                </span>
+                <span>Active 24/7</span>
               </div>
-              <span className="text-lg lg:text-xl font-bold tracking-tight">Grounded Logic AI</span>
+              <div className="ui-card">
+                <div className="ui-meta">09:14 PM &bull; Phone Intercept</div>
+                <div className="ui-body">&quot;Breaker sparking, smelling burning plastic&quot;</div>
+              </div>
+              <div className="ui-card blue">
+                <div className="ui-meta">09:15 PM &bull; Trade Logic Analysis</div>
+                <div className="ui-body">
+                  <i className="fa-solid fa-brain" /> Classified: High-Priority Emergency Hazard
+                </div>
+              </div>
+              <div className="ui-card success">
+                <div className="ui-meta">09:16 PM &bull; CRM Automated Action</div>
+                <div className="ui-body success">
+                  <i className="fa-solid fa-calendar-check" /> Dispatched to ServiceTitan Schedule
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section className="integrations-bar">
+        <div className="container integrations-layout">
+          <p>Plugs Directly Into the Software You Already Use</p>
+          <div className="app-flex-track">
+            <div className="app-flex-marquee">
+              {[0, 1].map((setIndex) => (
+                <div
+                  key={setIndex}
+                  className="app-flex-set"
+                  aria-hidden={setIndex === 1 ? true : undefined}
+                >
+                  <div className="app-logo">
+                    <ServiceTitanLogo className="integration-logo integration-logo--servicetitan" />
+                  </div>
+                  <div className="app-logo">
+                    <img src={jobberLogo} alt="Jobber" className="integration-logo integration-logo--jobber" />
+                  </div>
+                  <div className="app-logo">
+                    <img src={housecallproLogo} alt="Housecall Pro" className="integration-logo integration-logo--housecallpro" />
+                  </div>
+                  <div className="app-logo app-logo--text">
+                    <i className="fa-solid fa-link" /> Custom CRM Webhooks
+                  </div>
+                </div>
+              ))}
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section className="calculator-section" id="leaks">
+        <div className="container">
+          <h2 className="section-title">The Silent Cash Leak</h2>
+          <p className="section-subtitle">
+            Most shop owners track tool overhead but completely ignore their uncaptured inbound pipelines. See your real
+            operational leakage numbers below.
+          </p>
+
+          <div className="calc-box">
+            <div className="calc-inputs">
+              <div className="slider-group">
+                <div className="slider-label">
+                  <span>Weekly Missed Calls</span>
+                  <span className="value-display">{missedCalls}</span>
+                </div>
+                <input
+                  type="range"
+                  min={1}
+                  max={25}
+                  value={missedCalls}
+                  onChange={(e) => setMissedCalls(parseInt(e.target.value, 10))}
+                />
+              </div>
+
+              <div className="slider-group">
+                <div className="slider-label">
+                  <span>Average Ticket Size</span>
+                  <span className="value-display">${ticketValue.toLocaleString()}</span>
+                </div>
+                <input
+                  type="range"
+                  min={300}
+                  max={5000}
+                  step={100}
+                  value={ticketValue}
+                  onChange={(e) => setTicketValue(parseInt(e.target.value, 10))}
+                />
+              </div>
             </div>
 
-            <div className="hidden md:flex items-center gap-8">
-              <a href="#demo" className="text-sm text-gray-300 hover:text-white transition-colors">Demo</a>
-              <a href="#solutions" className="text-sm text-gray-300 hover:text-white transition-colors">Solutions</a>
-              <a href="#compare" className="text-sm text-gray-300 hover:text-white transition-colors">Compare</a>
-              <a
-                href="mailto:contact@groundedlogic.ai"
-                className="bg-[#F59E0B] text-[#0F172A] px-5 py-2.5 rounded font-bold text-sm hover:bg-[#FCD34D] transition-all duration-300 hover:scale-105"
-              >
-                Book Audit <span className="ml-1">→</span>
+            <div className="calc-results">
+              <h4>
+                <span className="pulse-dot" />
+                Monthly Revenue Leakage
+              </h4>
+              <div className="leak-counter">${calculatedLoss.toLocaleString()}</div>
+              <div>
+                <span className="leak-impact-tag">{leakImpact}</span>
+              </div>
+              <a href="#demo" className="cta-btn full-width">
+                Plug the Leak <i className="fa-solid fa-plug" />
               </a>
             </div>
+          </div>
+        </div>
+      </section>
 
-            <button
-              onClick={() => setIsMenuOpen(!isMenuOpen)}
-              className="md:hidden p-2 text-gray-300 hover:text-white"
-            >
-              {isMenuOpen ? <X className="w-6 h-6" /> : <Menu className="w-6 h-6" />}
+      <section className="process-section" id="how-it-works">
+        <div className="container">
+          <h2 className="section-title">Engine Architecture</h2>
+          <p className="section-subtitle">
+            How FluxGrid acts as a reliable autonomous middle-layer between your phone lines and your field calendar.
+          </p>
+
+          <div className="grid-3">
+            <div className="process-card">
+              <div>
+                <div className="icon-box">
+                  <i className="fa-solid fa-wave-square" />
+                </div>
+                <h3>1. Intercept</h3>
+                <div className="tech-subtitle">[ Signal Capture ]</div>
+                <p>
+                  The engine securely hooks directly into your primary office phone loops, instantly absorbing 100% of
+                  incoming data streams on the very first ring—24/7/365.
+                </p>
+              </div>
+              <div className="engine-mini-log">
+                $ line_status: <span className="log-success">ONLINE</span>
+                <br />
+                $ loop_latency: 0.04ms
+                <br />
+                $ routing: packet_intercept
+              </div>
+            </div>
+
+            <div className="process-card">
+              <div>
+                <div className="icon-box">
+                  <i className="fa-solid fa-microchip" />
+                </div>
+                <h3>2. Qualify</h3>
+                <div className="tech-subtitle">[ Trade-Logic Filter ]</div>
+                <p>
+                  Instead of relying on a rigid keyword menu, the engine uses electrical trade parameters to safely
+                  evaluate safety emergencies from a basic code consultation or check-in.
+                </p>
+              </div>
+              <div className="engine-mini-log">
+                $ context: <span className="log-accent">&quot;sparks_detected&quot;</span>
+                <br />
+                $ hazard_eval: true (Level 5)
+                <br />
+                $ action: branch_priority
+              </div>
+            </div>
+
+            <div className="process-card">
+              <div>
+                <div className="icon-box">
+                  <i className="fa-solid fa-network-wired" />
+                </div>
+                <h3>3. Dispatch</h3>
+                <div className="tech-subtitle">[ Autonomous Sync ]</div>
+                <p>
+                  FluxGrid accesses your current CRM scheduling matrix, finds the optimal available technician slot, files
+                  the customer work ticket, and notifies your team automatically.
+                </p>
+              </div>
+              <div className="engine-mini-log">
+                $ target: field_crm_api
+                <br />
+                $ schedule_slot: write_ok
+                <br />
+                $ dispatch: <span className="log-success">COMPLETE</span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section className="closer-section" id="faq">
+        <div className="container">
+          <div className="faq-container">
+            <h2 className="section-title" style={{ marginBottom: '40px' }}>
+              Frequently Asked Questions
+            </h2>
+
+            {faqItems.map((item, index) => (
+              <div
+                key={item.question}
+                className={`faq-item${activeFaq === index ? ' active' : ''}`}
+                onClick={() => toggleFaq(index)}
+              >
+                <div className="faq-question">
+                  {item.question} <i className="fa-solid fa-chevron-down" />
+                </div>
+                <div className="faq-answer">{item.answer}</div>
+              </div>
+            ))}
+          </div>
+
+          <div className="final-box" id="demo">
+            <h2>Secure Your Competitive Edge</h2>
+            <p>
+              Stop leaving your revenue up to chance. Book a brief 10-minute system walk-through and look at the engine
+              running live.
+            </p>
+            <button type="button" className="cta-btn" onClick={handleDemoClick}>
+              Schedule Live System Demo <i className="fa-solid fa-calendar" />
             </button>
           </div>
         </div>
-
-        {isMenuOpen && (
-          <div className="md:hidden bg-[#0F172A] border-t border-[#1E293B] px-4 py-4 space-y-4">
-            <a href="#demo" className="block text-sm text-gray-300 hover:text-white">Demo</a>
-            <a href="#solutions" className="block text-sm text-gray-300 hover:text-white">Solutions</a>
-            <a href="#compare" className="block text-sm text-gray-300 hover:text-white">Compare</a>
-            <a
-              href="mailto:contact@groundedlogic.ai"
-              className="block bg-[#F59E0B] text-[#0F172A] px-5 py-2.5 rounded font-bold text-sm text-center"
-            >
-              Book Audit →
-            </a>
-          </div>
-        )}
-      </nav>
-
-      <section className="pt-28 lg:pt-36 pb-16 lg:pb-24 px-4 sm:px-6 lg:px-8 relative overflow-hidden">
-        <div
-          className="absolute inset-0 opacity-[0.03]"
-          style={{
-            backgroundImage: `linear-gradient(rgba(255,255,255,0.1) 1px, transparent 1px),
-                                linear-gradient(90deg, rgba(255,255,255,0.1) 1px, transparent 1px)`,
-            backgroundSize: '40px 40px'
-          }}
-        />
-
-        <div className="max-w-5xl mx-auto relative">
-          <h1 className="text-4xl sm:text-5xl lg:text-6xl xl:text-7xl font-bold leading-tight mb-6 max-w-4xl">
-            The 24/7 AI Dispatcher Built For Busy Electrical Shops.
-          </h1>
-
-          <p className="text-lg lg:text-xl text-gray-400 mb-10 max-w-3xl leading-relaxed">
-            Instantly answer after-hours calls, triage emergencies, and book high-ticket jobs directly into your field CRM—automatically.
-          </p>
-
-          <a
-            href="mailto:contact@groundedlogic.ai"
-            className="inline-block bg-[#F59E0B] text-[#0F172A] px-8 py-4 rounded font-bold text-base lg:text-lg mb-14 hover:bg-[#FCD34D] transition-all duration-300 animate-pulse hover:scale-105"
-          >
-            Book Your Free 15-Minute Automation Audit <span className="ml-2">→</span>
-          </a>
-
-          <div className="grid grid-cols-2 lg:grid-cols-4 gap-4 lg:gap-6">
-            {[
-              { value: '< 2s', label: 'AVG PICKUP TIME' },
-              { value: '24/7', label: 'COVERAGE, NO PTO' },
-              { value: '100%', label: 'DONE-FOR-YOU SETUP' },
-              { value: '100%', label: 'LOGGED TO CRM' },
-            ].map((metric, idx) => (
-              <div key={idx} className="bg-[#1E293B] border border-gray-700/50 p-5 lg:p-6 rounded">
-                <div className="text-3xl lg:text-4xl font-bold mb-1 font-mono text-[#F59E0B]">{metric.value}</div>
-                <div className="text-xs lg:text-sm text-gray-500 font-mono tracking-wider">{metric.label}</div>
-              </div>
-            ))}
-          </div>
-        </div>
       </section>
-
-      <section className="py-16 lg:py-24 px-4 sm:px-6 lg:px-8 bg-[#0A0E1A]">
-        <div className="max-w-6xl mx-auto">
-          <div className="text-center mb-12">
-            <div className="relative inline-block">
-              <div className="absolute -left-4 lg:-left-6 top-1/2 transform -translate-y-1/2 w-11 h-11 lg:w-12 lg:h-12 border-2 border-red-500/40 rounded-full animate-pulse"></div>
-            </div>
-            <div className="text-[#EF4444] font-mono text-xs lg:text-sm tracking-widest mb-3 uppercase">The Revenue Leak</div>
-            <h2 className="text-3xl lg:text-4xl xl:text-5xl font-bold mb-4 max-w-3xl mx-auto">
-              Voicemail is where your highest-ticket electrical leads go to die.
-            </h2>
-          </div>
-
-          <div className="grid md:grid-cols-3 gap-6 lg:gap-8">
-            {[
-              {
-                title: 'The $1,500 Missed Call',
-                content: 'If a homeowner calls with an emergency panel blowout or a burning outlet at 8:00 PM and you\'re at dinner, they don\'t leave a message. They hang up and call the next electrician on Google. Every missed call is a premium job handed straight to your competitor.',
-              },
-              {
-                title: 'The 15-Minute Ghost Town',
-                content: 'Data shows that web leads contacted after 5 minutes drop in conversion by 80%. If someone requests an EV charger quote on your site while your crew is out in trucks, they\'ve already moved on by the time you check your email at night.',
-              },
-              {
-                title: 'The Office Manager Burnout',
-                content: 'Your office staff spends hours filtering out robocalls, tracking down missing billing addresses, and playing phone tag just to schedule a single diagnostic visit. It drags down efficiency and keeps your team completely bogged down in manual paperwork.',
-              },
-            ].map((card, idx) => (
-              <div key={idx} className="bg-[#1E293B] border border-red-500/30 p-6 lg:p-8 rounded">
-                <h3 className="text-lg lg:text-xl font-bold mb-4">{card.title}</h3>
-                <p className="text-gray-400 text-sm lg:text-base leading-relaxed">{card.content}</p>
-              </div>
-            ))}
-          </div>
-        </div>
-      </section>
-
-      <section id="demo" className="py-16 lg:py-24 px-4 sm:px-6 lg:px-8">
-        <div className="max-w-6xl mx-auto">
-          <div className="text-center mb-12">
-            <div className="text-gray-500 font-mono text-xs lg:text-sm tracking-widest mb-3">SYS_002 // STATE_TOGGLE</div>
-            <h2 className="text-3xl lg:text-4xl xl:text-5xl font-bold mb-4">
-              From chaos to order — flip the switch.
-            </h2>
-            <p className="text-gray-400 text-base lg:text-lg max-w-2xl mx-auto">
-              Toggle between how your shop runs today and how it runs the moment Grounded Logic is plugged in.
-            </p>
-          </div>
-
-          <div className="flex justify-center mb-10">
-            <div className="inline-flex items-center bg-[#1E293B] rounded-full p-1 border border-gray-700/50">
-              <button
-                onClick={() => setIsLogicMode(false)}
-                className={`px-6 py-3 rounded-full text-sm font-bold transition-all duration-300 ${
-                  !isLogicMode
-                    ? 'bg-red-500 text-white'
-                    : 'text-gray-400 hover:text-white'
-                }`}
-              >
-                MANUAL CHAOS
-              </button>
-              <button
-                onClick={() => setIsLogicMode(true)}
-                className={`px-6 py-3 rounded-full text-sm font-bold transition-all duration-300 ${
-                  isLogicMode
-                    ? 'bg-[#F59E0B] text-[#0F172A]'
-                    : 'text-gray-400 hover:text-white'
-                }`}
-              >
-                GROUNDED LOGIC MODE
-              </button>
-            </div>
-          </div>
-
-          <div className="bg-[#1E293B] border border-gray-700/50 rounded-lg overflow-hidden transition-all duration-500">
-            <div className="p-4 border-b border-gray-700/50 bg-[#0F172A]/50">
-              <div className="flex items-center gap-3">
-                <div className={`w-3 h-3 rounded-full ${isLogicMode ? 'bg-[#F59E0B]' : 'bg-red-500'} animate-pulse`}></div>
-                <span className={`font-mono text-sm ${isLogicMode ? 'text-[#F59E0B]' : 'text-red-500'}`}>
-                  {isLogicMode ? 'OPTIMAL' : 'DEGRADED'}
-                </span>
-              </div>
-            </div>
-
-            <div className="grid md:grid-cols-3 gap-px bg-gray-700/50">
-              <div className="bg-[#1E293B] p-5 lg:p-6">
-                <h3 className="font-mono text-xs text-gray-500 mb-4 tracking-wider">INBOUND CALLS</h3>
-                <div className="space-y-3 mb-4">
-                  {isLogicMode ? (
-                    <>
-                      <div className="text-sm"><span className="text-[#F59E0B]">08:14</span> – Booked via AI – Westside Reno</div>
-                      <div className="text-sm"><span className="text-[#F59E0B]">08:32</span> – Booked via AI – Panel Upgrade</div>
-                      <div className="text-sm"><span className="text-[#F59E0B]">09:15</span> – Emergency Dispatch</div>
-                      <div className="text-sm"><span className="text-[#F59E0B]">09:47</span> – EV Charger Quote</div>
-                    </>
-                  ) : (
-                    <>
-                      <div className="text-sm text-red-400">Missed – Westside Reno</div>
-                      <div className="text-sm text-red-400">Missed – Voicemail full</div>
-                      <div className="text-sm text-red-400">Missed – No answer</div>
-                      <div className="text-sm text-red-400">Missed – After hours</div>
-                    </>
-                  )}
-                </div>
-                <div className={`font-mono text-xs ${isLogicMode ? 'text-[#F59E0B]' : 'text-red-500'}`}>
-                  {isLogicMode ? '7 calls · 5 booked' : '7 missed · $0 booked'}
-                </div>
-              </div>
-
-              <div className="bg-[#1E293B] p-5 lg:p-6">
-                <h3 className="font-mono text-xs text-gray-500 mb-4 tracking-wider">WEB FORMS</h3>
-                <div className="space-y-3 mb-4">
-                  {isLogicMode ? (
-                    <>
-                      <div className="text-sm">Panel upgrade → <span className="text-[#F59E0B]">AI Text Bridge Sent</span></div>
-                      <div className="text-xs text-gray-500 ml-4">Booked in 42s</div>
-                    </>
-                  ) : (
-                    <>
-                      <div className="text-sm text-gray-300">Form: Panel upgrade – 14m ago</div>
-                      <div className="text-xs text-red-400 ml-4">No reply sent</div>
-                    </>
-                  )}
-                </div>
-              </div>
-
-              <div className="bg-[#1E293B] p-5 lg:p-6">
-                <h3 className="font-mono text-xs text-gray-500 mb-4 tracking-wider">DISPATCH BOARD</h3>
-                <div className="space-y-2 mb-4">
-                  {isLogicMode ? (
-                    <>
-                      <div className="bg-[#0F172A] p-2 rounded text-xs lg:text-sm border border-[#F59E0B]/30">09:00 – Westside Panel Repair</div>
-                      <div className="bg-[#0F172A] p-2 rounded text-xs lg:text-sm border border-[#F59E0B]/30">10:30 – EV Charger Install</div>
-                      <div className="bg-[#0F172A] p-2 rounded text-xs lg:text-sm border border-[#F59E0B]/30">11:45 – Emergency Outlet Fix</div>
-                      <div className="bg-[#0F172A] p-2 rounded text-xs lg:text-sm border border-[#F59E0B]/30">14:00 – Full Rewire Quote</div>
-                    </>
-                  ) : (
-                    <>
-                      <div className="bg-[#0F172A] p-2 rounded text-xs lg:text-sm text-gray-600">— empty —</div>
-                      <div className="bg-[#0F172A] p-2 rounded text-xs lg:text-sm text-gray-600">— empty —</div>
-                      <div className="bg-[#0F172A] p-2 rounded text-xs lg:text-sm text-gray-600">— empty —</div>
-                      <div className="bg-[#0F172A] p-2 rounded text-xs lg:text-sm text-gray-600">— empty —</div>
-                    </>
-                  )}
-                </div>
-                <div className={`font-mono text-xs lg:text-sm ${isLogicMode ? 'text-[#F59E0B]' : 'text-red-500'}`}>
-                  {isLogicMode ? 'Revenue secured: $4,820' : 'Revenue at risk: $4,820'}
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-      </section>
-
-      <section id="solutions" className="py-16 lg:py-24 px-4 sm:px-6 lg:px-8 bg-[#0A0E1A]">
-        <div className="max-w-6xl mx-auto">
-          <div className="text-center mb-12">
-            <div className="text-gray-500 font-mono text-xs lg:text-sm tracking-widest mb-3">SYS_003 // CORE_MODULES</div>
-            <h2 className="text-3xl lg:text-4xl xl:text-5xl font-bold mb-4">
-              n8n-Powered Automation Stack
-            </h2>
-          </div>
-
-          <div className="grid md:grid-cols-3 gap-6 lg:gap-8">
-            {[
-              {
-                icon: Phone,
-                title: '24/7 AI Voice Receptionist',
-                content: 'Answers phone lines in under 2 seconds with human-like voice clarity, handles complex dispatch rules perfectly.',
-              },
-              {
-                icon: FileText,
-                title: 'Instant Text-Back Bridge',
-                content: 'Instantly texts back website, Yelp, or Google form submissions before they look for a competitor.',
-              },
-              {
-                icon: Database,
-                title: 'Deep CRM Synchronization',
-                content: 'Securely logs customer addresses, pricing tier data, and urgent job notes straight into Jobber or ServiceTitan with zero human double-entry.',
-              },
-            ].map((card, idx) => (
-              <div key={idx} className="bg-[#1E293B] border border-gray-700/50 p-6 lg:p-8 rounded hover:border-[#F59E0B]/30 transition-colors">
-                <div className="w-12 h-12 bg-[#0F172A] border border-gray-700 rounded flex items-center justify-center mb-5">
-                  <card.icon className="w-6 h-6 text-[#F59E0B]" />
-                </div>
-                <h3 className="text-lg lg:text-xl font-bold mb-3">{card.title}</h3>
-                <p className="text-gray-400 text-sm lg:text-base leading-relaxed">{card.content}</p>
-              </div>
-            ))}
-          </div>
-        </div>
-      </section>
-
-      <section id="compare" className="py-16 lg:py-24 px-4 sm:px-6 lg:px-8">
-        <div className="max-w-6xl mx-auto">
-          <div className="text-center mb-12">
-            <div className="text-gray-500 font-mono text-xs lg:text-sm tracking-widest mb-3">SYS_004 // COMPARE_MATRIX</div>
-            <h2 className="text-3xl lg:text-4xl xl:text-5xl font-bold mb-4">
-              The Clear Comparison
-            </h2>
-          </div>
-
-          <div className="overflow-x-auto">
-            <table className="w-full border-collapse">
-              <thead>
-                <tr>
-                  <th className="text-left p-4 text-gray-500 font-mono text-xs lg:text-sm tracking-wider border-b border-gray-700/50"></th>
-                  <th className="text-center p-4 font-bold border-b border-gray-700/50 text-sm lg:text-base">Traditional Answering</th>
-                  <th className="text-center p-4 font-bold border-b border-gray-700/50 text-sm lg:text-base">Built-In CRM AI</th>
-                  <th className="text-center p-4 font-bold border-b border-[#F59E0B]/50 bg-[#F59E0B]/5 text-sm lg:text-base">
-                    <span className="text-[#F59E0B]">Grounded Logic AI</span>
-                  </th>
-                </tr>
-              </thead>
-              <tbody>
-                {[
-                  ['Setup Required', 'Hours of configuration', 'Manual integration', 'Zero configuration'],
-                  ['Platform Coverage', 'Phone only', 'CRM only', 'Phone + Website + CRM'],
-                  ['Trade Routing', 'Generic scripts', 'Basic triage', 'Complex multi-tier routing'],
-                  ['Response Time', '10-30 seconds', '5-10 minutes', '< 2 seconds'],
-                  ['After-Hours', 'Extra fees', 'Limited', 'Full 24/7 included'],
-                  ['Monthly Cost', '$200-500+', 'Built into CRM tier', 'Flat rate, no surprises'],
-                ].map((row, idx) => (
-                  <tr key={idx} className="border-b border-gray-700/30">
-                    <td className="p-4 text-gray-300 font-mono text-xs lg:text-sm">{row[0]}</td>
-                    <td className="p-4 text-center text-gray-500 text-xs lg:text-sm">{row[1]}</td>
-                    <td className="p-4 text-center text-gray-500 text-xs lg:text-sm">{row[2]}</td>
-                    <td className="p-4 text-center bg-[#F59E0B]/5 text-[#F59E0B] font-bold text-xs lg:text-sm">{row[3]}</td>
-                  </tr>
-                ))}
-              </tbody>
-            </table>
-          </div>
-        </div>
-      </section>
-
-      <section className="py-16 lg:py-24 px-4 sm:px-6 lg:px-8 bg-[#0A0E1A] border-t border-gray-700/30">
-        <div className="max-w-4xl mx-auto text-center">
-          <h2 className="text-3xl lg:text-4xl xl:text-5xl font-bold mb-6">
-            Ready to plug in?
-          </h2>
-          <p className="text-gray-400 text-base lg:text-lg mb-10 max-w-2xl mx-auto">
-            Book your free 15-minute automation audit. We'll analyze your current workflow and show you exactly how Grounded Logic AI can transform your electrical business.
-          </p>
-          <a
-            href="mailto:contact@groundedlogic.ai"
-            className="inline-block bg-[#F59E0B] text-[#0F172A] px-8 py-4 rounded font-bold text-base lg:text-lg hover:bg-[#FCD34D] transition-all duration-300 animate-pulse hover:scale-105"
-          >
-            Book Your Free 15-Minute Automation Audit <span className="ml-2">→</span>
-          </a>
-        </div>
-      </section>
-
-      <footer className="py-8 px-4 sm:px-6 lg:px-8 border-t border-gray-700/30">
-        <div className="max-w-6xl mx-auto flex flex-col md:flex-row items-center justify-between gap-4">
-          <div className="flex items-center gap-2">
-            <div className="w-6 h-6 bg-[#F59E0B] rounded flex items-center justify-center">
-              <Zap className="w-4 h-4 text-[#0F172A]" />
-            </div>
-            <span className="font-bold text-sm">Grounded Logic AI</span>
-          </div>
-          <div className="text-gray-500 text-xs lg:text-sm font-mono">
-            © 2024 Grounded Logic AI. All rights reserved.
-          </div>
-        </div>
-      </footer>
     </div>
   );
 }
