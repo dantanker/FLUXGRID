@@ -1,19 +1,20 @@
 import { FluxGridLogo } from './FluxGridLogo';
 
-const footerLinks = {
-  product: [
-    { label: 'The Problem', href: '#leaks' },
-    { label: 'How It Works', href: '#how-it-works' },
-    { label: 'Integrations', href: '#integrations' },
-    { label: 'FAQ', href: '#faq' },
-  ],
-  company: [
-    { label: 'Book a Demo', href: '#demo' },
-    { label: 'Privacy Policy', href: '#' },
-    { label: 'Terms of Service', href: '#' },
-    { label: 'Contact', href: 'mailto:hello@fluxgrid.io' },
-  ],
-};
+const siteLinks = [
+  { label: 'Results', href: '#proof' },
+  { label: 'Missed Revenue', href: '#leaks' },
+  { label: 'How It Works', href: '#how-it-works' },
+  { label: 'Pricing', href: '#pricing' },
+  { label: 'FAQ', href: '#faq' },
+  { label: 'Book Demo', href: '#demo' },
+];
+
+const contactLinks = [
+  { label: 'hello@fluxgrid.io', href: 'mailto:hello@fluxgrid.io' },
+  { label: '(800) 555-1234', href: 'tel:+18005551234' },
+  { label: 'Privacy', href: '#' },
+  { label: 'Terms', href: '#' },
+];
 
 export function Footer() {
   const year = new Date().getFullYear();
@@ -21,56 +22,40 @@ export function Footer() {
   return (
     <footer className="site-footer">
       <div className="container footer-inner">
-        <div className="footer-top">
+        <div className="footer-main">
           <div className="footer-brand">
             <a href="#" className="logo footer-logo">
               <FluxGridLogo size="md" variant="dark" />
             </a>
-            <p>
-              The 24/7 Intelligent Dispatch Engine built for electrical contractors. Never miss
-              another emergency call while you&apos;re in the field.
-            </p>
-            <div className="footer-status">
-              <span className="footer-status-dot" />
-              Engine online · 24/7 monitoring
-            </div>
+            <p>After-hours phone coverage for electrical contractors.</p>
           </div>
 
-          <div className="footer-links-grid">
-            <div className="footer-col">
-              <h4>Product</h4>
+          <nav className="footer-nav" aria-label="Footer">
+            <div className="footer-nav-col">
+              <span className="footer-nav-label">Site</span>
               <ul>
-                {footerLinks.product.map((link) => (
+                {siteLinks.map((link) => (
                   <li key={link.label}>
                     <a href={link.href}>{link.label}</a>
                   </li>
                 ))}
               </ul>
             </div>
-
-            <div className="footer-col">
-              <h4>Company</h4>
+            <div className="footer-nav-col">
+              <span className="footer-nav-label">Contact</span>
               <ul>
-                {footerLinks.company.map((link) => (
+                {contactLinks.map((link) => (
                   <li key={link.label}>
                     <a href={link.href}>{link.label}</a>
                   </li>
                 ))}
               </ul>
             </div>
-
-            <div className="footer-col footer-cta-col">
-              <h4>Ready to deploy?</h4>
-              <p>Get your dispatch engine live in under 7 business days.</p>
-              <a href="#demo" className="cta-btn footer-cta">
-                Schedule Demo <i className="fa-solid fa-arrow-right" />
-              </a>
-            </div>
-          </div>
+          </nav>
         </div>
 
         <div className="footer-bottom">
-          <span>&copy; {year} FluxGrid. All rights reserved.</span>
+          <span>&copy; {year} FluxGrid</span>
           <span className="footer-bottom-tag">Built for electrical shop owners</span>
         </div>
       </div>

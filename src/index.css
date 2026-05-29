@@ -2,6 +2,33 @@
 @tailwind components;
 @tailwind utilities;
 
+html,
 body {
   margin: 0;
+  padding: 0;
+  width: 100%;
+  min-height: 100%;
+  overflow-x: hidden;
+  background-color: #090d16;
+  scroll-padding-top: calc(var(--header-height, 72px) + 16px);
+}
+
+[id] {
+  scroll-margin-top: calc(var(--header-height, 72px) + 16px);
+}
+
+#root {
+  position: relative;
+  min-height: 100%;
+}
+
+.electrical-grid-bg {
+  position: fixed;
+  inset: 0;
+  width: 100vw;
+  height: 100vh;
+  z-index: 0;
+  pointer-events: auto;
+  filter: blur(6px);
+  transform: scale(1.06);
 }

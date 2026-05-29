@@ -1,22 +1,22 @@
 const timelineEvents = [
   {
-    time: '09:14 PM',
-    label: 'Phone Intercept',
-    body: '"Breaker sparking, smelling burning plastic"',
+    time: '9:14 PM',
+    label: 'Call Answered',
+    body: '"Half the house is out — breaker keeps tripping"',
     accent: 'border-l-orange-500',
     tag: 'text-orange-400',
   },
   {
-    time: '09:15 PM',
-    label: 'Trade Logic Analysis',
-    body: 'Classified: High-Priority Emergency Hazard',
+    time: '9:15 PM',
+    label: 'Safety Check',
+    body: 'Sparking, burning smell, or shock risk? Flagged yes → emergency',
     accent: 'border-l-blue-500',
     tag: 'text-blue-400',
   },
   {
-    time: '09:16 PM',
-    label: 'CRM Automated Action',
-    body: 'Emergency slot booked — crew notified',
+    time: '9:16 PM',
+    label: 'Job on Your Board',
+    body: 'Emergency slot booked — on-call tech notified by text',
     accent: 'border-l-emerald-500',
     tag: 'text-emerald-400',
   },
@@ -31,16 +31,16 @@ export function HeroScrollDemo() {
         <div className="flex items-center gap-2">
           <div className="h-3 w-3 animate-pulse rounded-full bg-emerald-500" />
           <span className="font-mono text-[10px] uppercase tracking-widest text-zinc-400 md:text-xs">
-            FluxGrid Engine v1.0 // Active
+            FluxGrid · Live
           </span>
         </div>
-        <div className="text-[10px] text-zinc-500 md:text-xs">Connected to ServiceTitan</div>
+        <div className="text-[10px] text-zinc-500 md:text-xs">Synced with ServiceTitan</div>
       </div>
 
-      <div className="my-auto grid flex-1 grid-cols-1 gap-4 py-4 md:grid-cols-2 md:gap-6 md:py-6">
+      <div className="my-auto grid flex-1 grid-cols-1 gap-3 py-3 md:grid-cols-2 md:gap-6 md:py-6">
         <div className="space-y-2 md:space-y-3">
           <div className="mb-2 font-mono text-[10px] uppercase tracking-widest text-zinc-500 md:text-xs">
-            Live Feed
+            Tonight&apos;s Calls
           </div>
           {timelineEvents.map((event) => (
             <div
@@ -55,13 +55,13 @@ export function HeroScrollDemo() {
           ))}
         </div>
 
-        <div className="rounded-xl border border-zinc-800 bg-zinc-900 p-3 md:p-4">
+        <div className="hidden md:block rounded-xl border border-zinc-800 bg-zinc-900 p-3 md:p-4">
           <div className="mb-3 flex items-center justify-between">
             <span className="font-mono text-[10px] uppercase tracking-widest text-zinc-500 md:text-xs">
-              Tonight&apos;s Schedule
+              Crew Schedule
             </span>
             <span className="rounded bg-emerald-500/15 px-2 py-0.5 text-[10px] font-medium text-emerald-400 md:text-xs">
-              1 slot added
+              1 job added
             </span>
           </div>
 
@@ -82,10 +82,10 @@ export function HeroScrollDemo() {
                   {isHighlighted ? (
                     <div className="min-w-0 flex-1">
                       <div className="truncate text-xs font-semibold text-orange-400 md:text-sm">
-                        Emergency — Panel Hazard
+                        Emergency — Partial Power Loss
                       </div>
                       <div className="truncate text-[10px] text-zinc-400 md:text-xs">
-                        Auto-dispatched · Tech #4
+                        Auto-booked · On-call tech paged
                       </div>
                     </div>
                   ) : (
