@@ -131,6 +131,12 @@
   color: var(--orange-main);
 }
 
+.fluxgrid-app .hero-scroll-section {
+  overflow-x: hidden;
+  overflow-y: visible;
+  padding-bottom: 40px;
+}
+
 .fluxgrid-app .hero-section {
   padding: 80px 0 32px 0;
 }
@@ -525,7 +531,7 @@
 
 .fluxgrid-app .integrations-bar {
   background: var(--navy-main);
-  padding: 32px 0 72px 0;
+  padding: 24px 0 72px 0;
   margin-top: 16px;
 }
 
@@ -728,6 +734,138 @@
   margin-right: auto;
 }
 
+.fluxgrid-app .site-footer {
+  background: linear-gradient(180deg, var(--navy-main) 0%, var(--navy-dark) 100%);
+  border-top: 1px solid var(--border-color);
+  padding: 72px 0 32px;
+  margin-top: 80px;
+}
+
+.fluxgrid-app .footer-inner {
+  display: flex;
+  flex-direction: column;
+  gap: 48px;
+}
+
+.fluxgrid-app .footer-top {
+  display: grid;
+  grid-template-columns: 1.1fr 1.4fr;
+  gap: 64px;
+  align-items: start;
+}
+
+.fluxgrid-app .footer-brand p {
+  color: var(--text-muted);
+  font-size: 15px;
+  line-height: 1.7;
+  max-width: 340px;
+  margin: 20px 0 24px;
+}
+
+.fluxgrid-app .footer-logo {
+  display: inline-flex;
+}
+
+.fluxgrid-app .footer-status {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 12px;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  color: rgba(255, 255, 255, 0.5);
+  padding: 8px 14px;
+  border-radius: 999px;
+  border: 1px solid var(--border-color);
+  background: rgba(255, 255, 255, 0.03);
+}
+
+.fluxgrid-app .footer-status-dot {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: var(--success-green);
+  box-shadow: 0 0 8px rgba(52, 199, 89, 0.6);
+  animation: pulse-dot-glow 2s ease-in-out infinite;
+}
+
+@keyframes pulse-dot-glow {
+  0%,
+  100% {
+    opacity: 1;
+  }
+  50% {
+    opacity: 0.5;
+  }
+}
+
+.fluxgrid-app .footer-links-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 40px;
+}
+
+.fluxgrid-app .footer-col h4 {
+  font-size: 12px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  color: var(--orange-main);
+  margin-bottom: 20px;
+}
+
+.fluxgrid-app .footer-col ul {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.fluxgrid-app .footer-col li + li {
+  margin-top: 12px;
+}
+
+.fluxgrid-app .footer-col a {
+  color: var(--text-muted);
+  text-decoration: none;
+  font-size: 15px;
+  font-weight: 500;
+  transition: color 0.2s ease;
+}
+
+.fluxgrid-app .footer-col a:hover {
+  color: var(--text-light);
+}
+
+.fluxgrid-app .footer-cta-col p {
+  color: var(--text-muted);
+  font-size: 14px;
+  line-height: 1.6;
+  margin-bottom: 20px;
+}
+
+.fluxgrid-app .footer-cta {
+  padding: 12px 24px;
+  font-size: 13px;
+}
+
+.fluxgrid-app .footer-bottom {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding-top: 32px;
+  border-top: 1px solid var(--border-color);
+  font-size: 13px;
+  color: rgba(255, 255, 255, 0.4);
+}
+
+.fluxgrid-app .footer-bottom-tag {
+  font-size: 12px;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  color: rgba(255, 255, 255, 0.35);
+}
+
 @media (max-width: 992px) {
   .fluxgrid-app .hero-grid,
   .fluxgrid-app .calc-box,
@@ -781,5 +919,21 @@
   .fluxgrid-app .integration-logo--housecallpro {
     height: 44px;
     max-width: 100%;
+  }
+
+  .fluxgrid-app .footer-top,
+  .fluxgrid-app .footer-links-grid {
+    grid-template-columns: 1fr;
+    gap: 40px;
+  }
+
+  .fluxgrid-app .footer-brand p {
+    max-width: none;
+  }
+
+  .fluxgrid-app .footer-bottom {
+    flex-direction: column;
+    gap: 12px;
+    text-align: center;
   }
 }

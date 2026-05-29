@@ -1,6 +1,8 @@
 import { useState, useMemo } from 'react';
 import { FluxGridLogo } from './components/FluxGridLogo';
 import { ServiceTitanLogo } from './components/ServiceTitanLogo';
+import { HeroScroll } from './components/HeroScroll';
+import { Footer } from './components/Footer';
 import jobberLogo from './assets/integrations/jobber.png';
 import housecallproLogo from './assets/integrations/housecallpro.png';
 import './App.css';
@@ -74,56 +76,9 @@ function App() {
         </div>
       </header>
 
-      <section className="container hero-section">
-        <div className="hero-grid">
-          <div className="hero-left animate-fade">
-            <h1>
-              Stop losing electrical jobs because you <span>missed a call</span>.
-            </h1>
-            <p>
-              FluxGrid is the 24/7 Intelligent Dispatch Engine built specifically for electrical shop owners. It
-              instantly answers, qualifies with trade logic, and logs jobs straight into your CRM while you&apos;re out
-              in the field or asleep.
-            </p>
-            <a href="#demo" className="cta-btn">
-              See Engine Demo <i className="fa-solid fa-arrow-right" />
-            </a>
-          </div>
+      <HeroScroll />
 
-          <div className="hero-right animate-float">
-            <div className="ui-mockup">
-              <div className="ui-header">
-                <span>
-                  <i
-                    className="fa-solid fa-circle"
-                    style={{ color: 'var(--orange-main)', fontSize: '8px', marginRight: '5px' }}
-                  />
-                  Live Engine Status
-                </span>
-                <span>Active 24/7</span>
-              </div>
-              <div className="ui-card">
-                <div className="ui-meta">09:14 PM &bull; Phone Intercept</div>
-                <div className="ui-body">&quot;Breaker sparking, smelling burning plastic&quot;</div>
-              </div>
-              <div className="ui-card blue">
-                <div className="ui-meta">09:15 PM &bull; Trade Logic Analysis</div>
-                <div className="ui-body">
-                  <i className="fa-solid fa-brain" /> Classified: High-Priority Emergency Hazard
-                </div>
-              </div>
-              <div className="ui-card success">
-                <div className="ui-meta">09:16 PM &bull; CRM Automated Action</div>
-                <div className="ui-body success">
-                  <i className="fa-solid fa-calendar-check" /> Dispatched to ServiceTitan Schedule
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-      </section>
-
-      <section className="integrations-bar">
+      <section className="integrations-bar" id="integrations">
         <div className="container integrations-layout">
           <p>Plugs Directly Into the Software You Already Use</p>
           <div className="app-flex-track">
@@ -317,6 +272,8 @@ function App() {
           </div>
         </div>
       </section>
+
+      <Footer />
     </div>
   );
 }
