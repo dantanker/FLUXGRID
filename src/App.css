@@ -256,8 +256,8 @@
 
 .fluxgrid-app .integrations-bar--hero {
   width: 100%;
-  margin-top: 0.75rem;
-  padding: 0.5rem 0 1.25rem;
+  margin-top: 3rem;
+  padding: 0.75rem 0 1.25rem;
   pointer-events: auto;
 }
 
@@ -997,6 +997,14 @@
   line-height: 1.5;
 }
 
+.fluxgrid-app .hero-mobile-cta-short {
+  display: none;
+}
+
+.fluxgrid-app .hero-mobile-cta-full {
+  display: inline;
+}
+
 /* Trust */
 .fluxgrid-app .trust-section {
   padding: 48px 0 40px;
@@ -1704,6 +1712,78 @@
     overflow-x: hidden;
   }
 
+  .fluxgrid-app .hero-scroll-container-mobile {
+    padding: 0.5rem 0 1rem;
+  }
+
+  .fluxgrid-app .hero-scroll-mobile-copy {
+    max-width: 36rem;
+    margin: 0 auto;
+    text-align: center;
+  }
+
+  .fluxgrid-app .hero-scroll-mobile-copy h1 {
+    font-size: 1.5rem;
+    line-height: 1.2;
+    letter-spacing: -0.02em;
+  }
+
+  .fluxgrid-app .hero-scroll-mobile-copy p {
+    margin-top: 0.875rem;
+    font-size: 0.9375rem;
+    line-height: 1.55;
+  }
+
+  .fluxgrid-app .hero-scroll-mobile-card {
+    margin-top: 1.25rem;
+    max-width: 36rem;
+    margin-left: auto;
+    margin-right: auto;
+    height: 19.5rem;
+    padding: 0.375rem;
+    border: 2px solid #6c6c6c;
+    border-radius: 1.25rem;
+    background: #222;
+    box-shadow: 0 12px 32px rgba(0, 0, 0, 0.45);
+  }
+
+  .fluxgrid-app .hero-scroll-mobile-card-inner {
+    height: 100%;
+    overflow: hidden;
+    border-radius: 0.875rem;
+    background: #09090b;
+  }
+
+  .fluxgrid-app .hero-scroll-mobile-action {
+    margin-top: 1.25rem;
+    display: flex;
+    justify-content: center;
+  }
+
+  .fluxgrid-app .hero-scroll-mobile-action .hero-cta-stack {
+    width: 100%;
+    max-width: 22rem;
+  }
+
+  .fluxgrid-app .hero-scroll-mobile-action .cta-btn {
+    width: 100%;
+    padding: 14px 18px;
+    font-size: 14px;
+  }
+
+  .fluxgrid-app .hero-scroll-mobile-action .hero-trust-line {
+    font-size: 12px;
+    line-height: 1.45;
+  }
+
+  .fluxgrid-app .hero-mobile-cta-short {
+    display: inline;
+  }
+
+  .fluxgrid-app .hero-mobile-cta-full {
+    display: none;
+  }
+
   .fluxgrid-app header img.fluxgrid-logo {
     height: 34px !important;
     width: auto !important;
@@ -1746,8 +1826,8 @@
   }
 
   .fluxgrid-app .integrations-bar--hero {
-    margin-top: 0.5rem;
-    padding: 0.25rem 0 1rem;
+    margin-top: 2.25rem;
+    padding: 0.5rem 0 1rem;
   }
 
   .fluxgrid-app .integrations-bar--hero .integrations-bar__label {

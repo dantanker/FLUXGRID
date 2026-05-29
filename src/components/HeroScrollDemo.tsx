@@ -26,8 +26,8 @@ const calendarHours = ['6 PM', '7 PM', '8 PM', '9 PM', '10 PM'];
 
 export function HeroScrollDemo() {
   return (
-    <div className="flex h-full w-full flex-col justify-between bg-zinc-950 p-4 font-sans text-white md:p-6">
-      <div className="flex items-center justify-between border-b border-zinc-800 pb-3 md:pb-4">
+    <div className="flex h-full w-full flex-col justify-between bg-zinc-950 p-3 font-sans text-white md:p-6">
+      <div className="flex items-center justify-between border-b border-zinc-800 pb-2 md:pb-4">
         <div className="flex items-center gap-2">
           <div className="h-3 w-3 animate-pulse rounded-full bg-emerald-500" />
           <span className="font-mono text-[10px] uppercase tracking-widest text-zinc-400 md:text-xs">
@@ -37,15 +37,15 @@ export function HeroScrollDemo() {
         <div className="text-[10px] text-zinc-500 md:text-xs">Synced with ServiceTitan</div>
       </div>
 
-      <div className="my-auto grid flex-1 grid-cols-1 gap-3 py-3 md:grid-cols-2 md:gap-6 md:py-6">
-        <div className="space-y-2 md:space-y-3">
+      <div className="my-auto grid flex-1 grid-cols-1 gap-2 py-2 md:grid-cols-2 md:gap-6 md:py-6">
+        <div className="space-y-1.5 md:space-y-3">
           <div className="mb-2 font-mono text-[10px] uppercase tracking-widest text-zinc-500 md:text-xs">
             Tonight&apos;s Calls
           </div>
           {timelineEvents.map((event) => (
             <div
               key={event.label}
-              className={`rounded-lg border border-zinc-800 border-l-4 bg-zinc-900/80 px-3 py-2 md:px-4 md:py-3 ${event.accent}`}
+              className={`rounded-lg border border-zinc-800 border-l-4 bg-zinc-900/80 px-2.5 py-1.5 md:px-4 md:py-3 ${event.accent}`}
             >
               <div className={`font-mono text-[10px] md:text-xs ${event.tag}`}>
                 {event.time} · {event.label}
