@@ -66,8 +66,8 @@ function DesktopContainerScroll({
     offset: ['start start', 'end start'],
   });
 
-  const rotate = useTransform(scrollYProgress, [0, 1], [20, 0]);
-  const scale = useTransform(scrollYProgress, [0, 1], [1.05, 1]);
+  const rotate = useTransform(scrollYProgress, [0, 1], [16, 0]);
+  const scale = useTransform(scrollYProgress, [0, 1], [1, 1]);
   const translate = useTransform(scrollYProgress, [0, 1], [0, -100]);
 
   return (
@@ -76,7 +76,7 @@ function DesktopContainerScroll({
       ref={containerRef}
     >
       <div
-        className="py-20 w-full relative"
+        className="relative w-full pt-14 pb-16 md:pt-16 md:pb-20"
         style={{
           perspective: '1000px',
         }}
@@ -110,7 +110,7 @@ export const Header = ({
       style={{
         translateY: translate,
       }}
-      className="max-w-5xl mx-auto text-center"
+      className="relative z-30 mx-auto mb-2 max-w-5xl px-4 text-center md:mb-3"
     >
       {titleComponent}
     </motion.div>
@@ -151,14 +151,10 @@ export const Card = ({
         rotateX: rotate,
         scale,
         transformOrigin: 'top center',
-        boxShadow:
-          '0 0 #0000004d, 0 9px 20px #0000004a, 0 37px 37px #00000042, 0 84px 50px #00000026, 0 149px 60px #0000000a, 0 233px 65px #00000003',
       }}
-      className="hero-scroll-card relative z-10 -mt-8 max-w-5xl mx-auto h-[34rem] w-full border-4 border-[#6C6C6C] p-5 bg-[#222222] rounded-[30px] shadow-2xl"
+      className="hero-scroll-card relative z-10 mx-auto -mt-1 min-h-[36rem] h-auto w-full max-w-[68rem] overflow-visible bg-transparent px-3 py-0 shadow-none sm:min-h-[38rem] sm:px-4"
     >
-      <div className="h-full w-full overflow-hidden rounded-2xl bg-zinc-950">
-        {children}
-      </div>
+      <div className="h-full w-full overflow-visible">{children}</div>
     </motion.div>
   );
 };

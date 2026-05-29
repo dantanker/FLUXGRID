@@ -1,5 +1,4 @@
 import fluxgridLogo from '../assets/fluxgrid-logo.png';
-import fluxgridLogoDark from '../assets/fluxgrid-logo-dark.png';
 
 type FluxGridLogoProps = {
   size?: 'sm' | 'md' | 'lg';
@@ -8,18 +7,17 @@ type FluxGridLogoProps = {
 };
 
 const sizeHeights = {
-  sm: 32,
-  md: 40,
-  lg: 48,
+  sm: 36,
+  md: 48,
+  lg: 56,
 };
 
-export function FluxGridLogo({ size = 'md', variant = 'dark', className = '' }: FluxGridLogoProps) {
+export function FluxGridLogo({ size = 'md', className = '' }: FluxGridLogoProps) {
   const height = sizeHeights[size];
-  const src = variant === 'dark' ? fluxgridLogoDark : fluxgridLogo;
 
   return (
     <img
-      src={src}
+      src={fluxgridLogo}
       alt="FluxGrid"
       className={`fluxgrid-logo ${className}`}
       style={{ height, width: 'auto' }}

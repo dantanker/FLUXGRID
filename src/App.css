@@ -43,8 +43,6 @@
 .fluxgrid-app .calc-box,
 .fluxgrid-app .calc-results,
 .fluxgrid-app .process-card,
-.fluxgrid-app .trust-stat,
-.fluxgrid-app .trust-eyebrow,
 .fluxgrid-app .audience-card,
 .fluxgrid-app .pricing-card,
 .fluxgrid-app .final-box,
@@ -92,7 +90,6 @@
 .fluxgrid-app .demo-form,
 .fluxgrid-app .demo-form input,
 .fluxgrid-app .demo-form select,
-.fluxgrid-app .trust-section,
 .fluxgrid-app .audience-section,
 .fluxgrid-app .pricing-section,
 .fluxgrid-app .header-mobile-cta,
@@ -207,10 +204,11 @@
 .fluxgrid-app .fluxgrid-logo {
   display: block;
   width: auto;
-  max-width: min(100%, 200px);
+  max-width: min(100%, 240px);
   height: auto;
   object-fit: contain;
-  filter: var(--logo-shadow);
+  filter: drop-shadow(0 1px 2px rgba(0, 0, 0, 0.55))
+    drop-shadow(0 0 14px rgba(255, 149, 0, 0.22));
 }
 
 .fluxgrid-app nav {
@@ -297,6 +295,252 @@
   overflow-y: visible;
   padding-bottom: 0;
   background: transparent;
+}
+
+.fluxgrid-app .hero-phone-stage {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: clamp(1.25rem, 3vw, 1.75rem);
+  width: 100%;
+  padding: 0.5rem 0.75rem;
+  overflow: visible;
+}
+
+.fluxgrid-app .hero-integrations-panel {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.75rem;
+  width: 100%;
+  max-width: 100%;
+  min-width: 0;
+}
+
+.fluxgrid-app .hero-integrations-row {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: center;
+  gap: 0.75rem;
+  width: 100%;
+}
+
+.fluxgrid-app .hero-phone-center {
+  flex: 0 1 280px;
+  width: min(100%, 280px);
+}
+
+.fluxgrid-app .hero-phone-image {
+  filter: drop-shadow(0 24px 48px rgba(0, 0, 0, 0.45));
+}
+
+.fluxgrid-app .hero-integrations-label {
+  margin: 0;
+  padding: 0;
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 0.06em;
+  line-height: 1.45;
+  text-transform: uppercase;
+  text-align: center;
+  color: rgba(255, 255, 255, 0.72);
+  text-shadow: var(--text-shadow-readable);
+}
+
+@media (min-width: 768px) {
+  .fluxgrid-app .hero-integrations-label {
+    font-size: 12px;
+    letter-spacing: 0.08em;
+    line-height: 1.55;
+    text-align: left;
+    white-space: nowrap;
+  }
+}
+
+.fluxgrid-app .hero-integration-chip {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  min-height: 4.75rem;
+  padding: 1rem 0.875rem;
+  border-radius: 14px;
+  background: rgba(12, 20, 36, 0.82);
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  box-shadow:
+    0 8px 24px rgba(0, 0, 0, 0.22),
+    inset 0 1px 0 rgba(255, 255, 255, 0.06);
+  transition:
+    transform 0.35s cubic-bezier(0.22, 1, 0.36, 1),
+    border-color 0.35s ease,
+    background 0.35s ease,
+    box-shadow 0.35s ease;
+  cursor: default;
+  box-sizing: border-box;
+  overflow: visible;
+}
+
+.fluxgrid-app .hero-integration-chip--servicetitan {
+  width: 11.5rem;
+  min-width: 11.5rem;
+}
+
+.fluxgrid-app .hero-integration-chip--jobber {
+  width: 7.75rem;
+  min-width: 7.75rem;
+}
+
+.fluxgrid-app .hero-integration-chip--housecallpro {
+  width: 8.25rem;
+  min-width: 8.25rem;
+}
+
+.fluxgrid-app .hero-integration-chip--webhooks {
+  width: 7.75rem;
+  min-width: 7.75rem;
+  gap: 0.35rem;
+}
+
+.fluxgrid-app .hero-integration-chip:hover,
+.fluxgrid-app .hero-integration-chip:focus-visible {
+  transform: translateY(-3px) scale(1.03);
+  border-color: rgba(255, 149, 0, 0.55);
+  background: linear-gradient(145deg, rgba(255, 149, 0, 0.14) 0%, rgba(255, 149, 0, 0.04) 100%);
+  box-shadow:
+    0 0 28px rgba(255, 149, 0, 0.35),
+    0 0 56px rgba(255, 149, 0, 0.14),
+    0 12px 32px rgba(0, 0, 0, 0.28),
+    inset 0 0 24px rgba(255, 149, 0, 0.08);
+  outline: none;
+}
+
+.fluxgrid-app .hero-integration-chip__logo {
+  display: block;
+  height: 32px;
+  width: auto;
+  max-width: 100%;
+  object-fit: contain;
+  transition: filter 0.35s ease, opacity 0.35s ease;
+}
+
+.fluxgrid-app .hero-integration-chip__logo--servicetitan,
+.fluxgrid-app .hero-integration-chip .integration-logo--servicetitan.hero-integration-chip__logo {
+  width: 100%;
+  height: 26px;
+  max-width: 100%;
+}
+
+.fluxgrid-app .hero-integration-chip:hover .hero-integration-chip__logo--servicetitan,
+.fluxgrid-app .hero-integration-chip:focus-visible .hero-integration-chip__logo--servicetitan {
+  filter: drop-shadow(0 0 10px rgba(255, 149, 0, 0.55));
+}
+
+.fluxgrid-app .hero-integration-chip:hover .hero-integration-chip__logo:not(.hero-integration-chip__logo--servicetitan),
+.fluxgrid-app .hero-integration-chip:focus-visible .hero-integration-chip__logo:not(.hero-integration-chip__logo--servicetitan) {
+  filter: drop-shadow(0 0 10px rgba(255, 149, 0, 0.55));
+}
+
+.fluxgrid-app .hero-integration-chip:hover .integration-logo--jobber,
+.fluxgrid-app .hero-integration-chip:focus-visible .integration-logo--jobber {
+  filter: brightness(0) invert(1) drop-shadow(0 0 10px rgba(255, 149, 0, 0.55));
+}
+
+.fluxgrid-app .hero-integration-chip:hover .integration-logo--housecallpro,
+.fluxgrid-app .hero-integration-chip:focus-visible .integration-logo--housecallpro {
+  filter: brightness(1.15) drop-shadow(0 0 10px rgba(255, 149, 0, 0.55));
+}
+
+.fluxgrid-app .hero-integration-chip__webhooks {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.35rem;
+  color: #ffffff;
+}
+
+.fluxgrid-app .hero-integration-chip__webhooks i {
+  font-size: 1.25rem;
+  color: var(--orange-main);
+  transition: color 0.35s ease, filter 0.35s ease;
+}
+
+.fluxgrid-app .hero-integration-chip__webhooks-text {
+  font-size: 0.625rem;
+  font-weight: 700;
+  letter-spacing: 0.02em;
+  line-height: 1.2;
+  text-align: center;
+  white-space: nowrap;
+}
+
+.fluxgrid-app .hero-integration-chip:hover .hero-integration-chip__webhooks i,
+.fluxgrid-app .hero-integration-chip:focus-visible .hero-integration-chip__webhooks i {
+  color: #ffb347;
+  filter: drop-shadow(0 0 8px rgba(255, 149, 0, 0.8));
+}
+
+@media (min-width: 768px) {
+  .fluxgrid-app .hero-phone-stage {
+    display: grid;
+    grid-template-columns: 1fr 280px;
+    align-items: center;
+    justify-content: center;
+    column-gap: clamp(2rem, 4vw, 4rem);
+    row-gap: 0;
+    padding: 0.5rem 1rem;
+  }
+
+  .fluxgrid-app .hero-integrations-panel {
+    align-items: flex-start;
+    width: auto;
+    max-width: none;
+    min-width: 0;
+    gap: 1rem;
+  }
+
+  .fluxgrid-app .hero-integrations-row {
+    flex-wrap: nowrap;
+    justify-content: flex-start;
+    gap: 0.875rem;
+  }
+
+  .fluxgrid-app .hero-phone-center {
+    width: 280px;
+    justify-self: end;
+  }
+}
+
+@media (min-width: 1024px) {
+  .fluxgrid-app .hero-phone-stage {
+    column-gap: clamp(2.5rem, 5vw, 5rem);
+  }
+
+  .fluxgrid-app .hero-integrations-label {
+    font-size: 13px;
+  }
+
+  .fluxgrid-app .hero-integration-chip {
+    min-height: 5rem;
+    padding: 1.125rem 1rem;
+  }
+
+  .fluxgrid-app .hero-integration-chip__logo {
+    height: 34px;
+  }
+
+  .fluxgrid-app .hero-integration-chip__logo--servicetitan,
+  .fluxgrid-app .hero-integration-chip .integration-logo--servicetitan.hero-integration-chip__logo {
+    height: 28px;
+  }
+
+  .fluxgrid-app .hero-integrations-row {
+    gap: 1.125rem;
+  }
 }
 
 .fluxgrid-app .hero-section {
@@ -1005,101 +1249,12 @@
   display: inline;
 }
 
-/* Trust */
-.fluxgrid-app .trust-section {
-  padding: 48px 0 40px;
-  background: transparent;
-  border-top: 1px solid rgba(255, 255, 255, 0.06);
-  border-bottom: none;
-}
-
-.fluxgrid-app .trust-layout {
-  display: grid;
-  grid-template-columns: minmax(0, 1fr) auto;
-  gap: 36px;
-  align-items: center;
-}
-
-.fluxgrid-app .trust-content {
-  min-width: 0;
-}
-
-.fluxgrid-app .trust-eyebrow {
-  text-align: left;
-  font-size: 12px;
-  font-weight: 700;
-  text-transform: uppercase;
-  letter-spacing: 1px;
-  color: var(--orange-main);
-  margin: 0 0 16px;
-  max-width: none;
-  padding: 12px 18px;
-  border-radius: 12px;
-}
-
-.fluxgrid-app .trust-stats {
-  display: flex;
-  flex-direction: column;
-  gap: 12px;
-  margin-bottom: 0;
-}
-
-.fluxgrid-app .trust-stat {
-  display: flex;
-  align-items: center;
-  gap: 16px;
-  text-align: left;
-  padding: 16px 18px;
-  border-radius: 16px;
-}
-
-.fluxgrid-app .trust-stat-value {
-  flex-shrink: 0;
-  min-width: 80px;
-  font-size: 32px;
-  font-weight: 800;
-  color: var(--text-light);
-  margin-bottom: 0;
-  line-height: 1;
-}
-
-.fluxgrid-app .trust-stat-label {
-  font-size: 15px;
-  color: var(--text-muted);
-  line-height: 1.5;
-}
-
 /* iPhone 15 mockup — 393×852pt screen, 430×884pt chassis */
-.fluxgrid-app .trust-phone {
+.fluxgrid-app .iphone15 {
   --iphone-screen-w: 393px;
   --iphone-screen-h: 852px;
   --iphone-chassis-w: 430px;
   --iphone-chassis-h: 884px;
-  --iphone-display-scale: 0.72;
-  position: relative;
-  display: flex;
-  justify-content: center;
-  align-self: center;
-  width: calc(var(--iphone-chassis-w) * var(--iphone-display-scale));
-  height: calc(var(--iphone-chassis-h) * var(--iphone-display-scale));
-}
-
-.fluxgrid-app .trust-phone__glow {
-  position: absolute;
-  inset: 8% 0;
-  background: radial-gradient(circle at 50% 40%, rgba(0, 229, 255, 0.1), transparent 68%);
-  filter: blur(28px);
-  pointer-events: none;
-}
-
-.fluxgrid-app .trust-phone__scale {
-  width: var(--iphone-chassis-w);
-  height: var(--iphone-chassis-h);
-  transform: scale(var(--iphone-display-scale));
-  transform-origin: top center;
-}
-
-.fluxgrid-app .iphone15 {
   width: var(--iphone-chassis-w);
   height: var(--iphone-chassis-h);
   font-family:
@@ -1593,21 +1748,6 @@
     white-space: nowrap;
   }
 
-  .fluxgrid-app .trust-layout {
-    grid-template-columns: 1fr;
-    gap: 28px;
-  }
-
-  .fluxgrid-app .trust-phone {
-    --iphone-display-scale: 0.62;
-    margin: 0 auto;
-  }
-
-  .fluxgrid-app .trust-eyebrow {
-    text-align: center;
-  }
-
-  .fluxgrid-app .trust-stats,
   .fluxgrid-app .audience-grid,
   .fluxgrid-app .pricing-grid,
   .fluxgrid-app .demo-form-grid {
@@ -1713,12 +1853,17 @@
   }
 
   .fluxgrid-app .hero-scroll-container-mobile {
-    padding: 0.5rem 0 1rem;
+    padding: 0.5rem 0 1.25rem;
+  }
+
+  .fluxgrid-app .hero-phone-stage {
+    gap: 1rem;
+    padding: 0 0.5rem;
   }
 
   .fluxgrid-app .hero-scroll-mobile-copy {
     max-width: 36rem;
-    margin: 0 auto;
+    margin: 0 auto 0.375rem;
     text-align: center;
   }
 
@@ -1735,23 +1880,23 @@
   }
 
   .fluxgrid-app .hero-scroll-mobile-card {
-    margin-top: 1.25rem;
-    max-width: 36rem;
+    margin-top: 0.25rem;
+    max-width: 100%;
     margin-left: auto;
     margin-right: auto;
-    height: 19.5rem;
-    padding: 0.375rem;
-    border: 2px solid #6c6c6c;
-    border-radius: 1.25rem;
-    background: #222;
-    box-shadow: 0 12px 32px rgba(0, 0, 0, 0.45);
+    height: auto;
+    padding: 0;
+    border: none;
+    border-radius: 0;
+    background: transparent;
+    box-shadow: none;
   }
 
   .fluxgrid-app .hero-scroll-mobile-card-inner {
-    height: 100%;
-    overflow: hidden;
-    border-radius: 0.875rem;
-    background: #09090b;
+    height: auto;
+    overflow: visible;
+    border-radius: 0;
+    background: transparent;
   }
 
   .fluxgrid-app .hero-scroll-mobile-action {
@@ -1785,7 +1930,7 @@
   }
 
   .fluxgrid-app header img.fluxgrid-logo {
-    height: 34px !important;
+    height: 38px !important;
     width: auto !important;
   }
 
@@ -1794,10 +1939,6 @@
   .fluxgrid-app .audience-section,
   .fluxgrid-app .pricing-section {
     padding: 40px 0;
-  }
-
-  .fluxgrid-app .trust-section {
-    padding: 36px 0 32px;
   }
 
   .fluxgrid-app .closer-section {
@@ -1841,44 +1982,6 @@
   .fluxgrid-app .integrations-bar--hero .app-flex-set {
     gap: 28px;
     padding-right: 28px;
-  }
-
-  .fluxgrid-app .trust-layout {
-    gap: 24px;
-  }
-
-  .fluxgrid-app .trust-eyebrow {
-    font-size: 11px;
-    padding: 10px 14px;
-    line-height: 1.45;
-  }
-
-  .fluxgrid-app .trust-stat {
-    flex-direction: column;
-    align-items: flex-start;
-    gap: 6px;
-    padding: 14px 16px;
-  }
-
-  .fluxgrid-app .trust-stat-value {
-    min-width: 0;
-    font-size: 1.75rem;
-  }
-
-  .fluxgrid-app .trust-stat-label {
-    font-size: 14px;
-    line-height: 1.45;
-  }
-
-  .fluxgrid-app .trust-phone {
-    --iphone-display-scale: 0.56;
-    width: 100%;
-    max-width: 100%;
-    overflow: hidden;
-  }
-
-  .fluxgrid-app .trust-phone__scale {
-    margin: 0 auto;
   }
 
   .fluxgrid-app .calc-box {
@@ -1997,10 +2100,6 @@
 }
 
 @media (max-width: 480px) {
-  .fluxgrid-app .trust-phone {
-    --iphone-display-scale: 0.5;
-  }
-
   .fluxgrid-app .mobile-sticky-cta__call {
     padding: 12px 14px;
     font-size: 13px;

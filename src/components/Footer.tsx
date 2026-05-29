@@ -1,7 +1,6 @@
 import { FluxGridLogo } from './FluxGridLogo';
 
 const siteLinks = [
-  { label: 'Results', href: '#proof' },
   { label: 'Missed Revenue', href: '#leaks' },
   { label: 'How It Works', href: '#how-it-works' },
   { label: 'Pricing', href: '#pricing' },
@@ -25,7 +24,7 @@ export function Footer() {
         <div className="footer-main">
           <div className="footer-brand">
             <a href="#" className="logo footer-logo">
-              <FluxGridLogo size="md" variant="dark" />
+              <FluxGridLogo size="md" />
             </a>
             <p>After-hours phone coverage for electrical contractors.</p>
           </div>

@@ -1,99 +1,44 @@
-const timelineEvents = [
-  {
-    time: '9:14 PM',
-    label: 'Call Answered',
-    body: '"Half the house is out — breaker keeps tripping"',
-    accent: 'border-l-orange-500',
-    tag: 'text-orange-400',
-  },
-  {
-    time: '9:15 PM',
-    label: 'Safety Check',
-    body: 'Sparking, burning smell, or shock risk? Flagged yes → emergency',
-    accent: 'border-l-blue-500',
-    tag: 'text-blue-400',
-  },
-  {
-    time: '9:16 PM',
-    label: 'Job on Your Board',
-    body: 'Emergency slot booked — on-call tech notified by text',
-    accent: 'border-l-emerald-500',
-    tag: 'text-emerald-400',
-  },
-];
-
-const calendarHours = ['6 PM', '7 PM', '8 PM', '9 PM', '10 PM'];
+import { ArrowRight } from 'lucide-react';
+import heroIphone from '../assets/hero-iphone.png';
+import { IntegrationChip, INTEGRATIONS } from './integrations/IntegrationChip';
 
 export function HeroScrollDemo() {
   return (
-    <div className="flex h-full w-full flex-col justify-between bg-zinc-950 p-3 font-sans text-white md:p-6">
-      <div className="flex items-center justify-between border-b border-zinc-800 pb-2 md:pb-4">
-        <div className="flex items-center gap-2">
-          <div className="h-3 w-3 animate-pulse rounded-full bg-emerald-500" />
-          <span className="font-mono text-[10px] uppercase tracking-widest text-zinc-400 md:text-xs">
-            FluxGrid · Live
-          </span>
-        </div>
-        <div className="text-[10px] text-zinc-500 md:text-xs">Synced with ServiceTitan</div>
-      </div>
+    <div className="hero-phone-stage">
+      <div className="hero-integrations-panel">
+        <p className="hero-integrations-label">
+          Books jobs directly into the dispatch software you already use
+        </p>
 
-      <div className="my-auto grid flex-1 grid-cols-1 gap-2 py-2 md:grid-cols-2 md:gap-6 md:py-6">
-        <div className="space-y-1.5 md:space-y-3">
-          <div className="mb-2 font-mono text-[10px] uppercase tracking-widest text-zinc-500 md:text-xs">
-            Tonight&apos;s Calls
-          </div>
-          {timelineEvents.map((event) => (
-            <div
-              key={event.label}
-              className={`rounded-lg border border-zinc-800 border-l-4 bg-zinc-900/80 px-2.5 py-1.5 md:px-4 md:py-3 ${event.accent}`}
-            >
-              <div className={`font-mono text-[10px] md:text-xs ${event.tag}`}>
-                {event.time} · {event.label}
-              </div>
-              <div className="mt-1 text-xs text-zinc-200 md:text-sm">{event.body}</div>
-            </div>
+        <div className="hero-integrations-row">
+          {INTEGRATIONS.map((item) => (
+            <IntegrationChip key={item.id} id={item.id} label={item.label} />
           ))}
         </div>
+      </div>
 
-        <div className="hidden md:block rounded-xl border border-zinc-800 bg-zinc-900 p-3 md:p-4">
-          <div className="mb-3 flex items-center justify-between">
-            <span className="font-mono text-[10px] uppercase tracking-widest text-zinc-500 md:text-xs">
-              Crew Schedule
-            </span>
-            <span className="rounded bg-emerald-500/15 px-2 py-0.5 text-[10px] font-medium text-emerald-400 md:text-xs">
-              1 job added
-            </span>
-          </div>
+      <div className="hero-phone-center">
+        <div className="relative z-10 mx-auto w-full max-w-[260px] sm:max-w-[280px] md:max-h-full md:max-w-none">
+          <img
+            src={heroIphone}
+            alt="FluxGrid answering a new lead call on iPhone"
+            width={925}
+            height={1976}
+            decoding="async"
+            className="hero-phone-image h-auto w-full object-contain object-center [transform:translateZ(0)]"
+            draggable={false}
+          />
 
-          <div className="space-y-2">
-            {calendarHours.map((hour) => {
-              const isHighlighted = hour === '9 PM';
-
-              return (
-                <div
-                  key={hour}
-                  className={`flex items-center gap-3 rounded-lg border px-2 py-2 md:px-3 ${
-                    isHighlighted
-                      ? 'border-orange-500/50 bg-orange-500/10'
-                      : 'border-zinc-800 bg-zinc-950/50'
-                  }`}
-                >
-                  <span className="w-10 shrink-0 font-mono text-[10px] text-zinc-500 md:text-xs">{hour}</span>
-                  {isHighlighted ? (
-                    <div className="min-w-0 flex-1">
-                      <div className="truncate text-xs font-semibold text-orange-400 md:text-sm">
-                        Emergency — Partial Power Loss
-                      </div>
-                      <div className="truncate text-[10px] text-zinc-400 md:text-xs">
-                        Auto-booked · On-call tech paged
-                      </div>
-                    </div>
-                  ) : (
-                    <div className="h-2 flex-1 rounded bg-zinc-800/80" />
-                  )}
-                </div>
-              );
-            })}
+          <div className="pointer-events-none absolute inset-0">
+            <div className="pointer-events-auto absolute left-1/2 top-[41%] w-[72%] -translate-x-1/2 -translate-y-1/2">
+              <a
+                href="#how-it-works"
+                className="cta-btn inline-flex w-full items-center justify-center gap-1.5 whitespace-nowrap px-2 py-2.5 text-[9px] leading-none sm:gap-2 sm:px-3 sm:py-3 sm:text-[10px] md:text-[11px]"
+              >
+                See How It Works
+                <ArrowRight className="h-3 w-3 shrink-0 sm:h-3.5 sm:w-3.5" />
+              </a>
+            </div>
           </div>
         </div>
       </div>

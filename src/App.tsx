@@ -1,7 +1,6 @@
 import { useState, useMemo } from 'react';
 import { FluxGridLogo } from './components/FluxGridLogo';
 import { HeroScroll } from './components/HeroScroll';
-import { TrustSection } from './components/TrustSection';
 import { AudienceSection } from './components/AudienceSection';
 import { PricingSection } from './components/PricingSection';
 import { DemoSection } from './components/DemoSection';
@@ -89,13 +88,12 @@ function App() {
         <header>
           <div className="container nav-container">
             <a href="#" className="logo">
-              <FluxGridLogo size="md" variant="dark" />
+              <FluxGridLogo size="md" />
             </a>
             <a href="#demo" className="cta-btn nav header-mobile-cta">
               Book Demo
             </a>
             <nav>
-              <a href="#proof">Results</a>
               <a href="#leaks">Missed Revenue</a>
               <a href="#how-it-works">How It Works</a>
               <a href="#pricing">Pricing</a>
@@ -108,8 +106,6 @@ function App() {
         </header>
 
         <HeroScroll />
-
-        <TrustSection />
 
         <section className="calculator-section" id="leaks">
           <div className="container">

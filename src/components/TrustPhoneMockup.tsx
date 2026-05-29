@@ -69,9 +69,19 @@ function CallControl({ label, children, active, end }: CallControlProps) {
 
 export function TrustPhoneMockup() {
   return (
-    <div className="trust-phone" aria-hidden="true">
-      <div className="trust-phone__glow" />
-      <div className="trust-phone__scale">
+    <div
+      className="relative mx-auto flex justify-center overflow-visible transition-all duration-500 ease-out [--phone-scale:0.58] sm:[--phone-scale:0.64] md:[--phone-scale:0.68] lg:[--phone-scale:0.72] xl:[--phone-scale:0.76]"
+      style={{
+        width: 'calc(430px * var(--phone-scale))',
+        height: 'calc(884px * var(--phone-scale))',
+      }}
+      aria-hidden="true"
+    >
+      <div className="pointer-events-none absolute inset-[8%_0] bg-[radial-gradient(circle_at_50%_40%,rgba(0,229,255,0.1),transparent_68%)] blur-3xl" />
+      <div
+        className="absolute left-1/2 top-0 h-[884px] w-[430px] origin-top -translate-x-1/2 transition-transform duration-500 ease-out"
+        style={{ transform: 'translateX(-50%) scale(var(--phone-scale))' }}
+      >
         <div className="iphone15">
           <div className="iphone15__chassis">
             <div className="iphone15__screen">
