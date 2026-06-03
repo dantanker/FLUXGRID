@@ -1,11 +1,10 @@
 import { FluxGridLogo } from './FluxGridLogo';
+import { useDemoModal } from '../context/DemoModalContext';
 
 const siteLinks = [
   { label: 'Missed Revenue', href: '#leaks' },
   { label: 'How It Works', href: '#how-it-works' },
-  { label: 'Pricing', href: '#pricing' },
   { label: 'FAQ', href: '#faq' },
-  { label: 'Book Demo', href: '#demo' },
 ];
 
 const contactLinks = [
@@ -16,6 +15,7 @@ const contactLinks = [
 ];
 
 export function Footer() {
+  const { openDemoModal } = useDemoModal();
   const year = new Date().getFullYear();
 
   return (
@@ -38,6 +38,11 @@ export function Footer() {
                     <a href={link.href}>{link.label}</a>
                   </li>
                 ))}
+                <li>
+                  <button type="button" className="footer-link-button" onClick={openDemoModal}>
+                    Book Demo
+                  </button>
+                </li>
               </ul>
             </div>
             <div className="footer-nav-col">

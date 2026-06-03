@@ -2,25 +2,17 @@ import { useState, useMemo } from 'react';
 import { FluxGridLogo } from './components/FluxGridLogo';
 import { HeroScroll } from './components/HeroScroll';
 import { AudienceSection } from './components/AudienceSection';
-import { PricingSection } from './components/PricingSection';
-import { DemoSection } from './components/DemoSection';
+import { HowItWorksSection } from './components/HowItWorksSection';
+import { DemoModal } from './components/DemoModal';
+import { DemoCtaButton } from './components/DemoCtaButton';
 import { MobileStickyCta } from './components/MobileStickyCta';
 import { ElectricalGridBackground } from './components/ElectricalGridBackground';
 import { Footer } from './components/Footer';
+import { DemoModalProvider } from './context/DemoModalContext';
 import './App.css';
 
 const CONVERSION_RATE = 0.4;
 const MONTHLY_WEEKS = 4.33;
-
-function getLeakImpact(calculatedLoss: number): string {
-  if (calculatedLoss < 2000) {
-    return '⚠️ Roughly what many shops spend on Google Ads each month';
-  }
-  if (calculatedLoss < 6000) {
-    return '🚨 About one service van payment plus insurance';
-  }
-  return '💥 Close to a full-time apprentice or junior tech on payroll';
-}
 
 const faqItems = [
   {
@@ -75,14 +67,12 @@ function App() {
     [missedCalls, ticketValue],
   );
 
-  const leakImpact = useMemo(() => getLeakImpact(calculatedLoss), [calculatedLoss]);
-
   const toggleFaq = (index: number) => {
     setActiveFaq(activeFaq === index ? null : index);
   };
 
   return (
-    <>
+    <DemoModalProvider>
       <ElectricalGridBackground />
       <div className="fluxgrid-app">
         <header>
@@ -90,17 +80,12 @@ function App() {
             <a href="#" className="logo">
               <FluxGridLogo size="md" />
             </a>
-            <a href="#demo" className="cta-btn nav header-mobile-cta">
-              Book Demo
-            </a>
+            <DemoCtaButton className="cta-btn nav header-mobile-cta">Book Demo</DemoCtaButton>
             <nav>
               <a href="#leaks">Missed Revenue</a>
               <a href="#how-it-works">How It Works</a>
-              <a href="#pricing">Pricing</a>
               <a href="#faq">FAQ</a>
-              <a href="#demo" className="cta-btn nav">
-                Book Demo
-              </a>
+              <DemoCtaButton className="cta-btn nav">Book Demo</DemoCtaButton>
             </nav>
           </div>
         </header>
@@ -147,6 +132,10 @@ function App() {
                     onChange={(e) => setTicketValue(parseInt(e.target.value, 10))}
                   />
                 </div>
+
+                <p className="calc-disclaimer">
+                  *Calculated assuming a conservative 40% booking rate on captured leads.
+                </p>
               </div>
 
               <div className="calc-results">
@@ -155,100 +144,17 @@ function App() {
                   Estimated Monthly Loss
                 </h4>
                 <div className="leak-counter">${calculatedLoss.toLocaleString()}</div>
-                <div>
-                  <span className="leak-impact-tag">{leakImpact}</span>
-                </div>
-                <a href="#demo" className="cta-btn full-width">
-                  See How to Capture These Calls <i className="fa-solid fa-plug" />
-                </a>
+                <DemoCtaButton className="cta-btn full-width">
+                  Reclaim Your Missed Revenue
+                </DemoCtaButton>
               </div>
             </div>
           </div>
         </section>
 
-        <section className="process-section" id="how-it-works">
-          <div className="container">
-            <div className="section-intro">
-              <h2 className="section-title">How It Works</h2>
-              <p className="section-subtitle">
-                From ring to booked job in minutes — while your techs stay on the tools. Three steps,
-                no extra headcount.
-              </p>
-            </div>
-
-            <div className="grid-3">
-              <div className="process-card">
-                <div>
-                  <div className="icon-box">
-                    <i className="fa-solid fa-phone-volume" />
-                  </div>
-                  <h3>1. Answer Every Call</h3>
-                  <div className="tech-subtitle">First ring · 24/7</div>
-                  <p>
-                    Picks up when your office is closed or already on another line. The caller
-                    hears your shop name and a real person-style greeting — not &quot;leave a
-                    message after the beep.&quot;
-                  </p>
-                </div>
-                <div className="engine-mini-log">
-                  $ status: <span className="log-success">LIVE</span>
-                  <br />
-                  $ hours: 24/7/365
-                  <br />
-                  $ missed_calls: 0
-                </div>
-              </div>
-
-              <div className="process-card">
-                <div>
-                  <div className="icon-box">
-                    <i className="fa-solid fa-bolt" />
-                  </div>
-                  <h3>2. Qualify the Job</h3>
-                  <div className="tech-subtitle">Electrical safety first</div>
-                  <p>
-                    Asks what your dispatcher would: sparks, smell of burning, full outage or
-                    partial, access to the panel, and whether kids or medical equipment are affected.
-                    True emergencies get bumped to the front of the queue.
-                  </p>
-                </div>
-                <div className="engine-mini-log">
-                  $ caller: <span className="log-accent">&quot;no power in kitchen&quot;</span>
-                  <br />
-                  $ priority: emergency
-                  <br />
-                  $ action: book_on_call
-                </div>
-              </div>
-
-              <div className="process-card">
-                <div>
-                  <div className="icon-box">
-                    <i className="fa-solid fa-calendar-check" />
-                  </div>
-                  <h3>3. Book Into Your CRM</h3>
-                  <div className="tech-subtitle">Ready for dispatch</div>
-                  <p>
-                    The job shows up in ServiceTitan, Jobber, or Housecall Pro with notes, address,
-                    priority level, and customer info. Your morning dispatch looks the same — just
-                    with more on the board.
-                  </p>
-                </div>
-                <div className="engine-mini-log">
-                  $ crm: field_board
-                  <br />
-                  $ slot: booked
-                  <br />
-                  $ crew: <span className="log-success">NOTIFIED</span>
-                </div>
-              </div>
-            </div>
-          </div>
-        </section>
+        <HowItWorksSection />
 
         <AudienceSection />
-
-        <PricingSection />
 
         <section className="closer-section" id="faq">
           <div className="container">
@@ -275,15 +181,14 @@ function App() {
                 );
               })}
             </div>
-
-            <DemoSection />
           </div>
         </section>
 
         <Footer />
         <MobileStickyCta />
+        <DemoModal />
       </div>
-    </>
+    </DemoModalProvider>
   );
 }
 
