@@ -5,7 +5,6 @@ import { AudienceSection } from './components/AudienceSection';
 import { HowItWorksSection } from './components/HowItWorksSection';
 import { DemoModal } from './components/DemoModal';
 import { DemoCtaButton } from './components/DemoCtaButton';
-import { MobileStickyCta } from './components/MobileStickyCta';
 import { ElectricalGridBackground } from './components/ElectricalGridBackground';
 import { Footer } from './components/Footer';
 import { DemoModalProvider } from './context/DemoModalContext';
@@ -185,7 +184,6 @@ function App() {
         </section>
 
         <Footer />
-        <MobileStickyCta />
         <DemoModal />
       </div>
     </DemoModalProvider>

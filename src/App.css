@@ -89,8 +89,7 @@
 .fluxgrid-app .demo-form input,
 .fluxgrid-app .demo-form select,
 .fluxgrid-app .audience-section,
-.fluxgrid-app .header-mobile-cta,
-.fluxgrid-app .mobile-sticky-cta {
+.fluxgrid-app .header-mobile-cta {
   pointer-events: auto;
 }
 
@@ -1790,11 +1789,6 @@
   display: flex;
 }
 
-/* Mobile sticky CTA */
-.fluxgrid-app .mobile-sticky-cta {
-  display: none;
-}
-
 @media (max-width: 992px) {
   .fluxgrid-app .hero-grid,
   .fluxgrid-app .calc-box,
@@ -1835,47 +1829,6 @@
   .fluxgrid-app .audience-grid,
   .fluxgrid-app .demo-form-grid {
     grid-template-columns: 1fr;
-  }
-
-  .fluxgrid-app .mobile-sticky-cta {
-    display: flex;
-    position: fixed;
-    bottom: 0;
-    left: 0;
-    right: 0;
-    z-index: 1001;
-    padding: 12px 16px;
-    gap: 12px;
-    background: rgba(7, 17, 30, 0.92);
-    backdrop-filter: blur(12px);
-    border-top: 1px solid rgba(255, 255, 255, 0.1);
-    pointer-events: auto;
-  }
-
-  .fluxgrid-app .mobile-sticky-cta__call {
-    flex: 0 0 auto;
-    display: inline-flex;
-    align-items: center;
-    justify-content: center;
-    gap: 8px;
-    padding: 14px 20px;
-    border-radius: 8px;
-    border: 1px solid rgba(255, 255, 255, 0.15);
-    color: var(--text-light);
-    text-decoration: none;
-    font-weight: 600;
-    font-size: 14px;
-  }
-
-  .fluxgrid-app .mobile-sticky-cta__book {
-    flex: 1;
-    padding: 14px 16px;
-    font-size: 13px;
-    justify-content: center;
-  }
-
-  .fluxgrid-app {
-    padding-bottom: 72px;
   }
 
   .fluxgrid-app .integrations-layout {
@@ -2171,18 +2124,6 @@
 
   .fluxgrid-app .hero-trust-line {
     max-width: 100%;
-  }
-}
-
-@media (max-width: 480px) {
-  .fluxgrid-app .mobile-sticky-cta__call {
-    padding: 12px 14px;
-    font-size: 13px;
-  }
-
-  .fluxgrid-app .mobile-sticky-cta__book {
-    font-size: 12px;
-    padding: 12px 14px;
   }
 }
 
