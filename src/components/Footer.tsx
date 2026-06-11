@@ -1,21 +1,18 @@
 import { FluxGridLogo } from './FluxGridLogo';
-import { useDemoModal } from '../context/DemoModalContext';
 
 const siteLinks = [
   { label: 'The problem', href: '#leaks' },
   { label: 'How it works', href: '#how-it-works' },
+  { label: 'About', href: '#about' },
   { label: 'FAQ', href: '#faq' },
 ];
 
 const contactLinks = [
   { label: 'hello@fluxgrid.io', href: 'mailto:hello@fluxgrid.io' },
   { label: '(800) 555-1234', href: 'tel:+18005551234' },
-  { label: 'Privacy', href: '#' },
-  { label: 'Terms', href: '#' },
 ];
 
 export function Footer() {
-  const { openDemoModal } = useDemoModal();
   const year = new Date().getFullYear();
 
   return (
@@ -24,9 +21,12 @@ export function Footer() {
         <div className="footer-main">
           <div className="footer-brand">
             <a href="#" className="logo footer-logo">
-              <FluxGridLogo size="md" variant="light" />
+              <FluxGridLogo size="sm" variant="light" />
             </a>
-            <p>After-hours phone coverage for electrical contractors.</p>
+            <p className="footer-brand-tagline">
+              24/7 AI missed call receptionists built to quality leads and secure jobs for
+              electrical shops.
+            </p>
           </div>
 
           <nav className="footer-nav" aria-label="Footer">
@@ -38,13 +38,9 @@ export function Footer() {
                     <a href={link.href}>{link.label}</a>
                   </li>
                 ))}
-                <li>
-                  <button type="button" className="footer-link-button" onClick={openDemoModal}>
-                    Book demo
-                  </button>
-                </li>
               </ul>
             </div>
+
             <div className="footer-nav-col">
               <span className="footer-nav-label">Contact</span>
               <ul>
@@ -60,7 +56,17 @@ export function Footer() {
 
         <div className="footer-bottom">
           <span>&copy; {year} FluxGrid</span>
-          <span className="footer-bottom-tag">Electrical contractors only</span>
+          <span className="footer-bottom-meta">
+            <a href="#">Privacy</a>
+            <span className="footer-bottom-sep" aria-hidden="true">
+              ·
+            </span>
+            <a href="#">Terms</a>
+            <span className="footer-bottom-sep" aria-hidden="true">
+              ·
+            </span>
+            <span>Electrical contractors only</span>
+          </span>
         </div>
       </div>
     </footer>
