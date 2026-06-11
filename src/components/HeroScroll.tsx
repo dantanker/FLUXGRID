@@ -2,6 +2,7 @@ import heroIphone from '../assets/hero-iphone.png';
 import { CircuitLines } from './CircuitLines';
 import { DemoCtaButton } from './DemoCtaButton';
 import { IntegrationLogos } from './IntegrationLogos';
+import { Reveal } from './motion/Reveal';
 
 export function HeroScroll() {
   return (
@@ -10,7 +11,7 @@ export function HeroScroll() {
       <CircuitLines />
 
       <div className="container hero-grid">
-        <div className="hero-copy">
+        <Reveal className="hero-copy" delay={0.05}>
           <h1 className="hero-headline">We answer your shop phone when you can&apos;t.</h1>
           <p className="hero-lead">
             After hours and busy days, FluxGrid takes the call and books the job into your CRM.
@@ -19,10 +20,12 @@ export function HeroScroll() {
           <div className="hero-actions">
             <DemoCtaButton className="cta-btn cta-btn--primary">See a demo call</DemoCtaButton>
           </div>
-        </div>
+        </Reveal>
 
-        <div className="hero-visual">
+        <Reveal className="hero-visual" delay={0.12} direction="right">
           <div className="hero-phone-frame">
+            <span className="hero-phone-ring" aria-hidden="true" />
+            <span className="hero-phone-ring hero-phone-ring--2" aria-hidden="true" />
             <img
               src={heroIphone}
               alt="FluxGrid answering an electrical service call"
@@ -33,12 +36,12 @@ export function HeroScroll() {
               draggable={false}
             />
           </div>
-        </div>
+        </Reveal>
       </div>
 
-      <div className="container hero-integrations">
+      <Reveal className="container hero-integrations" delay={0.2}>
         <IntegrationLogos />
-      </div>
+      </Reveal>
     </section>
   );
 }

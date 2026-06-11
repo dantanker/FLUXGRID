@@ -1,3 +1,5 @@
+import { Reveal, RevealItem, RevealStagger } from './motion/Reveal';
+
 const journeySteps = [
   {
     number: 'Step 1',
@@ -37,7 +39,7 @@ export function ProofSection() {
       <div className="proof-section__grid electrical-grid-bg" aria-hidden="true" />
 
       <div className="container proof-layout">
-        <div className="proof-copy">
+        <Reveal className="proof-copy">
           <h2 id="proof-headline" className="proof-headline">
             You aren&apos;t losing jobs to better companies. You&apos;re losing them to faster
             responses.
@@ -47,34 +49,37 @@ export function ProofSection() {
             listing on Google. If your team is tied up for even five minutes, that revenue is gone
             forever.
           </p>
-        </div>
+        </Reveal>
 
-        <div className="proof-journey" role="region" aria-label="Customer search journey">
-          <ol className="proof-journey__list">
-            {journeySteps.map((step, index) => (
-              <li
-                key={step.number}
-                className={`proof-journey__item proof-journey__item--${step.variant}`}
-              >
-                <div className="proof-journey__track" aria-hidden="true">
-                  <span className="proof-journey__dot" />
-                  {index < journeySteps.length - 1 ? (
-                    <span className="proof-journey__line" />
-                  ) : null}
-                </div>
-                <div className="proof-journey__content">
-                  <p className="proof-journey__heading">
-                    <span className="proof-journey__number">{step.number}</span>
-                    <span className="proof-journey__label">{step.label}</span>
-                  </p>
-                  <p className="proof-journey__detail">
-                    {step.variant === 'dropoff' ? <>[ {step.detail} ]</> : step.detail}
-                  </p>
-                </div>
-              </li>
-            ))}
-          </ol>
-        </div>
+        <Reveal className="proof-journey" delay={0.08} direction="right">
+          <div role="region" aria-label="Customer search journey">
+            <RevealStagger as="ol" className="proof-journey__list" stagger={0.07}>
+              {journeySteps.map((step, index) => (
+                <RevealItem
+                  as="li"
+                  key={step.number}
+                  className={`proof-journey__item proof-journey__item--${step.variant}`}
+                >
+                  <div className="proof-journey__track" aria-hidden="true">
+                    <span className="proof-journey__dot" />
+                    {index < journeySteps.length - 1 ? (
+                      <span className="proof-journey__line" />
+                    ) : null}
+                  </div>
+                  <div className="proof-journey__content">
+                    <p className="proof-journey__heading">
+                      <span className="proof-journey__number">{step.number}</span>
+                      <span className="proof-journey__label">{step.label}</span>
+                    </p>
+                    <p className="proof-journey__detail">
+                      {step.variant === 'dropoff' ? <>[ {step.detail} ]</> : step.detail}
+                    </p>
+                  </div>
+                </RevealItem>
+              ))}
+            </RevealStagger>
+          </div>
+        </Reveal>
       </div>
     </section>
   );

@@ -7,8 +7,39 @@ const __dirname = path.dirname(fileURLToPath(import.meta.url));
 const logoPath = path.join(__dirname, '../src/assets/fluxgrid-logo.png');
 const tempPath = `${logoPath}.tmp`;
 
-function isBackground(r, g, b, threshold = 42) {
+function isOrange(r, g, b) {
+  return r > 130 && g > 65 && b < 110 && r >= g && g > b * 0.8;
+}
+
+function isFluxNavy(r, g, b) {
+  return b > r + 8 && b >= g - 4 && b > 40;
+}
+
+function isExteriorBackground(r, g, b, threshold = 42) {
+  if (isFluxNavy(r, g, b)) return false;
   return r <= threshold && g <= threshold && b <= threshold;
+}
+
+function isInteriorHole(r, g, b) {
+  if (isOrange(r, g, b) || isFluxNavy(r, g, b)) return false;
+  const lum = 0.2126 * r + 0.7152 * g + 0.0722 * b;
+  return lum < 40;
+}
+
+function clearInteriorHoles(pixels, width, height, channels) {
+  for (let y = 0; y < height; y += 1) {
+    for (let x = 0; x < width; x += 1) {
+      const offset = (y * width + x) * channels;
+      if (pixels[offset + 3] === 0) continue;
+
+      const r = pixels[offset];
+      const g = pixels[offset + 1];
+      const b = pixels[offset + 2];
+      if (isInteriorHole(r, g, b)) {
+        pixels[offset + 3] = 0;
+      }
+    }
+  }
 }
 
 const image = sharp(logoPath);
@@ -39,13 +70,15 @@ while (queue.length > 0) {
   const g = pixels[offset + 1];
   const b = pixels[offset + 2];
 
-  if (!isBackground(r, g, b)) continue;
+  if (!isExteriorBackground(r, g, b)) continue;
 
   visited[idx] = 1;
   pixels[offset + 3] = 0;
 
   queue.push([x + 1, y], [x - 1, y], [x, y + 1], [x, y - 1]);
 }
+
+clearInteriorHoles(pixels, width, height, channels);
 
 await sharp(Buffer.from(pixels), {
   raw: { width, height, channels },
@@ -55,4 +88,4 @@ await sharp(Buffer.from(pixels), {
 
 fs.renameSync(tempPath, logoPath);
 
-console.log(`Removed black background from ${logoPath}`);
+console.log(`Removed logo background and interior letter holes: ${logoPath}`);

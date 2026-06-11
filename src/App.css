@@ -121,6 +121,7 @@
   right: 0;
   width: 100%;
   z-index: 1000;
+  animation: header-enter 0.55s cubic-bezier(0.22, 1, 0.36, 1) both;
 }
 
 .fluxgrid-app > header .nav-container {
@@ -137,6 +138,17 @@
   from {
     opacity: 0;
     transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes header-enter {
+  from {
+    opacity: 0;
+    transform: translateY(-8px);
   }
   to {
     opacity: 1;
@@ -226,10 +238,22 @@
 .fluxgrid-app .fluxgrid-logo {
   display: block;
   width: auto;
-  max-width: min(100%, 240px);
+  max-width: min(100%, 220px);
   height: auto;
   object-fit: contain;
   filter: none;
+}
+
+.fluxgrid-app .fluxgrid-logo--sm {
+  height: 28px;
+}
+
+.fluxgrid-app .fluxgrid-logo--md {
+  height: 36px;
+}
+
+.fluxgrid-app .fluxgrid-logo--lg {
+  height: 44px;
 }
 
 .fluxgrid-app nav {
@@ -2039,8 +2063,12 @@
   }
 
   .fluxgrid-app > header img.fluxgrid-logo {
-    height: 38px !important;
+    height: 32px !important;
     width: auto !important;
+  }
+
+  .fluxgrid-app .footer-logo .fluxgrid-logo {
+    height: 32px;
   }
 
   .fluxgrid-app .calculator-section,
@@ -3092,50 +3120,13 @@
   border-bottom-color: var(--border-color);
 }
 
-/* Wordmark logo */
-.fluxgrid-wordmark {
-  display: inline-flex;
-  align-items: center;
-  text-decoration: none;
-  line-height: 1;
-}
-
-.fluxgrid-wordmark__icon {
-  color: var(--accent);
-  flex-shrink: 0;
-  transition: transform 0.35s cubic-bezier(0.22, 1, 0.36, 1);
-}
-
-.fluxgrid-wordmark:hover .fluxgrid-wordmark__icon {
-  transform: scale(1.06);
-}
-
-.fluxgrid-wordmark__text {
-  display: inline-flex;
-  align-items: baseline;
-  font-family: var(--font-serif);
-  font-weight: 600;
-  letter-spacing: -0.03em;
-}
-
-.fluxgrid-wordmark__flux {
-  color: var(--text-light);
-}
-
-.fluxgrid-wordmark__grid {
-  color: var(--accent);
-}
-
-.fluxgrid-wordmark--light .fluxgrid-wordmark__flux {
-  color: var(--text-on-dark);
-}
-
-.fluxgrid-wordmark--light .fluxgrid-wordmark__grid {
-  color: #d4b04a;
+/* Logo */
+.fluxgrid-app .logo:hover .fluxgrid-logo {
+  opacity: 0.92;
 }
 
 .fluxgrid-app .fluxgrid-logo {
-  display: none;
+  transition: opacity 0.2s ease;
 }
 
 /* Nav link underline */
@@ -3186,7 +3177,9 @@
   stroke-linejoin: round;
   stroke-dasharray: 1;
   stroke-dashoffset: 1;
-  animation: circuit-draw 4.5s cubic-bezier(0.22, 1, 0.36, 1) forwards;
+  animation:
+    circuit-draw 4.5s cubic-bezier(0.22, 1, 0.36, 1) forwards,
+    circuit-glow 6s ease-in-out 5s infinite;
 }
 
 .circuit-lines__path--b {
@@ -3222,6 +3215,17 @@
 @keyframes circuit-draw {
   to {
     stroke-dashoffset: 0;
+  }
+}
+
+@keyframes circuit-glow {
+  0%,
+  100% {
+    stroke: rgba(143, 111, 26, 0.12);
+  }
+
+  50% {
+    stroke: rgba(143, 111, 26, 0.22);
   }
 }
 
@@ -3409,6 +3413,11 @@
     opacity: 0.35;
   }
 
+  .fluxgrid-app > header,
+  .site-background {
+    animation: none;
+  }
+
   .fluxgrid-app .step-flow__fill {
     transform: scaleY(1);
   }
@@ -3433,12 +3442,6 @@
   font-family: var(--font-sans);
   font-weight: 700;
   letter-spacing: -0.03em;
-}
-
-.fluxgrid-wordmark__text {
-  font-family: var(--font-sans);
-  font-weight: 700;
-  letter-spacing: -0.04em;
 }
 
 .fluxgrid-app .hero-kicker,

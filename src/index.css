@@ -34,5 +34,27 @@ body {
     linear-gradient(rgba(143, 111, 26, 0.065) 1px, transparent 1px),
     linear-gradient(90deg, rgba(143, 111, 26, 0.065) 1px, transparent 1px);
   background-size: 36px 36px, 36px 36px, 144px 144px, 144px 144px;
-  background-position: center top;
+  background-position: center top, center top, center top, center top;
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  .site-background {
+    animation: grid-drift 56s linear infinite;
+  }
+}
+
+@keyframes grid-drift {
+  from {
+    background-position: center 0, center 0, center 0, center 0;
+  }
+
+  to {
+    background-position: center 36px, center 36px, center 144px, center 144px;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .site-background {
+    animation: none;
+  }
 }

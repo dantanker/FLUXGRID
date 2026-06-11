@@ -10,7 +10,7 @@ import { Footer } from './components/Footer';
 import { SiteHeader } from './components/SiteHeader';
 import { ClosingCta } from './components/ClosingCta';
 import { DemoModalProvider } from './context/DemoModalContext';
-import { Reveal } from './components/motion/Reveal';
+import { Reveal, RevealItem, RevealStagger } from './components/motion/Reveal';
 import './App.css';
 
 const faqItems = [
@@ -128,17 +128,18 @@ function App() {
               </p>
             </Reveal>
 
-            <div className="faq-list">
+            <RevealStagger className="faq-list" stagger={0.06}>
               {faqItems.map((item, index) => (
-                <FaqItem
-                  key={item.question}
-                  question={item.question}
-                  answer={item.answer}
-                  isOpen={activeFaq === index}
-                  onToggle={() => toggleFaq(index)}
-                />
+                <RevealItem key={item.question}>
+                  <FaqItem
+                    question={item.question}
+                    answer={item.answer}
+                    isOpen={activeFaq === index}
+                    onToggle={() => toggleFaq(index)}
+                  />
+                </RevealItem>
               ))}
-            </div>
+            </RevealStagger>
           </div>
         </section>
 

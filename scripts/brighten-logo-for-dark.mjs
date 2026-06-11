@@ -4,7 +4,7 @@ import { fileURLToPath } from 'url';
 import path from 'path';
 
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
-const logoPath = path.join(__dirname, '../src/assets/fluxgrid-logo.png');
+const logoPath = path.join(__dirname, '../src/assets/fluxgrid-logo-light.png');
 const tempPath = `${logoPath}.tmp`;
 
 function luminance(r, g, b) {

@@ -1,6 +1,7 @@
 import step1IncomingCall from '../assets/how-it-works/step-1-incoming-call.png';
 import step2CallDetails from '../assets/how-it-works/step-2-call-details.png';
 import step3JobsBoard from '../assets/how-it-works/step-3-jobs-board.png';
+import { Reveal, RevealItem, RevealStagger } from './motion/Reveal';
 
 const steps = [
   {
@@ -30,16 +31,16 @@ export function HowItWorksSection() {
   return (
     <section className="process-section" id="how-it-works">
       <div className="container">
-        <div className="section-intro section-intro--left">
+        <Reveal className="section-intro section-intro--left">
           <h2 className="section-title section-title--left">How it works</h2>
           <p className="section-subtitle section-subtitle--left">
             Same phone number. Jobs booked to your CRM. Live in about a week.
           </p>
-        </div>
+        </Reveal>
 
-        <ol className="step-list">
+        <RevealStagger as="ol" className="step-list" stagger={0.1}>
           {steps.map((step, index) => (
-            <li key={step.title} className="step-item">
+            <RevealItem as="li" key={step.title} className="step-item">
               <div className="step-item__content">
                 <span className="step-item__index">{index + 1}</span>
                 <h3 className="step-item__title">{step.title}</h3>
@@ -48,9 +49,9 @@ export function HowItWorksSection() {
               <div className="step-item__visual">
                 <img src={step.image} alt={step.imageAlt} loading="lazy" decoding="async" />
               </div>
-            </li>
+            </RevealItem>
           ))}
-        </ol>
+        </RevealStagger>
       </div>
     </section>
   );

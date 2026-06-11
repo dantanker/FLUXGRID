@@ -1,5 +1,5 @@
 import { motion, useReducedMotion, type Variants } from 'framer-motion';
-import type { ReactNode } from 'react';
+import type { ElementType, ReactNode } from 'react';
 
 type RevealProps = {
   children: ReactNode;
@@ -7,6 +7,8 @@ type RevealProps = {
   delay?: number;
   direction?: 'up' | 'left' | 'right';
 };
+
+type MotionElement = 'div' | 'ol' | 'ul' | 'li' | 'section';
 
 const ease = [0.22, 1, 0.36, 1] as const;
 
@@ -19,6 +21,10 @@ function getOffset(direction: RevealProps['direction']) {
     default:
       return { x: 0, y: 22 };
   }
+}
+
+function motionTag(tag: MotionElement) {
+  return motion[tag] as ElementType;
 }
 
 export function Reveal({
@@ -59,15 +65,18 @@ export function RevealStagger({
   children,
   className,
   stagger = 0.08,
+  as = 'div',
 }: {
   children: ReactNode;
   className?: string;
   stagger?: number;
+  as?: MotionElement;
 }) {
   const reduceMotion = useReducedMotion();
+  const MotionComponent = motionTag(as);
 
   return (
-    <motion.div
+    <MotionComponent
       className={className}
       initial="hidden"
       whileInView="visible"
@@ -84,21 +93,24 @@ export function RevealStagger({
       }
     >
       {children}
-    </motion.div>
+    </MotionComponent>
   );
 }
 
 export function RevealItem({
   children,
   className,
+  as = 'div',
 }: {
   children: ReactNode;
   className?: string;
+  as?: MotionElement;
 }) {
   const reduceMotion = useReducedMotion();
+  const MotionComponent = motionTag(as);
 
   return (
-    <motion.div
+    <MotionComponent
       className={className}
       variants={
         reduceMotion
@@ -114,6 +126,6 @@ export function RevealItem({
       }
     >
       {children}
-    </motion.div>
+    </MotionComponent>
   );
 }
