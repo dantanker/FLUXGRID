@@ -4,31 +4,25 @@ import step3JobsBoard from '../assets/how-it-works/step-3-jobs-board.png';
 
 const steps = [
   {
-    title: '1. Answer Every Call',
-    subtitle: '24/7 INSTANT RESPONSE',
+    title: 'We answer your line',
     description:
-      'Picks up when your office is closed or already on another line. The caller hears your shop name and a real person-style greeting — not "leave a message after the beep."',
+      'When you\'re closed or on another call. Same phone number your customers already dial.',
     image: step1IncomingCall,
-    imageAlt: 'iPhone showing an incoming electrical service call answered by FluxGrid',
-    visualClass: 'process-card__visual--phone',
+    imageAlt: 'Incoming call answered on your shop line',
   },
   {
-    title: '2. Qualify the Job',
-    subtitle: 'INTELLIGENT TRIAGE',
+    title: 'We qualify the call',
     description:
-      'Asks exactly what a master dispatcher would: sparks, burning smells, full or partial outages, and panel access. True emergencies are instantly flagged and bumped to the front of the queue.',
+      'Your intake questions — what\'s wrong, where, and whether it needs the on-call tech now.',
     image: step2CallDetails,
-    imageAlt: 'CRM call details screen with customer info, priority, and job type captured from the call',
-    visualClass: 'process-card__visual--crm',
+    imageAlt: 'Call details captured in your CRM',
   },
   {
-    title: '3. Book Into Your CRM',
-    subtitle: 'CRM SYNCHRONIZED',
+    title: 'We book the job',
     description:
-      'The qualified job drops directly into ServiceTitan, Jobber, or Housecall Pro with complete customer notes, address, and priority level. Your morning dispatch looks exactly the same—just with a much fuller board.',
+      'Straight into your CRM with notes and priority. Dispatch handles it like any other job.',
     image: step3JobsBoard,
-    imageAlt: 'Jobs board with scheduled electrical work orders assigned to technicians',
-    visualClass: 'process-card__visual--board',
+    imageAlt: 'New job on your dispatch board',
   },
 ];
 
@@ -36,28 +30,27 @@ export function HowItWorksSection() {
   return (
     <section className="process-section" id="how-it-works">
       <div className="container">
-        <div className="section-intro">
-          <h2 className="section-title">How It Works</h2>
-          <p className="section-subtitle">
-            Our 24/7 Intelligent Dispatch Engine automates your intake in three simple steps—zero
-            extra headcount required.
+        <div className="section-intro section-intro--left">
+          <h2 className="section-title section-title--left">How it works</h2>
+          <p className="section-subtitle section-subtitle--left">
+            Same phone number. Jobs booked to your CRM. Live in about a week.
           </p>
         </div>
 
-        <div className="grid-3">
-          {steps.map((step) => (
-            <article key={step.title} className="process-card">
-              <div className={`process-card__visual ${step.visualClass}`}>
+        <ol className="step-list">
+          {steps.map((step, index) => (
+            <li key={step.title} className="step-item">
+              <div className="step-item__content">
+                <span className="step-item__index">{index + 1}</span>
+                <h3 className="step-item__title">{step.title}</h3>
+                <p className="step-item__description">{step.description}</p>
+              </div>
+              <div className="step-item__visual">
                 <img src={step.image} alt={step.imageAlt} loading="lazy" decoding="async" />
               </div>
-              <div className="process-card__copy">
-                <h3>{step.title}</h3>
-                <div className="tech-subtitle">{step.subtitle}</div>
-                <p>{step.description}</p>
-              </div>
-            </article>
+            </li>
           ))}
-        </div>
+        </ol>
       </div>
     </section>
   );

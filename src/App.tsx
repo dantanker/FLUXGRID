@@ -1,17 +1,17 @@
-import { useState, useMemo } from 'react';
-import { FluxGridLogo } from './components/FluxGridLogo';
+import { useState } from 'react';
+import { motion, useReducedMotion } from 'framer-motion';
 import { HeroScroll } from './components/HeroScroll';
+import { ProofSection } from './components/ProofSection';
 import { AudienceSection } from './components/AudienceSection';
 import { HowItWorksSection } from './components/HowItWorksSection';
 import { DemoModal } from './components/DemoModal';
-import { DemoCtaButton } from './components/DemoCtaButton';
 import { ElectricalGridBackground } from './components/ElectricalGridBackground';
 import { Footer } from './components/Footer';
+import { SiteHeader } from './components/SiteHeader';
+import { ClosingCta } from './components/ClosingCta';
 import { DemoModalProvider } from './context/DemoModalContext';
+import { Reveal } from './components/motion/Reveal';
 import './App.css';
-
-const CONVERSION_RATE = 0.4;
-const MONTHLY_WEEKS = 4.33;
 
 const faqItems = [
   {
@@ -56,15 +56,53 @@ const faqItems = [
   },
 ];
 
+function FaqItem({
+  question,
+  answer,
+  isOpen,
+  onToggle,
+}: {
+  question: string;
+  answer: string;
+  isOpen: boolean;
+  onToggle: () => void;
+}) {
+  const reduceMotion = useReducedMotion();
+
+  return (
+    <div className={`faq-item${isOpen ? ' active' : ''}`}>
+      <button
+        type="button"
+        className="faq-question"
+        onClick={onToggle}
+        aria-expanded={isOpen}
+      >
+        {question}
+        <span className="faq-icon" aria-hidden="true">
+          {isOpen ? '−' : '+'}
+        </span>
+      </button>
+      <motion.div
+        className="faq-answer-wrap"
+        initial={false}
+        animate={{
+          height: isOpen ? 'auto' : 0,
+          opacity: isOpen ? 1 : 0,
+        }}
+        transition={
+          reduceMotion
+            ? { duration: 0 }
+            : { duration: 0.38, ease: [0.22, 1, 0.36, 1] }
+        }
+      >
+        <div className="faq-answer">{answer}</div>
+      </motion.div>
+    </div>
+  );
+}
+
 function App() {
   const [activeFaq, setActiveFaq] = useState<number | null>(null);
-  const [missedCalls, setMissedCalls] = useState(5);
-  const [ticketValue, setTicketValue] = useState(1200);
-
-  const calculatedLoss = useMemo(
-    () => Math.round(missedCalls * CONVERSION_RATE * ticketValue * MONTHLY_WEEKS),
-    [missedCalls, ticketValue],
-  );
 
   const toggleFaq = (index: number) => {
     setActiveFaq(activeFaq === index ? null : index);
@@ -74,115 +112,37 @@ function App() {
     <DemoModalProvider>
       <ElectricalGridBackground />
       <div className="fluxgrid-app">
-        <header>
-          <div className="container nav-container">
-            <a href="#" className="logo">
-              <FluxGridLogo size="md" />
-            </a>
-            <DemoCtaButton className="cta-btn nav header-mobile-cta">Book Demo</DemoCtaButton>
-            <nav>
-              <a href="#leaks">Missed Revenue</a>
-              <a href="#how-it-works">How It Works</a>
-              <a href="#faq">FAQ</a>
-              <DemoCtaButton className="cta-btn nav">Book Demo</DemoCtaButton>
-            </nav>
-          </div>
-        </header>
+        <SiteHeader />
 
         <HeroScroll />
-
-        <section className="calculator-section" id="leaks">
-          <div className="container">
-            <div className="section-intro">
-              <h2 className="section-title">What Missed Calls Cost Your Shop</h2>
-              <p className="section-subtitle">
-                Most owners watch fuel, materials, and payroll — but not the jobs that go to
-                voicemail when the crew is tied up. Plug in rough numbers for your shop.
-              </p>
-            </div>
-
-            <div className="calc-box">
-              <div className="calc-inputs">
-                <div className="slider-group">
-                  <div className="slider-label">
-                    <span>Missed Calls Per Week</span>
-                    <span className="value-display">{missedCalls}</span>
-                  </div>
-                  <input
-                    type="range"
-                    min={1}
-                    max={25}
-                    value={missedCalls}
-                    onChange={(e) => setMissedCalls(parseInt(e.target.value, 10))}
-                  />
-                </div>
-
-                <div className="slider-group">
-                  <div className="slider-label">
-                    <span>Average Job Value</span>
-                    <span className="value-display">${ticketValue.toLocaleString()}</span>
-                  </div>
-                  <input
-                    type="range"
-                    min={300}
-                    max={5000}
-                    step={100}
-                    value={ticketValue}
-                    onChange={(e) => setTicketValue(parseInt(e.target.value, 10))}
-                  />
-                </div>
-
-                <p className="calc-disclaimer">
-                  *Calculated assuming a conservative 40% booking rate on captured leads.
-                </p>
-              </div>
-
-              <div className="calc-results">
-                <h4>
-                  <span className="pulse-dot" />
-                  Estimated Monthly Loss
-                </h4>
-                <div className="leak-counter">${calculatedLoss.toLocaleString()}</div>
-                <DemoCtaButton className="cta-btn full-width">
-                  Reclaim Your Missed Revenue
-                </DemoCtaButton>
-              </div>
-            </div>
-          </div>
-        </section>
-
+        <ProofSection />
         <HowItWorksSection />
-
         <AudienceSection />
 
-        <section className="closer-section" id="faq">
-          <div className="container">
-            <div className="faq-container">
-              <h2 className="section-title" style={{ marginBottom: '24px' }}>
-                Common Questions From Shop Owners
-              </h2>
+        <section className="faq-section" id="faq">
+          <div className="container faq-layout">
+            <Reveal className="faq-header">
+              <h2 className="section-title section-title--left">Questions from shop owners</h2>
+              <p className="section-subtitle section-subtitle--left">
+                Setup, caller experience, and how FluxGrid works alongside your existing team.
+              </p>
+            </Reveal>
 
-              {faqItems.map((item, index) => {
-                const isOpen = activeFaq === index;
-
-                return (
-                  <div key={item.question} className={`faq-item${isOpen ? ' active' : ''}`}>
-                    <button
-                      type="button"
-                      className="faq-question"
-                      onClick={() => toggleFaq(index)}
-                      aria-expanded={isOpen}
-                    >
-                      {item.question} <i className="fa-solid fa-chevron-down" />
-                    </button>
-                    <div className="faq-answer">{item.answer}</div>
-                  </div>
-                );
-              })}
+            <div className="faq-list">
+              {faqItems.map((item, index) => (
+                <FaqItem
+                  key={item.question}
+                  question={item.question}
+                  answer={item.answer}
+                  isOpen={activeFaq === index}
+                  onToggle={() => toggleFaq(index)}
+                />
+              ))}
             </div>
           </div>
         </section>
 
+        <ClosingCta />
         <Footer />
         <DemoModal />
       </div>

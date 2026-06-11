@@ -9,7 +9,7 @@ body {
   width: 100%;
   min-height: 100%;
   overflow-x: hidden;
-  background-color: #090d16;
+  background-color: #faf9f7;
   scroll-padding-top: calc(var(--header-height, 72px) + 16px);
 }
 
@@ -22,13 +22,17 @@ body {
   min-height: 100%;
 }
 
-.electrical-grid-bg {
+.site-background {
   position: fixed;
   inset: 0;
-  width: 100vw;
-  height: 100vh;
   z-index: 0;
-  pointer-events: auto;
-  filter: blur(6px);
-  transform: scale(1.06);
+  pointer-events: none;
+  background-color: #faf9f7;
+  background-image:
+    linear-gradient(rgba(26, 29, 36, 0.045) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(26, 29, 36, 0.045) 1px, transparent 1px),
+    linear-gradient(rgba(143, 111, 26, 0.065) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(143, 111, 26, 0.065) 1px, transparent 1px);
+  background-size: 36px 36px, 36px 36px, 144px 144px, 144px 144px;
+  background-position: center top;
 }

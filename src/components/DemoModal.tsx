@@ -126,10 +126,10 @@ export function DemoModal() {
             </div>
           ) : (
             <>
-              <h2 id="demo-modal-title">See FluxGrid in Action</h2>
+              <h2 id="demo-modal-title">See a demo call</h2>
               <p>
-                A 10-minute, zero-pressure walkthrough showing exactly how we intercept leads and
-                drop them into your CRM.
+                Ten minutes. We run a sample electrical intake and show the job landing on your
+                dispatch board.
               </p>
 
               <form className="demo-form" onSubmit={handleSubmit}>
@@ -212,7 +212,7 @@ export function DemoModal() {
                 </div>
 
                 <button type="submit" className="cta-btn full-width" disabled={isSubmitting}>
-                  {isSubmitting ? 'Connecting...' : 'Request Live Walkthrough 📅'}
+                  {isSubmitting ? 'Submitting…' : 'Request a demo call'}
                 </button>
               </form>
             </>

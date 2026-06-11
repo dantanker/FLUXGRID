@@ -2,8 +2,8 @@ import { FluxGridLogo } from './FluxGridLogo';
 import { useDemoModal } from '../context/DemoModalContext';
 
 const siteLinks = [
-  { label: 'Missed Revenue', href: '#leaks' },
-  { label: 'How It Works', href: '#how-it-works' },
+  { label: 'The problem', href: '#leaks' },
+  { label: 'How it works', href: '#how-it-works' },
   { label: 'FAQ', href: '#faq' },
 ];
 
@@ -24,7 +24,7 @@ export function Footer() {
         <div className="footer-main">
           <div className="footer-brand">
             <a href="#" className="logo footer-logo">
-              <FluxGridLogo size="md" />
+              <FluxGridLogo size="md" variant="light" />
             </a>
             <p>After-hours phone coverage for electrical contractors.</p>
           </div>
@@ -40,7 +40,7 @@ export function Footer() {
                 ))}
                 <li>
                   <button type="button" className="footer-link-button" onClick={openDemoModal}>
-                    Book Demo
+                    Book demo
                   </button>
                 </li>
               </ul>
@@ -60,7 +60,7 @@ export function Footer() {
 
         <div className="footer-bottom">
           <span>&copy; {year} FluxGrid</span>
-          <span className="footer-bottom-tag">Built for electrical shop owners</span>
+          <span className="footer-bottom-tag">Electrical contractors only</span>
         </div>
       </div>
     </footer>
