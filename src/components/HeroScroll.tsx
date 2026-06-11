@@ -12,10 +12,10 @@ export function HeroScroll() {
 
       <div className="container hero-grid">
         <Reveal className="hero-copy" delay={0.05}>
-          <h1 className="hero-headline">We answer your shop phone when you can&apos;t.</h1>
+          <h1 className="hero-headline">Never Miss A Lead.</h1>
           <p className="hero-lead">
-            After hours and busy days, FluxGrid takes the call and books the job into your CRM.
-            Same phone number. No new employees.
+            A 24/7 missed call receptionist that answers when you can&apos;t, qualifies the
+            customer, and books the job into your CRM.
           </p>
           <div className="hero-actions">
             <DemoCtaButton className="cta-btn cta-btn--primary">See a demo call</DemoCtaButton>
