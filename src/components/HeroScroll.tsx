@@ -3,11 +3,22 @@ import { CircuitLines } from './CircuitLines';
 import { DemoCtaButton } from './DemoCtaButton';
 import { IntegrationLogos } from './IntegrationLogos';
 import { Reveal } from './motion/Reveal';
+import { useHeroCursor } from '../hooks/useHeroCursor';
 
 export function HeroScroll() {
+  const { sectionRef, isHovering, onMouseMove, onMouseEnter, onMouseLeave } = useHeroCursor();
+
   return (
-    <section className="hero-section" id="integrations">
-      <div className="hero-electrical-grid electrical-grid-bg" aria-hidden="true" />
+    <section
+      ref={sectionRef}
+      className={`hero-section${isHovering ? ' is-hovering' : ''}`}
+      id="integrations"
+      onMouseMove={onMouseMove}
+      onMouseEnter={onMouseEnter}
+      onMouseLeave={onMouseLeave}
+    >
+      <div className="hero-section__grid" aria-hidden="true" />
+      <div className="hero-section__wash" aria-hidden="true" />
       <CircuitLines />
 
       <div className="container hero-grid">
@@ -18,7 +29,7 @@ export function HeroScroll() {
             customer, and books the job into your CRM.
           </p>
           <div className="hero-actions">
-            <DemoCtaButton className="cta-btn cta-btn--primary">See a demo call</DemoCtaButton>
+            <DemoCtaButton>See a demo call</DemoCtaButton>
           </div>
         </Reveal>
 

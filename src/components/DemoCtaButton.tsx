@@ -5,7 +5,13 @@ type DemoCtaButtonProps = ButtonHTMLAttributes<HTMLButtonElement> & {
   children: ReactNode;
 };
 
-export function DemoCtaButton({ children, onClick, type = 'button', ...props }: DemoCtaButtonProps) {
+export function DemoCtaButton({
+  children,
+  className,
+  onClick,
+  type = 'button',
+  ...props
+}: DemoCtaButtonProps) {
   const { openDemoModal } = useDemoModal();
 
   const handleClick = (event: MouseEvent<HTMLButtonElement>) => {
@@ -14,7 +20,12 @@ export function DemoCtaButton({ children, onClick, type = 'button', ...props }: 
   };
 
   return (
-    <button type={type} onClick={handleClick} {...props}>
+    <button
+      type={type}
+      onClick={handleClick}
+      className={['cta-btn', className].filter(Boolean).join(' ')}
+      {...props}
+    >
       {children}
     </button>
   );

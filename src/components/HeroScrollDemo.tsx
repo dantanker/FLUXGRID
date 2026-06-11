@@ -31,7 +31,7 @@ export function HeroScrollDemo() {
 
           <div className="pointer-events-none absolute inset-0">
             <div className="pointer-events-auto absolute left-1/2 top-[41%] w-[72%] -translate-x-1/2 -translate-y-1/2">
-              <DemoCtaButton className="cta-btn inline-flex w-full items-center justify-center gap-1.5 whitespace-nowrap px-2 py-2.5 text-[9px] leading-none sm:gap-2 sm:px-3 sm:py-3 sm:text-[10px] md:text-[11px]">
+              <DemoCtaButton className="inline-flex w-full items-center justify-center gap-1.5 whitespace-nowrap px-2 py-2.5 text-[9px] leading-none sm:gap-2 sm:px-3 sm:py-3 sm:text-[10px] md:text-[11px]">
                 Stop Missing Leads
                 <ArrowRight className="h-3 w-3 shrink-0 sm:h-3.5 sm:w-3.5" />
               </DemoCtaButton>
