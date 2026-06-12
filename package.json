@@ -8,7 +8,8 @@
     "build": "vite build",
     "lint": "eslint .",
     "preview": "vite preview",
-    "capture:og": "node scripts/capture-hero-og.mjs",
+    "capture:og": "npm run build && node scripts/capture-hero-og.mjs",
+    "generate:favicon": "node scripts/generate-favicon.mjs",
     "typecheck": "tsc --noEmit -p tsconfig.app.json"
   },
   "dependencies": {
