@@ -46,9 +46,11 @@ export function HowItWorksSection() {
         <Reveal className="process-header">
           <p className="process-eyebrow">How it works</p>
           <h2 id="process-heading" className="process-title">
-            Three steps. Same phone number.
+            Same number. Job on your board.
           </h2>
-          <p className="process-lead">Live in about a week. Nothing new for your crew to learn.</p>
+          <p className="process-lead">
+            Live in about a week. Nothing new for your crew.
+          </p>
         </Reveal>
 
         <div className="process-flow-wrap">
