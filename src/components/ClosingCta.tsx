@@ -4,8 +4,6 @@ import { Reveal } from './motion/Reveal';
 export function ClosingCta() {
   return (
     <section className="closing-cta" aria-labelledby="closing-cta-heading">
-      <div className="closing-cta__grid electrical-grid-bg" aria-hidden="true" />
-
       <div className="container closing-cta__inner">
         <Reveal className="closing-cta__content">
           <p className="closing-cta__eyebrow">Demo call</p>

@@ -4,8 +4,6 @@ import { Reveal } from './motion/Reveal';
 export function AboutSection() {
   return (
     <section className="about-section" id="about" aria-labelledby="about-heading">
-      <div className="about-section__grid electrical-grid-bg" aria-hidden="true" />
-
       <div className="container about-inner">
         <Reveal>
           <p className="about-eyebrow">About us</p>

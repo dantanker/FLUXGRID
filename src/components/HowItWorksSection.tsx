@@ -1,12 +1,8 @@
-import { motion, useReducedMotion } from 'framer-motion';
+import { useEffect, useState } from 'react';
 import step1IncomingCall from '../assets/how-it-works/step-1-incoming-call.png';
 import step2CallDetails from '../assets/how-it-works/step-2-call-details.png';
 import step3JobsBoard from '../assets/how-it-works/step-3-jobs-board.png';
 import { Reveal } from './motion/Reveal';
-
-const ease = [0.22, 1, 0.36, 1] as const;
-
-const viewport = { once: true, amount: 0.25 as const };
 
 const steps = [
   {
@@ -16,6 +12,7 @@ const steps = [
       "When you're closed or on another call. Same number your customers already dial.",
     image: step1IncomingCall,
     imageAlt: 'Incoming call answered on your shop line',
+    visual: 'phone' as const,
   },
   {
     num: '02',
@@ -24,6 +21,7 @@ const steps = [
       "Your intake questions — what's wrong, where, and whether it needs the on-call tech now.",
     image: step2CallDetails,
     imageAlt: 'Call details captured in your CRM',
+    visual: 'browser' as const,
   },
   {
     num: '03',
@@ -32,137 +30,133 @@ const steps = [
       'Job lands with notes and priority. Dispatch handles it like any other job.',
     image: step3JobsBoard,
     imageAlt: 'New job on your dispatch board',
+    visual: 'browser' as const,
   },
 ] as const;
 
+function ProcessVisualFrame({ step }: { step: (typeof steps)[number] }) {
+  if (step.visual === 'phone') {
+    return (
+      <div className="process-visual-phone">
+        <img src={step.image} alt={step.imageAlt} decoding="async" />
+      </div>
+    );
+  }
+
+  return (
+    <div className="process-row__frame">
+      <div className="process-row__chrome" aria-hidden="true">
+        <span />
+        <span />
+        <span />
+      </div>
+      <div className="process-row__frame-body">
+        <img src={step.image} alt={step.imageAlt} decoding="async" />
+      </div>
+    </div>
+  );
+}
+
+function ProcessStepCard({
+  step,
+  isActive,
+  onSelect,
+}: {
+  step: (typeof steps)[number];
+  isActive: boolean;
+  onSelect: () => void;
+}) {
+  return (
+    <button
+      type="button"
+      className={`process-step-card${isActive ? ' is-active' : ''}`}
+      aria-current={isActive ? 'step' : undefined}
+      onClick={onSelect}
+    >
+      <span className="process-step__num">{step.num}</span>
+      <h3 className="process-step__title">{step.title}</h3>
+      <p className="process-step__description">{step.description}</p>
+    </button>
+  );
+}
+
+function ProcessShowcase() {
+  const [activeStep, setActiveStep] = useState(0);
+  const active = steps[activeStep];
+
+  return (
+    <div className="process-showcase">
+      <div className="process-showcase__steps">
+        {steps.map((step, index) => (
+          <ProcessStepCard
+            key={step.num}
+            step={step}
+            isActive={activeStep === index}
+            onSelect={() => setActiveStep(index)}
+          />
+        ))}
+      </div>
+
+      <div className="process-showcase__visual" aria-live="polite">
+        <div className={`process-visual-viewport process-visual-viewport--${active.visual}`}>
+          {steps.map((step, index) => (
+            <div
+              key={step.num}
+              className={`process-visual-slide process-visual-slide--${step.visual}${activeStep === index ? ' is-active' : ''}`}
+              aria-hidden={activeStep !== index}
+            >
+              <ProcessVisualFrame step={step} />
+            </div>
+          ))}
+        </div>
+      </div>
+    </div>
+  );
+}
+
+function ProcessStacked() {
+  return (
+    <ol className="process-stack">
+      {steps.map((step) => (
+        <li key={step.num} className="process-stack__item">
+          <article className="process-step-card is-active">
+            <span className="process-step__num">{step.num}</span>
+            <h3 className="process-step__title">{step.title}</h3>
+            <p className="process-step__description">{step.description}</p>
+          </article>
+          <div className="process-stack__visual">
+            <ProcessVisualFrame step={step} />
+          </div>
+        </li>
+      ))}
+    </ol>
+  );
+}
+
 export function HowItWorksSection() {
-  const reduceMotion = useReducedMotion();
+  const [isMobile, setIsMobile] = useState(
+    () => typeof window !== 'undefined' && window.matchMedia('(max-width: 900px)').matches,
+  );
+
+  useEffect(() => {
+    const media = window.matchMedia('(max-width: 900px)');
+    const update = () => setIsMobile(media.matches);
+    media.addEventListener('change', update);
+    return () => media.removeEventListener('change', update);
+  }, []);
 
   return (
     <section className="process-section" id="how-it-works" aria-labelledby="process-heading">
-      <div className="process-section__grid electrical-grid-bg" aria-hidden="true" />
-
       <div className="container process-inner">
         <Reveal className="process-header">
           <p className="process-eyebrow">How it works</p>
           <h2 id="process-heading" className="process-title">
             Same number. Job on your board.
           </h2>
-          <p className="process-lead">
-            Live in about a week. Nothing new for your crew.
-          </p>
+          <p className="process-lead">Live in about a week. Nothing new for your crew.</p>
         </Reveal>
 
-        <div className="process-flow-wrap">
-          {!reduceMotion ? (
-            <motion.div
-              className="process-flow__line"
-              aria-hidden="true"
-              initial={{ scaleY: 0, opacity: 0 }}
-              whileInView={{ scaleY: 1, opacity: 1 }}
-              viewport={viewport}
-              transition={{ duration: 1, ease, delay: 0.05 }}
-              style={{ transformOrigin: 'top center' }}
-            />
-          ) : (
-            <div className="process-flow__line" aria-hidden="true" />
-          )}
-
-          <ol className="process-flow">
-            {steps.map((step, index) => {
-              const copyX = index % 2 === 0 ? -24 : 24;
-              const visualX = index % 2 === 0 ? 32 : -32;
-              const rowDelay = index * 0.12;
-
-              return (
-                <li
-                  key={step.num}
-                  className={`process-row${index % 2 === 1 ? ' process-row--reverse' : ''}`}
-                >
-                  {reduceMotion ? (
-                    <div className="process-row__marker" aria-hidden="true">
-                      <span className="process-row__dot" />
-                    </div>
-                  ) : (
-                    <motion.div
-                      className="process-row__marker"
-                      aria-hidden="true"
-                      initial={{ scale: 0, opacity: 0 }}
-                      whileInView={{ scale: 1, opacity: 1 }}
-                      viewport={viewport}
-                      transition={{ duration: 0.4, ease, delay: rowDelay + 0.05 }}
-                    >
-                      <span className="process-row__dot" />
-                    </motion.div>
-                  )}
-
-                  <div className="process-row__body">
-                    {reduceMotion ? (
-                      <div className="process-row__copy" data-step={step.num}>
-                        <span className="process-step__num">{step.num}</span>
-                        <h3 className="process-step__title">{step.title}</h3>
-                        <p className="process-step__description">{step.description}</p>
-                      </div>
-                    ) : (
-                      <motion.div
-                        className="process-row__copy"
-                        data-step={step.num}
-                        initial={{ opacity: 0, x: copyX }}
-                        whileInView={{ opacity: 1, x: 0 }}
-                        viewport={viewport}
-                        transition={{ duration: 0.6, ease, delay: rowDelay + 0.1 }}
-                      >
-                        <span className="process-step__num">{step.num}</span>
-                        <h3 className="process-step__title">{step.title}</h3>
-                        <p className="process-step__description">{step.description}</p>
-                      </motion.div>
-                    )}
-
-                    {reduceMotion ? (
-                      <div className="process-row__visual">
-                        <div className="process-row__frame">
-                          <div className="process-row__chrome" aria-hidden="true">
-                            <span />
-                            <span />
-                            <span />
-                          </div>
-                          <img
-                            src={step.image}
-                            alt={step.imageAlt}
-                            loading="lazy"
-                            decoding="async"
-                          />
-                        </div>
-                      </div>
-                    ) : (
-                      <motion.div
-                        className="process-row__visual"
-                        initial={{ opacity: 0, x: visualX, scale: 0.96 }}
-                        whileInView={{ opacity: 1, x: 0, scale: 1 }}
-                        viewport={viewport}
-                        transition={{ duration: 0.65, ease, delay: rowDelay + 0.2 }}
-                      >
-                        <div className="process-row__frame">
-                          <div className="process-row__chrome" aria-hidden="true">
-                            <span />
-                            <span />
-                            <span />
-                          </div>
-                          <img
-                            src={step.image}
-                            alt={step.imageAlt}
-                            loading="lazy"
-                            decoding="async"
-                          />
-                        </div>
-                      </motion.div>
-                    )}
-                  </div>
-                </li>
-              );
-            })}
-          </ol>
-        </div>
+        {isMobile ? <ProcessStacked /> : <ProcessShowcase />}
       </div>
     </section>
   );

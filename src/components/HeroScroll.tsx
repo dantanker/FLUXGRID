@@ -17,7 +17,6 @@ export function HeroScroll() {
       onMouseEnter={onMouseEnter}
       onMouseLeave={onMouseLeave}
     >
-      <div className="hero-section__grid" aria-hidden="true" />
       <div className="hero-section__wash" aria-hidden="true" />
       <CircuitLines />
 

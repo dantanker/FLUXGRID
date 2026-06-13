@@ -36,8 +36,6 @@ const journeySteps = [
 export function ProofSection() {
   return (
     <section className="proof-section" id="leaks" aria-labelledby="proof-headline">
-      <div className="proof-section__grid electrical-grid-bg" aria-hidden="true" />
-
       <div className="container proof-layout">
         <Reveal className="proof-copy">
           <h2 id="proof-headline" className="proof-headline">
