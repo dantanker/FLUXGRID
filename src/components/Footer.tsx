@@ -8,7 +8,7 @@ const siteLinks = [
 ];
 
 const contactLinks = [
-  { label: 'hello@fluxgrid.io', href: 'mailto:hello@fluxgrid.io' },
+  { label: 'fluxgridai@gmail.com', href: 'mailto:fluxgridai@gmail.com' },
   { label: '(800) 555-1234', href: 'tel:+18005551234' },
 ];
 
@@ -24,8 +24,8 @@ export function Footer() {
               <FluxGridLogo size="sm" variant="light" />
             </a>
             <p className="footer-brand-tagline">
-              24/7 AI missed call receptionists built to quality leads and secure jobs for
-              electrical shops.
+              A 24/7 missed call receptionist that answers when you can&apos;t, qualifies the
+              customer, and books the job into your CRM.
             </p>
           </div>
 
