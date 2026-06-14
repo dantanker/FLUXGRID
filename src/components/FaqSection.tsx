@@ -6,7 +6,7 @@ const faqItems = [
     num: '01',
     question: 'How does it work?',
     answer:
-      'When you miss a call, FluxGrid answers on your line, runs your intake questions, and books the job into your CRM — usually in under a minute.',
+      'When you miss a call, FluxGrid answers on your line, runs your intake questions, and books the job into your CRM, usually in under a minute.',
   },
   {
     num: '02',
@@ -18,7 +18,7 @@ const faqItems = [
     num: '03',
     question: 'Who do I contact if I need help?',
     answer:
-      "You call us directly. FluxGrid isn't a faceless corporation — we built it, we launch it for your shop, and you get a direct line when you need us.",
+      "You call us directly. FluxGrid isn't a faceless corporation. We built it, we launch it for your shop, and you get a direct line when you need us.",
   },
 ] as const;
 

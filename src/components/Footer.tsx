@@ -9,7 +9,7 @@ const siteLinks = [
 
 const contactLinks = [
   { label: 'fluxgridai@gmail.com', href: 'mailto:fluxgridai@gmail.com' },
-  { label: '(800) 555-1234', href: 'tel:+18005551234' },
+  { label: '(224) 628-0040', href: 'tel:+12246280040', className: 'footer-phone' },
 ];
 
 export function Footer() {
@@ -46,7 +46,9 @@ export function Footer() {
               <ul>
                 {contactLinks.map((link) => (
                   <li key={link.label}>
-                    <a href={link.href}>{link.label}</a>
+                    <a href={link.href} className={link.className}>
+                      {link.label}
+                    </a>
                   </li>
                 ))}
               </ul>

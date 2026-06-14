@@ -97,7 +97,7 @@ export function TrustPhoneMockup() {
                   <div className="ios-call__monogram">EC</div>
 
                   <div className="ios-call__identity">
-                    <h2 className="ios-call__name">Homeowner — Oak St</h2>
+                    <h2 className="ios-call__name">Homeowner, Oak St</h2>
                     <p className="ios-call__subtitle">mobile · partial outage</p>
                     <p className="ios-call__timer">00:42</p>
                   </div>

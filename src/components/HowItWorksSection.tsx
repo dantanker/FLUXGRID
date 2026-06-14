@@ -18,7 +18,7 @@ const steps = [
     num: '02',
     title: 'Qualify the job',
     description:
-      "Your intake questions — what's wrong, where, and whether it needs the on-call tech now.",
+      "Your intake questions cover what's wrong, where, and whether it needs the on-call tech now.",
     image: step2CallDetails,
     imageAlt: 'Call details captured in your CRM',
     visual: 'browser' as const,

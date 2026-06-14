@@ -11,7 +11,7 @@ export function AboutSection() {
             You run the shop. We watch the line.
           </h2>
           <p className="about-subtitle">
-            For electrical contractors who are great at the work — and tired of losing calls
+            For electrical contractors who are great at the work but tired of losing calls
             because everyone&apos;s on a job.
           </p>
         </Reveal>
@@ -24,7 +24,7 @@ export function AboutSection() {
             </p>
             <p>
               We built it after talking with shop owners who had full crews and packed schedules
-              — but no good answer when the phone rang at the wrong time. If that sounds like
+              but no good answer when the phone rang at the wrong time. If that sounds like
               your shop, the rest of this page shows what that gap costs and how we close it.
             </p>
             <p>

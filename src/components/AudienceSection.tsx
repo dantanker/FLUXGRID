@@ -15,7 +15,7 @@ export function AudienceSection() {
             For electrical shop owners.
           </h2>
           <p className="fit-lead">
-            Overflow phone coverage — not a replacement for your dispatcher.
+            Overflow phone coverage, not a replacement for your dispatcher.
           </p>
         </Reveal>
 
