@@ -2690,107 +2690,314 @@
 
 .fluxgrid-app .proof-journey {
   width: 100%;
-  max-width: 420px;
+  max-width: 460px;
   margin-left: auto;
-  padding: 32px 28px 28px;
-  border: 1px solid var(--border-color);
-  border-radius: var(--radius-lg);
-  background: var(--bg-elevated);
-  box-shadow: var(--shadow-sm);
 }
 
-.fluxgrid-app .proof-journey__list {
-  margin: 0;
-  padding: 0;
-  list-style: none;
+.fluxgrid-app .proof-journey-card {
+  position: relative;
+  overflow: hidden;
+  padding: 28px 28px 24px;
+  border: 1px solid rgba(26, 29, 36, 0.1);
+  border-radius: var(--radius-xl);
+  background:
+    linear-gradient(180deg, rgba(255, 255, 255, 0.98) 0%, rgba(250, 249, 247, 0.94) 100%),
+    var(--bg-elevated);
+  box-shadow:
+    0 1px 2px rgba(26, 29, 36, 0.05),
+    0 18px 48px rgba(26, 29, 36, 0.1),
+    0 0 0 1px rgba(255, 255, 255, 0.7) inset;
 }
 
-.fluxgrid-app .proof-journey__item {
-  display: grid;
-  grid-template-columns: 20px 1fr;
-  gap: 20px;
+.fluxgrid-app .proof-journey-card::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 28px;
+  right: 28px;
+  height: 1px;
+  background: linear-gradient(
+    90deg,
+    transparent,
+    rgba(143, 111, 26, 0.45),
+    rgba(245, 173, 66, 0.55),
+    rgba(143, 111, 26, 0.45),
+    transparent
+  );
 }
 
-.fluxgrid-app .proof-journey__item:not(:last-child) {
-  padding-bottom: 28px;
+.fluxgrid-app .proof-journey-card::after {
+  content: '';
+  position: absolute;
+  inset: auto 0 0;
+  height: 120px;
+  background: radial-gradient(ellipse at 50% 100%, rgba(143, 111, 26, 0.06), transparent 70%);
+  pointer-events: none;
 }
 
-.fluxgrid-app .proof-journey__track {
+.fluxgrid-app .proof-journey-card__header {
+  position: relative;
+  z-index: 1;
   display: flex;
-  flex-direction: column;
-  align-items: center;
-  padding-top: 5px;
-}
-
-.fluxgrid-app .proof-journey__dot {
-  width: 7px;
-  height: 7px;
-  border-radius: 50%;
-  border: 1px solid rgba(26, 29, 36, 0.22);
-  background: var(--bg-elevated);
-  flex-shrink: 0;
-}
-
-.fluxgrid-app .proof-journey__line {
-  flex: 1;
-  width: 1px;
-  min-height: 24px;
-  margin-top: 8px;
-  background: var(--border-subtle);
-}
-
-.fluxgrid-app .proof-journey__heading {
-  display: flex;
-  flex-wrap: wrap;
   align-items: baseline;
-  gap: 8px;
-  margin: 0 0 6px;
+  justify-content: space-between;
+  gap: 16px;
+  margin-bottom: 24px;
 }
 
-.fluxgrid-app .proof-journey__number {
+.fluxgrid-app .proof-journey-card__eyebrow {
+  margin: 0;
   font-size: 11px;
-  font-weight: 500;
-  letter-spacing: 0.04em;
-  color: var(--text-subtle);
+  font-weight: 600;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--accent);
 }
 
-.fluxgrid-app .proof-journey__label {
-  font-family: var(--font-sans);
+.fluxgrid-app .proof-journey-card__count {
+  margin: 0;
   font-size: 13px;
-  font-weight: 600;
-  letter-spacing: -0.01em;
+  font-weight: 700;
+  font-variant-numeric: tabular-nums;
+  letter-spacing: 0.04em;
   color: var(--text-light);
 }
 
-.fluxgrid-app .proof-journey__detail {
-  margin: 0;
-  font-size: 13px;
-  line-height: 1.55;
-  color: var(--text-muted);
-}
-
-.fluxgrid-app .proof-journey__item--dropoff .proof-journey__dot {
-  border-color: var(--proof-dropoff);
-  background: var(--proof-dropoff);
-  box-shadow: 0 0 0 3px rgba(160, 72, 72, 0.12);
-}
-
-.fluxgrid-app .proof-journey__item--dropoff .proof-journey__label {
-  color: var(--proof-dropoff);
-}
-
-.fluxgrid-app .proof-journey__item--dropoff .proof-journey__detail {
-  color: var(--proof-dropoff);
+.fluxgrid-app .proof-journey-card__count span {
+  color: var(--text-subtle);
   font-weight: 500;
 }
 
+.fluxgrid-app .proof-journey-track {
+  position: relative;
+  z-index: 1;
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 0;
+  margin-bottom: 22px;
+}
+
+.fluxgrid-app .proof-journey-track__bridge {
+  flex: 1;
+  height: 2px;
+  margin: 15px -4px 0;
+  background: rgba(26, 29, 36, 0.08);
+  transition: background 0.45s ease;
+}
+
+.fluxgrid-app .proof-journey-track__bridge.is-filled {
+  background: linear-gradient(90deg, var(--accent), rgba(245, 173, 66, 0.85));
+}
+
+.fluxgrid-app .proof-journey-track__bridge.is-filled.is-dropoff {
+  background: linear-gradient(90deg, var(--proof-dropoff), rgba(160, 72, 72, 0.55));
+}
+
+.fluxgrid-app .proof-journey-track__step {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 8px;
+  flex: 0 0 auto;
+  min-width: 0;
+  padding: 0;
+  border: none;
+  background: transparent;
+  font: inherit;
+  color: inherit;
+  cursor: pointer;
+  appearance: none;
+}
+
+.fluxgrid-app .proof-journey-track__dot {
+  display: grid;
+  place-items: center;
+  width: 32px;
+  height: 32px;
+  border-radius: 50%;
+  border: 1px solid rgba(26, 29, 36, 0.12);
+  background: rgba(255, 255, 255, 0.92);
+  font-size: 10px;
+  font-weight: 700;
+  letter-spacing: 0.04em;
+  color: var(--text-subtle);
+  box-shadow: 0 1px 2px rgba(26, 29, 36, 0.04);
+  transition:
+    border-color 0.35s ease,
+    background 0.35s ease,
+    color 0.35s ease,
+    box-shadow 0.35s ease,
+    transform 0.35s ease;
+}
+
+.fluxgrid-app .proof-journey-track__label {
+  max-width: 72px;
+  font-size: 10px;
+  font-weight: 600;
+  letter-spacing: 0.02em;
+  line-height: 1.25;
+  text-align: center;
+  color: var(--text-subtle);
+  opacity: 0;
+  transform: translateY(4px);
+  transition:
+    opacity 0.35s ease,
+    transform 0.35s ease,
+    color 0.35s ease;
+}
+
+.fluxgrid-app .proof-journey-track__step.is-reached .proof-journey-track__dot {
+  border-color: rgba(143, 111, 26, 0.35);
+  color: var(--accent);
+}
+
+.fluxgrid-app .proof-journey-track__step.is-active .proof-journey-track__dot {
+  border-color: var(--accent);
+  background: linear-gradient(180deg, rgba(245, 173, 66, 0.18) 0%, rgba(143, 111, 26, 0.12) 100%);
+  color: var(--accent);
+  box-shadow:
+    0 0 0 4px rgba(143, 111, 26, 0.08),
+    0 4px 12px rgba(143, 111, 26, 0.12);
+  transform: scale(1.06);
+}
+
+.fluxgrid-app .proof-journey-track__step.is-active .proof-journey-track__label {
+  opacity: 1;
+  transform: translateY(0);
+  color: var(--text-light);
+}
+
+.fluxgrid-app .proof-journey-track__step.is-dropoff.is-active .proof-journey-track__dot {
+  border-color: var(--proof-dropoff);
+  background: linear-gradient(180deg, rgba(160, 72, 72, 0.14) 0%, rgba(160, 72, 72, 0.08) 100%);
+  color: var(--proof-dropoff);
+  box-shadow:
+    0 0 0 4px rgba(160, 72, 72, 0.08),
+    0 4px 12px rgba(160, 72, 72, 0.1);
+}
+
+.fluxgrid-app .proof-journey-track__step.is-dropoff.is-active .proof-journey-track__label {
+  color: var(--proof-dropoff);
+}
+
+.fluxgrid-app .proof-journey-track__step:focus-visible {
+  outline: none;
+}
+
+.fluxgrid-app .proof-journey-track__step:focus-visible .proof-journey-track__dot {
+  outline: 2px solid var(--accent);
+  outline-offset: 3px;
+}
+
+.fluxgrid-app .proof-journey-stage {
+  position: relative;
+  z-index: 1;
+  min-height: 168px;
+  padding: 22px 22px 18px;
+  border: 1px solid rgba(26, 29, 36, 0.08);
+  border-radius: var(--radius-lg);
+  background: rgba(255, 255, 255, 0.72);
+  overflow: hidden;
+}
+
+.fluxgrid-app .proof-journey-stage__watermark {
+  position: absolute;
+  top: -8px;
+  right: 12px;
+  font-size: clamp(4.5rem, 14vw, 5.5rem);
+  font-weight: 700;
+  line-height: 1;
+  letter-spacing: -0.06em;
+  color: rgba(26, 29, 36, 0.045);
+  pointer-events: none;
+  user-select: none;
+}
+
+.fluxgrid-app .proof-journey-stage__panel {
+  position: relative;
+  z-index: 1;
+  min-height: 112px;
+}
+
+.fluxgrid-app .proof-journey-stage__slide {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  min-height: 112px;
+}
+
+.fluxgrid-app .proof-journey-stage__kicker {
+  margin: 0 0 10px;
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--accent);
+}
+
+.fluxgrid-app .proof-journey-stage__title {
+  margin: 0 0 12px;
+  max-width: 16ch;
+  font-size: clamp(1.35rem, 2.4vw, 1.625rem);
+  font-weight: 700;
+  letter-spacing: -0.035em;
+  line-height: 1.15;
+  color: var(--text-light);
+}
+
+.fluxgrid-app .proof-journey-stage__detail {
+  margin: 0;
+  max-width: 34ch;
+  font-size: 15px;
+  line-height: 1.62;
+  color: var(--text-muted);
+}
+
+.fluxgrid-app .proof-journey-stage__slide--dropoff .proof-journey-stage__kicker,
+.fluxgrid-app .proof-journey-stage__slide--dropoff .proof-journey-stage__title {
+  color: var(--proof-dropoff);
+}
+
+.fluxgrid-app .proof-journey-stage__progress {
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  height: 2px;
+  background: rgba(26, 29, 36, 0.06);
+  overflow: hidden;
+}
+
+.fluxgrid-app .proof-journey-stage__progress-bar {
+  display: block;
+  height: 100%;
+  width: 100%;
+  transform: scaleX(0);
+  transform-origin: left center;
+  background: linear-gradient(90deg, var(--accent), var(--bulb-bright));
+  animation: proof-journey-progress linear forwards;
+}
+
+@keyframes proof-journey-progress {
+  from {
+    transform: scaleX(0);
+  }
+
+  to {
+    transform: scaleX(1);
+  }
+}
+
 .fluxgrid-app .proof-journey__interception-btn {
+  align-self: flex-start;
   margin-top: 4px;
   padding: 11px 18px 10px;
   font-size: 13px;
   white-space: normal;
   text-align: center;
   line-height: 1.25;
+  box-shadow: none;
 }
 
 /* Vapi live demo modal */
@@ -3142,6 +3349,24 @@
 }
 
 @media (max-width: 768px) {
+  .fluxgrid-app .proof-journey-card {
+    padding: 24px 20px 20px;
+  }
+
+  .fluxgrid-app .proof-journey-card::before {
+    left: 20px;
+    right: 20px;
+  }
+
+  .fluxgrid-app .proof-journey-track__label {
+    display: none;
+  }
+
+  .fluxgrid-app .proof-journey-stage {
+    min-height: 156px;
+    padding: 18px 18px 16px;
+  }
+
   .fluxgrid-app .proof-journey__interception-btn {
     width: 100%;
     max-width: 280px;
@@ -3171,11 +3396,9 @@
     max-width: none;
     margin-left: 0;
   }
-}
 
-@media (max-width: 768px) {
-  .fluxgrid-app .proof-journey {
-    padding: 24px 20px 20px;
+  .fluxgrid-app .proof-journey-card {
+    border-radius: var(--radius-lg);
   }
 }
 
@@ -3248,6 +3471,7 @@
 
 .fluxgrid-app .process-step-card {
   position: relative;
+  overflow: hidden;
   width: 100%;
   max-width: 420px;
   margin: 0;
@@ -3271,7 +3495,7 @@
     border-left-color 0.3s ease,
     background 0.3s ease,
     box-shadow 0.3s ease,
-    opacity 0.3s ease;
+    opacity 0.45s ease;
   opacity: 0.52;
 }
 
@@ -3284,6 +3508,30 @@
   border-left-color: var(--accent);
   background: rgba(255, 255, 255, 0.94);
   box-shadow: var(--shadow-md);
+}
+
+.fluxgrid-app .process-step-card__progress {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  height: 2px;
+  width: 100%;
+  transform: scaleX(0);
+  transform-origin: left center;
+  border-radius: 0 2px 2px 0;
+  background: linear-gradient(90deg, var(--accent), var(--bulb-bright));
+  animation: process-step-progress linear forwards;
+  will-change: transform;
+}
+
+@keyframes process-step-progress {
+  from {
+    transform: scaleX(0);
+  }
+
+  to {
+    transform: scaleX(1);
+  }
 }
 
 .fluxgrid-app .process-step-card:focus-visible {
@@ -3323,8 +3571,10 @@
 .fluxgrid-app .process-visual-viewport {
   position: relative;
   width: 100%;
+  max-width: 540px;
+  margin-inline: auto;
+  aspect-ratio: 1 / 1;
   overflow: hidden;
-  transition: aspect-ratio 0.35s ease;
 }
 
 .fluxgrid-app .process-visual-viewport--phone,
@@ -3342,17 +3592,18 @@
   align-items: center;
   justify-content: center;
   opacity: 0;
-  transform: translateY(10px);
-  transition:
-    opacity 0.35s ease,
-    transform 0.35s ease;
+  visibility: hidden;
+  transition: opacity 0.5s ease;
   pointer-events: none;
+  will-change: opacity;
 }
 
 .fluxgrid-app .process-visual-slide.is-active {
   opacity: 1;
-  transform: translateY(0);
+  visibility: visible;
   pointer-events: auto;
+  z-index: 1;
+  transition: opacity 0.5s ease, visibility 0s;
 }
 
 .fluxgrid-app .process-visual-phone {
@@ -4260,7 +4511,7 @@
 }
 
 .fluxgrid-app .about-letter strong {
-  color: var(--text-light);
+  color: inherit;
   font-weight: 600;
 }
 

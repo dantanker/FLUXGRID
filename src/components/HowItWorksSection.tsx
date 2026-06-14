@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react';
+import { useCallback, useEffect, useRef, useState } from 'react';
 import step1IncomingCall from '../assets/how-it-works/step-1-incoming-call.png';
 import step2CallDetails from '../assets/how-it-works/step-2-call-details.png';
 import step3JobsBoard from '../assets/how-it-works/step-3-jobs-board.png';
@@ -34,6 +34,23 @@ const steps = [
   },
 ] as const;
 
+const STEP_AUTO_MS = 5500;
+const STEP_MANUAL_MS = 11000;
+
+function usePrefersReducedMotion() {
+  const [prefersReducedMotion, setPrefersReducedMotion] = useState(false);
+
+  useEffect(() => {
+    const media = window.matchMedia('(prefers-reduced-motion: reduce)');
+    const update = () => setPrefersReducedMotion(media.matches);
+    update();
+    media.addEventListener('change', update);
+    return () => media.removeEventListener('change', update);
+  }, []);
+
+  return prefersReducedMotion;
+}
+
 function ProcessVisualFrame({ step }: { step: (typeof steps)[number] }) {
   if (step.visual === 'phone') {
     return (
@@ -61,10 +78,16 @@ function ProcessStepCard({
   step,
   isActive,
   onSelect,
+  showProgress,
+  progressKey,
+  progressDurationMs,
 }: {
   step: (typeof steps)[number];
   isActive: boolean;
   onSelect: () => void;
+  showProgress?: boolean;
+  progressKey?: string;
+  progressDurationMs: number;
 }) {
   return (
     <button
@@ -73,6 +96,14 @@ function ProcessStepCard({
       aria-current={isActive ? 'step' : undefined}
       onClick={onSelect}
     >
+      {isActive && showProgress ? (
+        <span
+          key={progressKey}
+          className="process-step-card__progress"
+          style={{ animationDuration: `${progressDurationMs}ms` }}
+          aria-hidden="true"
+        />
+      ) : null}
       <span className="process-step__num">{step.num}</span>
       <h3 className="process-step__title">{step.title}</h3>
       <p className="process-step__description">{step.description}</p>
@@ -81,24 +112,72 @@ function ProcessStepCard({
 }
 
 function ProcessShowcase() {
+  const prefersReducedMotion = usePrefersReducedMotion();
   const [activeStep, setActiveStep] = useState(0);
-  const active = steps[activeStep];
+  const [progressCycle, setProgressCycle] = useState(0);
+  const [progressDurationMs, setProgressDurationMs] = useState(STEP_AUTO_MS);
+  const timerRef = useRef<number | null>(null);
+  const autoAdvanceEnabled = !prefersReducedMotion;
+
+  const clearTimer = useCallback(() => {
+    if (timerRef.current !== null) {
+      window.clearTimeout(timerRef.current);
+      timerRef.current = null;
+    }
+  }, []);
+
+  const scheduleNext = useCallback(
+    (delay: number) => {
+      clearTimer();
+      setProgressDurationMs(delay);
+
+      if (!autoAdvanceEnabled) {
+        return;
+      }
+
+      timerRef.current = window.setTimeout(() => {
+        if (document.visibilityState === 'hidden') {
+          scheduleNext(delay);
+          return;
+        }
+
+        setActiveStep((current) => (current + 1) % steps.length);
+        setProgressCycle((cycle) => cycle + 1);
+        scheduleNext(STEP_AUTO_MS);
+      }, delay);
+    },
+    [autoAdvanceEnabled, clearTimer],
+  );
+
+  useEffect(() => {
+    scheduleNext(STEP_AUTO_MS);
+    return clearTimer;
+  }, [scheduleNext, clearTimer]);
+
+  const selectStep = (index: number) => {
+    setActiveStep(index);
+    setProgressCycle((cycle) => cycle + 1);
+    scheduleNext(STEP_MANUAL_MS);
+  };
 
   return (
     <div className="process-showcase">
-      <div className="process-showcase__steps">
+      <div className="process-showcase__steps" role="tablist" aria-label="How FluxGrid works">
         {steps.map((step, index) => (
           <ProcessStepCard
             key={step.num}
             step={step}
             isActive={activeStep === index}
-            onSelect={() => setActiveStep(index)}
+            onSelect={() => selectStep(index)}
+            showProgress={autoAdvanceEnabled && activeStep === index}
+            progressKey={`${index}-${progressCycle}`}
+            progressDurationMs={progressDurationMs}
           />
         ))}
       </div>
 
-      <div className="process-showcase__visual" aria-live="polite">
-        <div className={`process-visual-viewport process-visual-viewport--${active.visual}`}>
+      <div className="process-showcase__visual">
+        <div className="process-visual-viewport">
           {steps.map((step, index) => (
             <div
               key={step.num}
@@ -114,37 +193,7 @@ function ProcessShowcase() {
   );
 }
 
-function ProcessStacked() {
-  return (
-    <ol className="process-stack">
-      {steps.map((step) => (
-        <li key={step.num} className="process-stack__item">
-          <article className="process-step-card is-active">
-            <span className="process-step__num">{step.num}</span>
-            <h3 className="process-step__title">{step.title}</h3>
-            <p className="process-step__description">{step.description}</p>
-          </article>
-          <div className="process-stack__visual">
-            <ProcessVisualFrame step={step} />
-          </div>
-        </li>
-      ))}
-    </ol>
-  );
-}
-
 export function HowItWorksSection() {
-  const [isMobile, setIsMobile] = useState(
-    () => typeof window !== 'undefined' && window.matchMedia('(max-width: 900px)').matches,
-  );
-
-  useEffect(() => {
-    const media = window.matchMedia('(max-width: 900px)');
-    const update = () => setIsMobile(media.matches);
-    media.addEventListener('change', update);
-    return () => media.removeEventListener('change', update);
-  }, []);
-
   return (
     <section className="process-section" id="how-it-works" aria-labelledby="process-heading">
       <div className="container process-inner">
@@ -156,7 +205,7 @@ export function HowItWorksSection() {
           <p className="process-lead">Live in about a week. Nothing new for your crew.</p>
         </Reveal>
 
-        {isMobile ? <ProcessStacked /> : <ProcessShowcase />}
+        <ProcessShowcase />
       </div>
     </section>
   );

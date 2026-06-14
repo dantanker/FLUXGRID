@@ -30,11 +30,9 @@ body {
   background-color: #faf9f7;
   background-image:
     linear-gradient(rgba(26, 29, 36, 0.045) 1px, transparent 1px),
-    linear-gradient(90deg, rgba(26, 29, 36, 0.045) 1px, transparent 1px),
-    linear-gradient(rgba(143, 111, 26, 0.065) 1px, transparent 1px),
-    linear-gradient(90deg, rgba(143, 111, 26, 0.065) 1px, transparent 1px);
-  background-size: 36px 36px, 36px 36px, 144px 144px, 144px 144px;
-  background-position: center top, center top, center top, center top;
+    linear-gradient(90deg, rgba(26, 29, 36, 0.045) 1px, transparent 1px);
+  background-size: 36px 36px;
+  background-position: center top;
 }
 
 @media (prefers-reduced-motion: no-preference) {
@@ -45,11 +43,11 @@ body {
 
 @keyframes grid-drift {
   from {
-    background-position: center 0, center 0, center 0, center 0;
+    background-position: center 0;
   }
 
   to {
-    background-position: center 36px, center 36px, center 144px, center 144px;
+    background-position: center 36px;
   }
 }
 

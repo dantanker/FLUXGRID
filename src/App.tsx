@@ -1,6 +1,5 @@
 import { HeroScroll } from './components/HeroScroll';
 import { ProofSection } from './components/ProofSection';
-import { AudienceSection } from './components/AudienceSection';
 import { AboutSection } from './components/AboutSection';
 import { HowItWorksSection } from './components/HowItWorksSection';
 import { FaqSection } from './components/FaqSection';
@@ -22,7 +21,6 @@ function App() {
         <HeroScroll />
         <ProofSection />
         <HowItWorksSection />
-        <AudienceSection />
         <AboutSection />
         <FaqSection />
 
