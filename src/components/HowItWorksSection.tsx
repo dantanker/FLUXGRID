@@ -198,11 +198,9 @@ export function HowItWorksSection() {
     <section className="process-section" id="how-it-works" aria-labelledby="process-heading">
       <div className="container process-inner">
         <Reveal className="process-header">
-          <p className="process-eyebrow">How it works</p>
-          <h2 id="process-heading" className="process-title">
-            Same number. Job on your board.
+          <h2 id="process-heading" className="process-eyebrow">
+            How it works
           </h2>
-          <p className="process-lead">Live in about a week. Nothing new for your crew.</p>
         </Reveal>
 
         <ProcessShowcase />
