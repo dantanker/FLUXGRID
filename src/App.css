@@ -2688,6 +2688,35 @@
   color: var(--text-muted);
 }
 
+.fluxgrid-app .differentiator-strip {
+  padding: clamp(32px, 5vw, 48px) 0;
+  border-top: 1px solid rgba(255, 255, 255, 0.06);
+  border-bottom: 1px solid rgba(255, 255, 255, 0.06);
+  background: rgba(255, 255, 255, 0.02);
+}
+
+.fluxgrid-app .differentiator-strip__inner {
+  max-width: 720px;
+  text-align: center;
+}
+
+.fluxgrid-app .differentiator-strip__headline {
+  margin: 0 0 10px;
+  font-family: var(--font-sans);
+  font-size: clamp(1.375rem, 2.5vw, 1.75rem);
+  font-weight: 700;
+  letter-spacing: -0.03em;
+  line-height: 1.2;
+  color: var(--text-light);
+}
+
+.fluxgrid-app .differentiator-strip__subhead {
+  margin: 0;
+  font-size: 16px;
+  line-height: 1.6;
+  color: var(--text-muted);
+}
+
 .fluxgrid-app .proof-journey {
   width: 100%;
   max-width: 460px;
@@ -3418,8 +3447,15 @@
 }
 
 .fluxgrid-app .process-header {
-  max-width: 480px;
+  max-width: 640px;
   margin-bottom: 40px;
+}
+
+.fluxgrid-app .process-intro {
+  margin: 0;
+  font-size: 17px;
+  line-height: 1.68;
+  color: var(--text-muted);
 }
 
 .fluxgrid-app .process-eyebrow {

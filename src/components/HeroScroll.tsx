@@ -1,4 +1,5 @@
 import heroIphone from '../assets/hero-iphone.png';
+import { siteCopy } from '../content/siteCopy';
 import { CircuitLines } from './CircuitLines';
 import { DemoCtaButton } from './DemoCtaButton';
 import { IntegrationLogos } from './IntegrationLogos';
@@ -22,13 +23,10 @@ export function HeroScroll() {
 
       <div className="container hero-grid">
         <Reveal className="hero-copy" delay={0.05}>
-          <h1 className="hero-headline">Never Miss A Lead.</h1>
-          <p className="hero-lead">
-            A 24/7 missed call receptionist that answers when you can&apos;t, qualifies the
-            customer, and books the job into your CRM.
-          </p>
+          <h1 className="hero-headline">{siteCopy.hero.headline}</h1>
+          <p className="hero-lead">{siteCopy.hero.lead}</p>
           <div className="hero-actions">
-            <DemoCtaButton>See a demo call</DemoCtaButton>
+            <DemoCtaButton>{siteCopy.hero.cta}</DemoCtaButton>
           </div>
         </Reveal>
 

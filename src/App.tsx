@@ -1,5 +1,6 @@
 import { HeroScroll } from './components/HeroScroll';
 import { ProofSection } from './components/ProofSection';
+import { DifferentiatorStrip } from './components/DifferentiatorStrip';
 import { AboutSection } from './components/AboutSection';
 import { HowItWorksSection } from './components/HowItWorksSection';
 import { FaqSection } from './components/FaqSection';
@@ -20,6 +21,7 @@ function App() {
 
         <HeroScroll />
         <ProofSection />
+        <DifferentiatorStrip />
         <HowItWorksSection />
         <AboutSection />
         <FaqSection />

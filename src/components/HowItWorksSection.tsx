@@ -2,37 +2,31 @@ import { useCallback, useEffect, useRef, useState } from 'react';
 import step1IncomingCall from '../assets/how-it-works/step-1-incoming-call.png';
 import step2CallDetails from '../assets/how-it-works/step-2-call-details.png';
 import step3JobsBoard from '../assets/how-it-works/step-3-jobs-board.png';
+import { siteCopy } from '../content/siteCopy';
 import { Reveal } from './motion/Reveal';
 
-const steps = [
+const stepAssets = [
   {
-    num: '01',
-    title: 'Answer your line',
-    description:
-      "When you're closed or on another call. Same number your customers already dial.",
     image: step1IncomingCall,
     imageAlt: 'Incoming call answered on your shop line',
     visual: 'phone' as const,
   },
   {
-    num: '02',
-    title: 'Qualify the job',
-    description:
-      "Your intake questions cover what's wrong, where, and whether it needs the on-call tech now.",
     image: step2CallDetails,
     imageAlt: 'Call details captured in your CRM',
     visual: 'browser' as const,
   },
   {
-    num: '03',
-    title: 'Book to your CRM',
-    description:
-      'Job lands with notes and priority. Dispatch handles it like any other job.',
     image: step3JobsBoard,
     imageAlt: 'New job on your dispatch board',
     visual: 'browser' as const,
   },
 ] as const;
+
+const steps = siteCopy.howItWorks.steps.map((step, index) => ({
+  ...step,
+  ...stepAssets[index],
+}));
 
 const STEP_AUTO_MS = 5500;
 const STEP_MANUAL_MS = 11000;
@@ -199,8 +193,9 @@ export function HowItWorksSection() {
       <div className="container process-inner">
         <Reveal className="process-header">
           <h2 id="process-heading" className="process-eyebrow">
-            How it works
+            {siteCopy.howItWorks.eyebrow}
           </h2>
+          <p className="process-intro">{siteCopy.howItWorks.intro}</p>
         </Reveal>
 
         <ProcessShowcase />
