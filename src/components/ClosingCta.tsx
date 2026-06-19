@@ -11,8 +11,8 @@ export function ClosingCta() {
             Book a walkthrough for your shop.
           </h2>
           <p className="closing-cta__text">
-            Ten minutes on the phone. Hear a live intake, review your greeting and qualifying
-            questions, and watch the job book into your dispatch system.
+            Spend 10 minutes on the phone to hear the engine live, see how it instantly qualifies
+            leads, and watch the complete job ticket stream onto our live dispatch board.
           </p>
 
           <DemoCtaButton className="closing-cta__btn">Book a demo call</DemoCtaButton>

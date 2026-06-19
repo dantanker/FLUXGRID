@@ -33,27 +33,34 @@ export function VapiInterceptionModal({ isOpen, onClose }: VapiInterceptionModal
   }
 
   return createPortal(
-    <div className="vapi-interception-backdrop" role="presentation">
+    <div
+      className="demo-modal-backdrop vapi-interception-backdrop fixed inset-0 z-[1100] flex items-center justify-center bg-black/60 p-4 backdrop-blur-sm"
+      onClick={onClose}
+      role="presentation"
+    >
       <div
-        className="fluxgrid-app vapi-interception-modal"
-        role="dialog"
-        aria-modal="true"
-        aria-labelledby="vapi-interception-title"
+        className="fluxgrid-app demo-modal-inner vapi-interception-inner"
+        onClick={(event) => event.stopPropagation()}
       >
-        <button
-          type="button"
-          className="vapi-interception-close"
-          onClick={onClose}
-          aria-label="Close"
+        <div
+          className="demo-modal-card final-box vapi-interception-modal"
+          role="dialog"
+          aria-modal="true"
+          aria-labelledby="vapi-interception-title"
         >
-          ×
-        </button>
+          <button
+            type="button"
+            className="demo-modal-close"
+            onClick={onClose}
+            aria-label="Close voice demo"
+          >
+            <i className="fa-solid fa-xmark" aria-hidden="true" />
+          </button>
 
-        <h2 id="vapi-interception-title" className="vapi-interception-title">
-          Hear FluxGrid answer the call
-        </h2>
+          <h2 id="vapi-interception-title">Hear FluxGrid answer the call</h2>
 
-        <VapiVoiceDemo />
+          <VapiVoiceDemo />
+        </div>
       </div>
     </div>,
     document.body,

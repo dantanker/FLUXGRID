@@ -3,7 +3,6 @@ import { FluxGridLogo } from './FluxGridLogo';
 const siteLinks = [
   { label: 'The problem', href: '#leaks' },
   { label: 'How it works', href: '#how-it-works' },
-  { label: 'About', href: '#about' },
   { label: 'FAQ', href: '#faq' },
 ];
 
@@ -24,8 +23,8 @@ export function Footer() {
               <FluxGridLogo size="sm" variant="light" />
             </a>
             <p className="footer-brand-tagline">
-              A 24/7 missed call receptionist that answers when you can&apos;t, qualifies the
-              customer, and books the job into your CRM.
+              Our 24/7 digital dispatcher automatically qualifies leads and books them directly
+              into your CRM. Live in 7 days.
             </p>
           </div>
 

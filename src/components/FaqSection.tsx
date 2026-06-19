@@ -4,21 +4,33 @@ import { Reveal } from './motion/Reveal';
 const faqItems = [
   {
     num: '01',
-    question: 'How does it work?',
+    question: 'Will this alienate my older customers who hate talking to "bots"?',
     answer:
-      'When you miss a call, FluxGrid answers on your line, runs your intake questions, and books the job into your CRM, usually in under a minute.',
+      'No. FluxGrid doesn\'t sound like a robotic chat menu. It uses an advanced natural-language engine designed to handle conversational phone dialogue smoothly. Your customers simply feel like they are talking to a highly efficient, professional live dispatcher who gets them booked immediately.',
   },
   {
     num: '02',
-    question: 'Do I have to learn new software?',
+    question: 'Does it integrate with my existing software?',
     answer:
-      'No. There is no dashboard to log into and nothing new for your crew to learn. We run everything in the background so you stay focused on the trucks.',
+      'Yes. FluxGrid plugs directly into the core platforms the industry runs on, including ServiceTitan, Jobber, and Housecall Pro. It inputs customer data, priority tags, and triage notes right into your active schedule without overwriting your manual dispatcher settings.',
   },
   {
     num: '03',
-    question: 'Who do I contact if I need help?',
+    question: 'What happens if a call is an absolute, extreme electrical emergency?',
     answer:
-      "You call us directly. FluxGrid isn't a faceless corporation. We built it, we launch it for your shop, and you get a direct line when you need us.",
+      'The system is hardwired for immediate triage. If the engine identifies an immediate safety hazard (like sparking panels, fire, or smoke), it instantly escalates the issue, tags it as a critical emergency, and routes the ticket to your designated on-call technician according to your exact priority rules.',
+  },
+  {
+    num: '04',
+    question: 'Do I have to change my main business phone number?',
+    answer:
+      'Not at all. You keep your exact same number. FluxGrid sits cleanly behind your existing phone line, acting as an automated safety net to instantly intercept calls only when your line is busy, when you\'re out on a job, or after hours.',
+  },
+  {
+    num: '05',
+    question: 'How long does it take to get live?',
+    answer:
+      'We handle the full setup, testing, and CRM integration for you. Your custom intelligent dispatch engine will be fully active and protecting your revenue in exactly 7 days.',
   },
 ] as const;
 
@@ -32,7 +44,7 @@ export function FaqSection() {
         <Reveal className="faq-header">
           <p className="faq-eyebrow">FAQ</p>
           <h2 id="faq-heading" className="faq-title">
-            Straight answers for shop owners.
+            Frequently asked questions
           </h2>
         </Reveal>
 

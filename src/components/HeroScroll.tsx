@@ -22,10 +22,10 @@ export function HeroScroll() {
 
       <div className="container hero-grid">
         <Reveal className="hero-copy" delay={0.05}>
-          <h1 className="hero-headline">Never Miss A Lead.</h1>
+          <h1 className="hero-headline">Never Miss Another Job</h1>
           <p className="hero-lead">
-            A 24/7 missed call receptionist that answers when you can&apos;t, qualifies the
-            customer, and books the job into your CRM.
+            From missed calls to booked jobs. Our 24/7 digital dispatcher qualifies leads and
+            schedules them straight into your CRM.
           </p>
           <div className="hero-actions">
             <DemoCtaButton>See a demo call</DemoCtaButton>

@@ -7,35 +7,29 @@ import { Reveal } from './motion/Reveal';
 const steps = [
   {
     num: '01',
-    title: 'Answer your line',
+    title: 'Intercept the Lead',
     description:
-      "When you're closed or on another call. Same number your customers already dial.",
+      'FluxGrid captures the high-value emergency calls your shop misses. It routes instantly behind the scenes—no new phone numbers required, completely seamless to your existing line.',
     image: step1IncomingCall,
-    imageAlt: 'Incoming call answered on your shop line',
-    visual: 'phone' as const,
+    imageAlt: 'Incoming emergency call intercepted on your shop line',
   },
   {
     num: '02',
-    title: 'Qualify the job',
+    title: 'Instant AI Qualification',
     description:
-      "Your intake questions cover what's wrong, where, and whether it needs the on-call tech now.",
+      'The engine immediately conducts a multi-point triage. It extracts the critical data live—identifying the exact electrical fault, customer location, and whether it requires an urgent dispatch.',
     image: step2CallDetails,
-    imageAlt: 'Call details captured in your CRM',
-    visual: 'browser' as const,
+    imageAlt: 'FluxGrid extracting caller name, phone, location, and electrical issue during live triage',
   },
   {
     num: '03',
-    title: 'Book to your CRM',
+    title: 'Auto-Book the Job',
     description:
-      'Job lands with notes and priority. Dispatch handles it like any other job.',
+      'The qualified job drops instantly onto your team’s schedule with automated priority tags and comprehensive triage notes. Your electricians just show up and clear the ticket.',
     image: step3JobsBoard,
-    imageAlt: 'New job on your dispatch board',
-    visual: 'browser' as const,
+    imageAlt: 'Customer intake board with booked jobs, urgency tags, and triage notes',
   },
 ] as const;
-
-const STEP_AUTO_MS = 5500;
-const STEP_MANUAL_MS = 11000;
 
 function usePrefersReducedMotion() {
   const [prefersReducedMotion, setPrefersReducedMotion] = useState(false);
@@ -51,143 +45,108 @@ function usePrefersReducedMotion() {
   return prefersReducedMotion;
 }
 
-function ProcessVisualFrame({ step }: { step: (typeof steps)[number] }) {
-  if (step.visual === 'phone') {
-    return (
-      <div className="process-visual-phone">
-        <img src={step.image} alt={step.imageAlt} decoding="async" />
-      </div>
-    );
-  }
-
-  return (
-    <div className="process-row__frame">
-      <div className="process-row__chrome" aria-hidden="true">
-        <span />
-        <span />
-        <span />
-      </div>
-      <div className="process-row__frame-body">
-        <img src={step.image} alt={step.imageAlt} decoding="async" />
-      </div>
-    </div>
-  );
-}
-
-function ProcessStepCard({
-  step,
-  isActive,
-  onSelect,
-  showProgress,
-  progressKey,
-  progressDurationMs,
-}: {
-  step: (typeof steps)[number];
-  isActive: boolean;
-  onSelect: () => void;
-  showProgress?: boolean;
-  progressKey?: string;
-  progressDurationMs: number;
-}) {
-  return (
-    <button
-      type="button"
-      className={`process-step-card${isActive ? ' is-active' : ''}`}
-      aria-current={isActive ? 'step' : undefined}
-      onClick={onSelect}
-    >
-      {isActive && showProgress ? (
-        <span
-          key={progressKey}
-          className="process-step-card__progress"
-          style={{ animationDuration: `${progressDurationMs}ms` }}
-          aria-hidden="true"
-        />
-      ) : null}
-      <span className="process-step__num">{step.num}</span>
-      <h3 className="process-step__title">{step.title}</h3>
-      <p className="process-step__description">{step.description}</p>
-    </button>
-  );
-}
-
-function ProcessShowcase() {
-  const prefersReducedMotion = usePrefersReducedMotion();
+function EditorialTimeline() {
   const [activeStep, setActiveStep] = useState(0);
-  const [progressCycle, setProgressCycle] = useState(0);
-  const [progressDurationMs, setProgressDurationMs] = useState(STEP_AUTO_MS);
-  const timerRef = useRef<number | null>(null);
-  const autoAdvanceEnabled = !prefersReducedMotion;
+  const stepRefs = useRef<(HTMLElement | null)[]>([]);
+  const prefersReducedMotion = usePrefersReducedMotion();
 
-  const clearTimer = useCallback(() => {
-    if (timerRef.current !== null) {
-      window.clearTimeout(timerRef.current);
-      timerRef.current = null;
+  useEffect(() => {
+    if (prefersReducedMotion) {
+      return;
     }
-  }, []);
 
-  const scheduleNext = useCallback(
-    (delay: number) => {
-      clearTimer();
-      setProgressDurationMs(delay);
+    const observers: IntersectionObserver[] = [];
 
-      if (!autoAdvanceEnabled) {
+    stepRefs.current.forEach((element, index) => {
+      if (!element) {
         return;
       }
 
-      timerRef.current = window.setTimeout(() => {
-        if (document.visibilityState === 'hidden') {
-          scheduleNext(delay);
-          return;
-        }
+      const observer = new IntersectionObserver(
+        (entries) => {
+          entries.forEach((entry) => {
+            if (entry.isIntersecting) {
+              setActiveStep(index);
+            }
+          });
+        },
+        {
+          root: null,
+          rootMargin: '-35% 0px -35% 0px',
+          threshold: 0,
+        },
+      );
 
-        setActiveStep((current) => (current + 1) % steps.length);
-        setProgressCycle((cycle) => cycle + 1);
-        scheduleNext(STEP_AUTO_MS);
-      }, delay);
-    },
-    [autoAdvanceEnabled, clearTimer],
-  );
+      observer.observe(element);
+      observers.push(observer);
+    });
 
-  useEffect(() => {
-    scheduleNext(STEP_AUTO_MS);
-    return clearTimer;
-  }, [scheduleNext, clearTimer]);
+    return () => {
+      observers.forEach((observer) => observer.disconnect());
+    };
+  }, [prefersReducedMotion]);
 
-  const selectStep = (index: number) => {
+  const activateStep = useCallback((index: number) => {
     setActiveStep(index);
-    setProgressCycle((cycle) => cycle + 1);
-    scheduleNext(STEP_MANUAL_MS);
-  };
+    stepRefs.current[index]?.scrollIntoView({
+      behavior: 'smooth',
+      block: 'center',
+    });
+  }, []);
 
   return (
-    <div className="process-showcase">
-      <div className="process-showcase__steps" role="tablist" aria-label="How FluxGrid works">
-        {steps.map((step, index) => (
-          <ProcessStepCard
-            key={step.num}
-            step={step}
-            isActive={activeStep === index}
-            onSelect={() => selectStep(index)}
-            showProgress={autoAdvanceEnabled && activeStep === index}
-            progressKey={`${index}-${progressCycle}`}
-            progressDurationMs={progressDurationMs}
-          />
-        ))}
+    <div className="hiw-editorial">
+      <div className="hiw-timeline" role="list" aria-label="How FluxGrid works">
+        {steps.map((step, index) => {
+          const isActive = activeStep === index;
+
+          return (
+            <article
+              key={step.num}
+              ref={(node) => {
+                stepRefs.current[index] = node;
+              }}
+              className={`hiw-step${isActive ? ' is-active' : ''}`}
+              role="listitem"
+              onMouseEnter={() => setActiveStep(index)}
+              onFocus={() => setActiveStep(index)}
+            >
+              <button
+                type="button"
+                className="hiw-step__trigger"
+                aria-current={isActive ? 'step' : undefined}
+                onClick={() => activateStep(index)}
+              >
+                <span className="hiw-step__num" aria-hidden="true">
+                  {step.num}
+                </span>
+                <span className="hiw-step__content">
+                  <span className="hiw-step__title">{step.title}</span>
+                  <span className="hiw-step__description">{step.description}</span>
+                </span>
+              </button>
+
+              <div
+                className={`hiw-step__visual hiw-step__visual--mobile${isActive ? ' is-active' : ''}`}
+                aria-hidden={!isActive}
+              >
+                <img src={step.image} alt={step.imageAlt} decoding="async" draggable={false} />
+              </div>
+            </article>
+          );
+        })}
       </div>
 
-      <div className="process-showcase__visual">
-        <div className="process-visual-viewport">
-          {steps.map((step, index) => (
-            <div
-              key={step.num}
-              className={`process-visual-slide process-visual-slide--${step.visual}${activeStep === index ? ' is-active' : ''}`}
-              aria-hidden={activeStep !== index}
-            >
-              <ProcessVisualFrame step={step} />
-            </div>
-          ))}
-        </div>
+      <div className="hiw-visual-panel" aria-live="polite" aria-atomic="true">
+        {steps.map((step, index) => (
+          <figure
+            key={step.num}
+            className={`hiw-visual${activeStep === index ? ' is-active' : ''}`}
+            aria-hidden={activeStep !== index}
+          >
+            <img src={step.image} alt={step.imageAlt} decoding="async" draggable={false} />
+          </figure>
+        ))}
       </div>
     </div>
   );
@@ -195,15 +154,16 @@ function ProcessShowcase() {
 
 export function HowItWorksSection() {
   return (
-    <section className="process-section" id="how-it-works" aria-labelledby="process-heading">
-      <div className="container process-inner">
-        <Reveal className="process-header">
-          <h2 id="process-heading" className="process-eyebrow">
+    <section className="process-section hiw-section" id="how-it-works" aria-labelledby="process-heading">
+      <div className="hiw-section__grid" aria-hidden="true" />
+      <div className="container process-inner hiw-inner">
+        <Reveal className="process-header hiw-header">
+          <h2 id="process-heading" className="process-eyebrow hiw-eyebrow">
             How it works
           </h2>
         </Reveal>
 
-        <ProcessShowcase />
+        <EditorialTimeline />
       </div>
     </section>
   );

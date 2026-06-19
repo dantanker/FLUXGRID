@@ -128,8 +128,9 @@ export function DemoModal() {
             <>
               <h2 id="demo-modal-title">See a demo call</h2>
               <p>
-                Ten minutes. We run a sample electrical intake and show the job landing on your
-                dispatch board.
+                Spend 10 minutes on the phone to hear the engine live, see how it instantly
+                qualifies leads, and watch the complete job ticket stream onto our live dispatch
+                board.
               </p>
 
               <form className="demo-form" onSubmit={handleSubmit}>

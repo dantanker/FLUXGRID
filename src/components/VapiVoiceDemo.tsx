@@ -162,7 +162,7 @@ export function VapiVoiceDemo() {
       </div>
 
       <p
-        className={`vapi-demo-status${status === 'live' ? ' vapi-demo-status--live' : ''}`}
+        className={`vapi-demo-status${status === 'live' ? ' vapi-demo-status--live' : ''}${status === 'idle' ? ' vapi-demo-status--idle' : ''}`}
         aria-live="polite"
       >
         {status === 'live' ? <span className="vapi-demo-status__dot" aria-hidden="true" /> : null}
@@ -175,7 +175,7 @@ export function VapiVoiceDemo() {
         {!onCall ? (
           <button
             type="button"
-            className="cta-btn vapi-demo-btn vapi-demo-btn--start"
+            className="cta-btn full-width"
             onClick={() => void startCall()}
           >
             <PhoneCall size={17} strokeWidth={2.2} aria-hidden="true" />
@@ -184,7 +184,7 @@ export function VapiVoiceDemo() {
         ) : (
           <button
             type="button"
-            className="cta-btn vapi-demo-btn vapi-demo-btn--hangup"
+            className="cta-btn cta-btn--secondary full-width"
             onClick={() => void hangUp()}
             disabled={isEnding}
           >
