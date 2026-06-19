@@ -1,5 +1,4 @@
 import { FluxGridLogo } from './FluxGridLogo';
-import { siteCopy } from '../content/siteCopy';
 
 const siteLinks = [
   { label: 'The problem', href: '#leaks' },
@@ -24,7 +23,10 @@ export function Footer() {
             <a href="#" className="logo footer-logo">
               <FluxGridLogo size="sm" variant="light" />
             </a>
-            <p className="footer-brand-tagline">{siteCopy.footer.tagline}</p>
+            <p className="footer-brand-tagline">
+              A 24/7 missed call receptionist that answers when you can&apos;t, qualifies the
+              customer, and books the job into your CRM.
+            </p>
           </div>
 
           <nav className="footer-nav" aria-label="Footer">

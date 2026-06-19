@@ -1,7 +1,6 @@
 import { FormEvent, useEffect, useState } from 'react';
 import { createPortal } from 'react-dom';
 import { submitLead } from '../api/submitLead';
-import { siteCopy } from '../content/siteCopy';
 import { useDemoModal } from '../context/DemoModalContext';
 type DemoFormData = {
   name: string;
@@ -111,8 +110,11 @@ export function DemoModal() {
 
           {submitted ? (
             <div className="demo-modal-success">
-              <h2 id="demo-modal-title">{siteCopy.demoModal.successTitle}</h2>
-              <p>{siteCopy.demoModal.successIntro}</p>
+              <h2 id="demo-modal-title">Let&apos;s Lock In Your 10-Minute Walkthrough</h2>
+              <p>
+                Select a time below that works best for you. We&apos;ll simulate a live emergency
+                call hitting your CRM.
+              </p>
               <div className="demo-scheduling-widget">
                 <iframe
                   src="https://calendly.com"
@@ -124,8 +126,11 @@ export function DemoModal() {
             </div>
           ) : (
             <>
-              <h2 id="demo-modal-title">{siteCopy.demoModal.title}</h2>
-              <p>{siteCopy.demoModal.intro}</p>
+              <h2 id="demo-modal-title">See a demo call</h2>
+              <p>
+                Ten minutes. We run a sample electrical intake and show the job landing on your
+                dispatch board.
+              </p>
 
               <form className="demo-form" onSubmit={handleSubmit}>
                 <div className="demo-form-grid">
