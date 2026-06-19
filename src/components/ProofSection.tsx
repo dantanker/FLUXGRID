@@ -17,8 +17,8 @@ export function ProofSection() {
               responses.
             </h2>
             <p className="proof-subhead">
-              Homeowners don&apos;t leave voicemails. They just click the next electrician on
-              Google. If your team misses a call, that job is gone forever.
+              Homeowners don&apos;t leave voicemails. They click the next electrician on Google.
+              Miss the call and that job is <strong>gone forever</strong>.
             </p>
             <button type="button" className="cta-btn proof-cta" onClick={openVapiModal}>
               Hear FluxGrid answer a call

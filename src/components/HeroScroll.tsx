@@ -24,8 +24,8 @@ export function HeroScroll() {
         <Reveal className="hero-copy" delay={0.05}>
           <h1 className="hero-headline">Never Miss Another Job</h1>
           <p className="hero-lead">
-            From missed calls to booked jobs. Our 24/7 digital dispatcher qualifies leads and
-            schedules them straight into your CRM.
+            Our <strong>24/7 digital dispatcher</strong> turns missed calls into booked jobs,
+            qualifying every lead and scheduling them straight into your CRM.
           </p>
           <div className="hero-actions">
             <DemoCtaButton>See a demo call</DemoCtaButton>

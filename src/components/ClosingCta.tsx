@@ -11,13 +11,13 @@ export function ClosingCta() {
             Book a walkthrough for your shop.
           </h2>
           <p className="closing-cta__text">
-            Spend 10 minutes on the phone to hear the engine live, see how it instantly qualifies
-            leads, and watch the complete job ticket stream onto our live dispatch board.
+            10 minutes on the phone is all it takes to hear the engine live, watch leads get
+            qualified, and see the full ticket hit our live dispatch board.
           </p>
 
           <DemoCtaButton className="closing-cta__btn">Book a demo call</DemoCtaButton>
 
-          <p className="closing-cta__note">No commitment · Typically live within a week</p>
+          <p className="closing-cta__note">No commitment. Typically live within a week.</p>
         </Reveal>
       </div>
     </section>

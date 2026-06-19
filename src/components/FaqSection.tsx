@@ -6,19 +6,19 @@ const faqItems = [
     num: '01',
     question: 'Will this alienate my older customers who hate talking to "bots"?',
     answer:
-      'No. FluxGrid doesn\'t sound like a robotic chat menu. It uses an advanced natural-language engine designed to handle conversational phone dialogue smoothly. Your customers simply feel like they are talking to a highly efficient, professional live dispatcher who gets them booked immediately.',
+      'No. FluxGrid doesn\'t sound like a robotic chat menu. It uses an advanced natural language engine designed to handle conversational phone dialogue smoothly. Your customers simply feel like they are talking to a highly efficient, professional live dispatcher who gets them booked immediately.',
   },
   {
     num: '02',
     question: 'Does it integrate with my existing software?',
     answer:
-      'Yes. FluxGrid plugs directly into the core platforms the industry runs on, including ServiceTitan, Jobber, and Housecall Pro. It inputs customer data, priority tags, and triage notes right into your active schedule without overwriting your manual dispatcher settings.',
+      'Yes. FluxGrid integrates with the platforms you already use, including ServiceTitan, Jobber, and Housecall Pro. Customer data, priority tags, and triage notes flow into your active schedule without overwriting your manual dispatcher settings.',
   },
   {
     num: '03',
     question: 'What happens if a call is an absolute, extreme electrical emergency?',
     answer:
-      'The system is hardwired for immediate triage. If the engine identifies an immediate safety hazard (like sparking panels, fire, or smoke), it instantly escalates the issue, tags it as a critical emergency, and routes the ticket to your designated on-call technician according to your exact priority rules.',
+      'The system is hardwired for immediate triage. If the engine identifies an immediate safety hazard (like sparking panels, fire, or smoke), it instantly escalates the issue, tags it as a critical emergency, and routes the ticket to your designated on call technician according to your exact priority rules.',
   },
   {
     num: '04',
@@ -30,7 +30,7 @@ const faqItems = [
     num: '05',
     question: 'How long does it take to get live?',
     answer:
-      'We handle the full setup, testing, and CRM integration for you. Your custom intelligent dispatch engine will be fully active and protecting your revenue in exactly 7 days.',
+      'We handle setup, testing, and CRM integration for you. Your dispatch engine will be live and protecting your revenue in exactly 7 days.',
   },
 ] as const;
 

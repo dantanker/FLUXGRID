@@ -9,7 +9,7 @@ const steps = [
     num: '01',
     title: 'Intercept the Lead',
     description:
-      'FluxGrid captures the high-value emergency calls your shop misses. It routes instantly behind the scenes—no new phone numbers required, completely seamless to your existing line.',
+      'FluxGrid captures the high value emergency calls your shop misses, routing them instantly behind the scenes with no new phone numbers required.',
     image: step1IncomingCall,
     imageAlt: 'Incoming emergency call intercepted on your shop line',
   },
@@ -17,15 +17,15 @@ const steps = [
     num: '02',
     title: 'Instant AI Qualification',
     description:
-      'The engine immediately conducts a multi-point triage. It extracts the critical data live—identifying the exact electrical fault, customer location, and whether it requires an urgent dispatch.',
+      'The engine runs a multi point triage in real time, pulling the fault, location, and urgency so your team knows when an urgent dispatch is required.',
     image: step2CallDetails,
     imageAlt: 'FluxGrid extracting caller name, phone, location, and electrical issue during live triage',
   },
   {
     num: '03',
-    title: 'Auto-Book the Job',
+    title: 'Auto Book the Job',
     description:
-      'The qualified job drops instantly onto your team’s schedule with automated priority tags and comprehensive triage notes. Your electricians just show up and clear the ticket.',
+      'The qualified job lands on your team\'s schedule with priority tags and triage notes. Your electricians show up, clear the ticket, and the board stays current.',
     image: step3JobsBoard,
     imageAlt: 'Customer intake board with booked jobs, urgency tags, and triage notes',
   },

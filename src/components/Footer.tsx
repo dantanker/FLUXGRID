@@ -23,8 +23,8 @@ export function Footer() {
               <FluxGridLogo size="sm" variant="light" />
             </a>
             <p className="footer-brand-tagline">
-              Our 24/7 digital dispatcher automatically qualifies leads and books them directly
-              into your CRM. Live in 7 days.
+              Our 24/7 digital dispatcher automatically qualifies leads and books them directly into
+              your CRM. Live in 7 days.
             </p>
           </div>
 

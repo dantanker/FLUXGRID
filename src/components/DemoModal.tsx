@@ -1,13 +1,17 @@
 import { FormEvent, useEffect, useState } from 'react';
 import { createPortal } from 'react-dom';
+import { CalendlyInlineEmbed } from './CalendlyInlineEmbed';
 import { submitLead } from '../api/submitLead';
+import { type CalendlyPrefill } from '../config/calendly';
 import { useDemoModal } from '../context/DemoModalContext';
+import { formatUsPhoneInput, isCompleteUsPhone } from '../utils/formatUsPhone';
 type DemoFormData = {
   name: string;
   shopName: string;
   phone: string;
   email: string;
   crm: string;
+  crmOther: string;
   weeklyCalls: string;
 };
 
@@ -17,14 +21,22 @@ const initialForm: DemoFormData = {
   phone: '',
   email: '',
   crm: '',
+  crmOther: '',
   weeklyCalls: '',
 };
+
+const CRM_OPTIONS_REQUIRING_DETAILS = new Set(['Custom', 'Other']);
+
+function needsCrmDetails(crm: string) {
+  return CRM_OPTIONS_REQUIRING_DETAILS.has(crm);
+}
 
 export function DemoModal() {
   const { isDemoModalOpen, closeDemoModal } = useDemoModal();
   const [form, setForm] = useState<DemoFormData>(initialForm);
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [submitted, setSubmitted] = useState(false);
+  const [schedulingPrefill, setSchedulingPrefill] = useState<CalendlyPrefill | null>(null);
 
   useEffect(() => {
     if (!isDemoModalOpen) {
@@ -50,6 +62,7 @@ export function DemoModal() {
     if (!isDemoModalOpen) {
       setSubmitted(false);
       setIsSubmitting(false);
+      setSchedulingPrefill(null);
       setForm(initialForm);
     }
   }, [isDemoModalOpen]);
@@ -58,23 +71,45 @@ export function DemoModal() {
     setForm((prev) => ({ ...prev, [field]: value }));
   };
 
+  const handleCrmChange = (value: string) => {
+    setForm((prev) => ({
+      ...prev,
+      crm: value,
+      crmOther: needsCrmDetails(value) ? prev.crmOther : '',
+    }));
+  };
+
+  const handlePhoneChange = (value: string) => {
+    handleChange('phone', formatUsPhoneInput(value));
+  };
+
   const handleSubmit = async (event: FormEvent<HTMLFormElement>) => {
     event.preventDefault();
 
-    if (isSubmitting) {
+    if (isSubmitting || !isCompleteUsPhone(form.phone)) {
       return;
     }
 
     setIsSubmitting(true);
 
     try {
+      const crm =
+        needsCrmDetails(form.crm) && form.crmOther.trim()
+          ? `${form.crm}: ${form.crmOther.trim()}`
+          : form.crm;
+
       await submitLead({
         name: form.name,
         shopName: form.shopName,
         phone: form.phone,
         email: form.email,
-        crm: form.crm,
+        crm,
         weeklyCalls: form.weeklyCalls,
+      });
+      setSchedulingPrefill({
+        name: form.name,
+        email: form.email,
+        phone: form.phone,
       });
       setSubmitted(true);
     } finally {
@@ -92,45 +127,50 @@ export function DemoModal() {
       onClick={closeDemoModal}
       role="presentation"
     >
-      <div className="fluxgrid-app demo-modal-inner" onClick={(event) => event.stopPropagation()}>
+      <div
+        className={`fluxgrid-app demo-modal-inner${submitted ? ' demo-modal-inner--scheduling' : ''}`}
+        onClick={(event) => event.stopPropagation()}
+      >
         <div
           className={`demo-modal-card final-box demo-box${submitted ? ' demo-modal-card--success' : ''}`}
           role="dialog"
           aria-modal="true"
           aria-labelledby="demo-modal-title"
         >
-          <button
-            type="button"
-            className="demo-modal-close"
-            onClick={closeDemoModal}
-            aria-label="Close demo request form"
-          >
-            <i className="fa-solid fa-xmark" aria-hidden="true" />
-          </button>
+          {!submitted ? (
+            <button
+              type="button"
+              className="demo-modal-close"
+              onClick={closeDemoModal}
+              aria-label="Close demo request form"
+            >
+              <i className="fa-solid fa-xmark" aria-hidden="true" />
+            </button>
+          ) : null}
 
           {submitted ? (
-            <div className="demo-modal-success">
-              <h2 id="demo-modal-title">Let&apos;s Lock In Your 10-Minute Walkthrough</h2>
-              <p>
-                Select a time below that works best for you. We&apos;ll simulate a live emergency
-                call hitting your CRM.
-              </p>
-              <div className="demo-scheduling-widget">
-                <iframe
-                  src="https://calendly.com"
-                  width="100%"
-                  height="500px"
-                  style={{ border: 0 }}
-                />
+            <div className="demo-modal-success demo-modal-success--embed">
+              <div className="demo-modal-embed-header">
+                <button
+                  type="button"
+                  className="demo-modal-close demo-modal-close--embed"
+                  onClick={closeDemoModal}
+                  aria-label="Close scheduling"
+                >
+                  <i className="fa-solid fa-xmark" aria-hidden="true" />
+                </button>
               </div>
+              <h2 id="demo-modal-title" className="demo-modal-sr-title">
+                Schedule your demo call
+              </h2>
+              {schedulingPrefill ? <CalendlyInlineEmbed prefill={schedulingPrefill} /> : null}
             </div>
           ) : (
             <>
               <h2 id="demo-modal-title">See a demo call</h2>
               <p>
-                Spend 10 minutes on the phone to hear the engine live, see how it instantly
-                qualifies leads, and watch the complete job ticket stream onto our live dispatch
-                board.
+                10 minutes on the phone is all it takes to hear the engine live, watch leads get
+                qualified, and see the full ticket hit our live dispatch board.
               </p>
 
               <form className="demo-form" onSubmit={handleSubmit}>
@@ -162,9 +202,12 @@ export function DemoModal() {
                     <input
                       type="tel"
                       required
+                      inputMode="numeric"
+                      autoComplete="tel"
+                      maxLength={14}
                       disabled={isSubmitting}
                       value={form.phone}
-                      onChange={(event) => handleChange('phone', event.target.value)}
+                      onChange={(event) => handlePhoneChange(event.target.value)}
                       placeholder="(555) 123-4567"
                     />
                   </label>
@@ -185,7 +228,7 @@ export function DemoModal() {
                       required
                       disabled={isSubmitting}
                       value={form.crm}
-                      onChange={(event) => handleChange('crm', event.target.value)}
+                      onChange={(event) => handleCrmChange(event.target.value)}
                     >
                       <option value="">Select one</option>
                       <option value="ServiceTitan">ServiceTitan</option>
@@ -205,15 +248,28 @@ export function DemoModal() {
                     >
                       <option value="">Select range</option>
                       <option value="Under 25">Under 25</option>
-                      <option value="25–75">25–75</option>
-                      <option value="75–150">75–150</option>
+                      <option value="25 to 75">25 to 75</option>
+                      <option value="75 to 150">75 to 150</option>
                       <option value="150+">150+</option>
                     </select>
                   </label>
+                  {needsCrmDetails(form.crm) ? (
+                    <label className="demo-form-full">
+                      What CRM or software do you use?
+                      <input
+                        type="text"
+                        required
+                        disabled={isSubmitting}
+                        value={form.crmOther}
+                        onChange={(event) => handleChange('crmOther', event.target.value)}
+                        placeholder="Tell us what you run today"
+                      />
+                    </label>
+                  ) : null}
                 </div>
 
                 <button type="submit" className="cta-btn full-width" disabled={isSubmitting}>
-                  {isSubmitting ? 'Submitting…' : 'Request a demo call'}
+                  {isSubmitting ? 'Submitting…' : 'Book my demo call'}
                 </button>
               </form>
             </>
