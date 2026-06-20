@@ -94,8 +94,59 @@ function EditorialTimeline() {
     });
   }, []);
 
+  const activeStepData = steps[activeStep];
+
   return (
     <div className="hiw-editorial">
+      <div className="hiw-mobile-stack">
+        <div className="hiw-mobile-cards" role="tablist" aria-label="How FluxGrid works">
+          {steps.map((step, index) => {
+            const isActive = activeStep === index;
+
+            return (
+              <button
+                key={step.num}
+                type="button"
+                role="tab"
+                id={`hiw-mobile-tab-${index}`}
+                aria-selected={isActive}
+                aria-controls="hiw-mobile-detail-panel"
+                className={`hiw-mobile-card${isActive ? ' is-active' : ''}`}
+                onClick={() => setActiveStep(index)}
+              >
+                <span className="hiw-mobile-card__num" aria-hidden="true">
+                  {step.num}
+                </span>
+                <span className="hiw-mobile-card__title">{step.title}</span>
+              </button>
+            );
+          })}
+        </div>
+
+        <div
+          id="hiw-mobile-detail-panel"
+          role="tabpanel"
+          aria-labelledby={`hiw-mobile-tab-${activeStep}`}
+          className="hiw-mobile-detail"
+        >
+          <div className="hiw-mobile-detail__copy">
+            <span className="hiw-mobile-detail__num" aria-hidden="true">
+              {activeStepData.num}
+            </span>
+            <h3 className="hiw-mobile-detail__title">{activeStepData.title}</h3>
+            <p className="hiw-mobile-detail__description">{activeStepData.description}</p>
+          </div>
+          <figure className="hiw-mobile-detail__visual">
+            <img
+              src={activeStepData.image}
+              alt={activeStepData.imageAlt}
+              decoding="async"
+              draggable={false}
+            />
+          </figure>
+        </div>
+      </div>
+
       <div className="hiw-timeline" role="list" aria-label="How FluxGrid works">
         {steps.map((step, index) => {
           const isActive = activeStep === index;
@@ -125,13 +176,6 @@ function EditorialTimeline() {
                   <span className="hiw-step__description">{step.description}</span>
                 </span>
               </button>
-
-              <div
-                className={`hiw-step__visual hiw-step__visual--mobile${isActive ? ' is-active' : ''}`}
-                aria-hidden={!isActive}
-              >
-                <img src={step.image} alt={step.imageAlt} decoding="async" draggable={false} />
-              </div>
             </article>
           );
         })}

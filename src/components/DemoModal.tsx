@@ -49,12 +49,29 @@ export function DemoModal() {
       }
     };
 
+    const scrollFocusedFieldIntoView = (event: FocusEvent) => {
+      const target = event.target;
+      if (!(target instanceof HTMLElement) || !target.closest('.demo-form')) {
+        return;
+      }
+
+      if (!window.matchMedia('(max-width: 768px)').matches) {
+        return;
+      }
+
+      window.setTimeout(() => {
+        target.scrollIntoView({ block: 'center', behavior: 'smooth' });
+      }, 320);
+    };
+
     document.body.style.overflow = 'hidden';
     window.addEventListener('keydown', onKeyDown);
+    document.addEventListener('focusin', scrollFocusedFieldIntoView);
 
     return () => {
       document.body.style.overflow = '';
       window.removeEventListener('keydown', onKeyDown);
+      document.removeEventListener('focusin', scrollFocusedFieldIntoView);
     };
   }, [isDemoModalOpen, closeDemoModal]);
 
@@ -123,7 +140,7 @@ export function DemoModal() {
 
   return createPortal(
     <div
-      className="demo-modal-backdrop fixed inset-0 z-[1100] flex items-center justify-center bg-black/60 p-4 backdrop-blur-sm"
+      className="demo-modal-backdrop fixed inset-0 z-[1100] flex items-start justify-center overflow-y-auto overscroll-contain bg-black/60 p-3 pb-[max(0.75rem,env(safe-area-inset-bottom))] pt-[max(0.75rem,env(safe-area-inset-top))] backdrop-blur-sm md:items-center md:overflow-hidden md:p-4"
       onClick={closeDemoModal}
       role="presentation"
     >
