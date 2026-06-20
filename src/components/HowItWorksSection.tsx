@@ -130,10 +130,6 @@ function EditorialTimeline() {
           className="hiw-mobile-detail"
         >
           <div className="hiw-mobile-detail__copy">
-            <span className="hiw-mobile-detail__num" aria-hidden="true">
-              {activeStepData.num}
-            </span>
-            <h3 className="hiw-mobile-detail__title">{activeStepData.title}</h3>
             <p className="hiw-mobile-detail__description">{activeStepData.description}</p>
           </div>
           <figure className="hiw-mobile-detail__visual">

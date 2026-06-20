@@ -35,7 +35,9 @@ const faqItems = [
 ] as const;
 
 export function FaqSection() {
-  const [openIndex, setOpenIndex] = useState(0);
+  const [openIndex, setOpenIndex] = useState(() =>
+    typeof window !== 'undefined' && window.matchMedia('(max-width: 640px)').matches ? -1 : 0,
+  );
   const baseId = useId();
 
   return (

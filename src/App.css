@@ -3743,37 +3743,11 @@
   }
 
   .fluxgrid-app .hiw-mobile-detail__copy {
-    display: grid;
-    grid-template-columns: auto minmax(0, 1fr);
-    gap: 12px clamp(16px, 3vw, 24px);
-    align-items: start;
-  }
-
-  .fluxgrid-app .hiw-mobile-detail__num {
-    font-family: var(--font-sans);
-    font-size: 2.25rem;
-    font-weight: 600;
-    letter-spacing: -0.04em;
-    line-height: 1;
-    color: var(--bulb-warm);
-  }
-
-  .fluxgrid-app .hiw-mobile-detail__title {
-    margin: 0 0 8px;
-    grid-column: 2;
-    grid-row: 1;
-    font-family: var(--font-sans);
-    font-size: clamp(1.0625rem, 4.5vw, 1.25rem);
-    font-weight: 700;
-    letter-spacing: -0.03em;
-    line-height: 1.25;
-    color: var(--text-light);
+    display: block;
   }
 
   .fluxgrid-app .hiw-mobile-detail__description {
     margin: 0;
-    grid-column: 2;
-    grid-row: 2;
     font-size: 15px;
     line-height: 1.65;
     color: var(--text-muted);
@@ -3839,24 +3813,6 @@
 
   .fluxgrid-app .hiw-mobile-card__title {
     font-size: 11px;
-  }
-
-  .fluxgrid-app .hiw-mobile-detail__copy {
-    grid-template-columns: 1fr;
-    gap: 10px;
-  }
-
-  .fluxgrid-app .hiw-mobile-detail__title,
-  .fluxgrid-app .hiw-mobile-detail__description {
-    grid-column: 1;
-  }
-
-  .fluxgrid-app .hiw-mobile-detail__title {
-    grid-row: 2;
-  }
-
-  .fluxgrid-app .hiw-mobile-detail__description {
-    grid-row: 3;
   }
 }
 
@@ -4056,6 +4012,17 @@
 
 .fluxgrid-app .site-footer .footer-nav-col a.footer-phone:hover {
   color: #fff;
+}
+
+@media (max-width: 768px) {
+  html {
+    background-color: var(--bg-dark);
+  }
+
+  .fluxgrid-app .site-footer {
+    padding-bottom: calc(24px + env(safe-area-inset-bottom, 0px));
+    box-shadow: 0 100dvh 0 100dvh var(--bg-dark);
+  }
 }
 
 /* Demo modal ? light card */
@@ -4954,21 +4921,73 @@
   }
 
   .fluxgrid-app .faq-header {
-    margin-bottom: 24px;
-    text-align: center;
+    margin-bottom: 28px;
+    text-align: left;
+  }
+
+  .fluxgrid-app .faq-title {
+    font-size: clamp(1.5rem, 6vw, 1.75rem);
+  }
+
+  .fluxgrid-app .faq-accordion {
+    gap: 12px;
   }
 
   .fluxgrid-app .faq-item {
-    padding: 18px 16px;
+    grid-template-columns: minmax(0, 1fr) auto;
+    row-gap: 0;
+    padding: 16px;
+    border-left: 1px solid var(--border-color);
+    border-radius: var(--radius-lg);
     column-gap: 12px;
   }
 
+  .fluxgrid-app .faq-item::before {
+    display: none;
+  }
+
+  .fluxgrid-app .faq-item.is-open {
+    border-left: 3px solid var(--accent);
+    padding-left: 14px;
+  }
+
+  .fluxgrid-app .faq-item__num {
+    display: none;
+  }
+
   .fluxgrid-app .faq-item__question {
-    font-size: 1rem;
+    grid-column: 1;
+    grid-row: 1;
+    align-self: start;
+    padding-right: 4px;
+    font-size: 1.0625rem;
+    line-height: 1.45;
+  }
+
+  .fluxgrid-app .faq-item__toggle {
+    grid-column: 2;
+    grid-row: 1;
+    align-self: start;
+    width: 22px;
+    height: 22px;
+    margin-top: 1px;
+    flex-shrink: 0;
+  }
+
+  .fluxgrid-app .faq-item__toggle-bar {
+    width: 16px;
+    height: 2.5px;
+  }
+
+  .fluxgrid-app .faq-item__panel {
+    grid-column: 1 / -1;
+    grid-row: 2;
   }
 
   .fluxgrid-app .faq-item__answer {
-    padding-top: 8px;
+    padding-top: 12px;
+    font-size: 15px;
+    line-height: 1.7;
   }
 }
 
