@@ -110,7 +110,8 @@
 .fluxgrid-app .demo-form select,
 .fluxgrid-app .audience-section,
 .fluxgrid-app .about-section,
-.fluxgrid-app .header-mobile-cta {
+.fluxgrid-app .header-mobile-cta,
+.fluxgrid-app .revenue-calc-section {
   pointer-events: auto;
 }
 
@@ -3827,6 +3828,190 @@
   .fluxgrid-app .hiw-step {
     opacity: 1;
   }
+}
+
+/* Revenue calculator */
+.fluxgrid-app .revenue-calc-section {
+  padding: var(--section-pad) 0;
+  background: transparent;
+  border-top: 1px solid var(--border-subtle);
+}
+
+.fluxgrid-app .revenue-calc-header {
+  margin-bottom: clamp(28px, 4vw, 40px);
+  text-align: center;
+  width: 100%;
+}
+
+.fluxgrid-app .revenue-calc-eyebrow {
+  margin: 0 0 12px;
+  font-size: 11px;
+  font-weight: 600;
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+  color: var(--accent);
+}
+
+.fluxgrid-app .revenue-calc-title {
+  margin: 0;
+  font-family: var(--font-sans);
+  font-size: clamp(1.75rem, 3vw, 2.125rem);
+  font-weight: 700;
+  letter-spacing: -0.03em;
+  line-height: 1.15;
+  color: var(--text-light);
+}
+
+.fluxgrid-app .revenue-calc-box {
+  background: rgba(255, 255, 255, 0.72);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  border: 1px solid var(--border-color);
+  border-radius: var(--radius-xl);
+  padding: clamp(28px, 4vw, 40px);
+  gap: clamp(28px, 4vw, 48px);
+  box-shadow: var(--shadow-sm);
+}
+
+.fluxgrid-app .revenue-calc-results {
+  text-align: left;
+  align-items: stretch;
+  gap: 0;
+}
+
+.fluxgrid-app .revenue-calc-stat-label {
+  margin: 0 0 6px;
+  font-size: 12px;
+  font-weight: 600;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: var(--text-subtle);
+}
+
+.fluxgrid-app .revenue-calc-weekly {
+  margin: 0 0 20px;
+  font-family: var(--font-sans);
+  font-size: clamp(1.375rem, 2.5vw, 1.625rem);
+  font-weight: 700;
+  letter-spacing: -0.02em;
+  line-height: 1.1;
+  color: var(--text-light);
+}
+
+.fluxgrid-app .revenue-calc-divider {
+  height: 1px;
+  margin-bottom: 20px;
+  background: var(--border-color);
+}
+
+.fluxgrid-app .revenue-calc-annual {
+  margin: 0 0 12px;
+  font-size: clamp(2.25rem, 5vw, 3rem);
+  color: var(--success-green);
+}
+
+.fluxgrid-app .revenue-calc-note {
+  margin: 0 0 20px;
+  font-size: 13px;
+  line-height: 1.5;
+  color: var(--text-muted);
+}
+
+.fluxgrid-app .revenue-calc-cta.cta-btn {
+  align-self: flex-start;
+  margin-top: 4px;
+  padding: 14px 28px;
+  font-size: 15px;
+  font-weight: 600;
+}
+
+.fluxgrid-app .revenue-calc-range-labels {
+  display: flex;
+  justify-content: space-between;
+  margin-top: 6px;
+  font-size: 12px;
+  color: var(--text-subtle);
+}
+
+.fluxgrid-app .revenue-calc-section .slider-label label {
+  font-weight: 600;
+  color: var(--text-light);
+}
+
+.fluxgrid-app .revenue-calc-section input[type='range'] {
+  -webkit-appearance: none;
+  appearance: none;
+  display: block;
+  width: 100%;
+  height: 28px;
+  margin: 0;
+  padding: 0;
+  border: none;
+  background: transparent;
+  cursor: pointer;
+}
+
+.fluxgrid-app .revenue-calc-section input[type='range']::-webkit-slider-runnable-track {
+  height: 8px;
+  border: 1px solid var(--border-color);
+  border-radius: 999px;
+  background: linear-gradient(
+    to right,
+    var(--accent) 0%,
+    var(--accent) var(--range-progress, 50%),
+    var(--bg-subtle) var(--range-progress, 50%),
+    var(--bg-subtle) 100%
+  );
+}
+
+.fluxgrid-app .revenue-calc-section input[type='range']::-webkit-slider-thumb {
+  -webkit-appearance: none;
+  appearance: none;
+  width: 22px;
+  height: 22px;
+  margin-top: -8px;
+  border: 3px solid var(--bg-elevated);
+  border-radius: 50%;
+  background: var(--accent);
+  box-shadow: var(--shadow-sm);
+  cursor: grab;
+  transition: transform 0.15s ease;
+}
+
+.fluxgrid-app .revenue-calc-section input[type='range']:active::-webkit-slider-thumb {
+  cursor: grabbing;
+}
+
+.fluxgrid-app .revenue-calc-section input[type='range']::-webkit-slider-thumb:hover {
+  transform: scale(1.08);
+}
+
+.fluxgrid-app .revenue-calc-section input[type='range']::-moz-range-track {
+  height: 8px;
+  border: 1px solid var(--border-color);
+  border-radius: 999px;
+  background: var(--bg-subtle);
+}
+
+.fluxgrid-app .revenue-calc-section input[type='range']::-moz-range-progress {
+  height: 8px;
+  border-radius: 999px 0 0 999px;
+  background: var(--accent);
+}
+
+.fluxgrid-app .revenue-calc-section input[type='range']::-moz-range-thumb {
+  width: 22px;
+  height: 22px;
+  border: 3px solid var(--bg-elevated);
+  border-radius: 50%;
+  background: var(--accent);
+  box-shadow: var(--shadow-sm);
+  cursor: grab;
+}
+
+.fluxgrid-app .revenue-calc-section input[type='range']:focus-visible::-webkit-slider-thumb {
+  outline: 2px solid var(--accent);
+  outline-offset: 2px;
 }
 
 /* Fit section */

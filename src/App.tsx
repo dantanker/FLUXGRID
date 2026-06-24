@@ -1,6 +1,7 @@
 import { HeroScroll } from './components/HeroScroll';
 import { ProofSection } from './components/ProofSection';
 import { HowItWorksSection } from './components/HowItWorksSection';
+import { RevenueCalculatorSection } from './components/RevenueCalculatorSection';
 import { FaqSection } from './components/FaqSection';
 import { DemoModal } from './components/DemoModal';
 import { ElectricalGridBackground } from './components/ElectricalGridBackground';
@@ -20,6 +21,7 @@ function App() {
         <HeroScroll />
         <ProofSection />
         <HowItWorksSection />
+        <RevenueCalculatorSection />
         <FaqSection />
 
         <ClosingCta />
