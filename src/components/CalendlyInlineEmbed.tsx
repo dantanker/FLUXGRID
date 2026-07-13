@@ -76,7 +76,7 @@ export function CalendlyInlineEmbed({ prefill }: CalendlyInlineEmbedProps) {
 
         containerRef.current.innerHTML = '';
         const iframe = document.createElement('iframe');
-        iframe.title = 'Schedule your demo call';
+        iframe.title = 'Schedule your demo';
         iframe.src = buildCalendlyEmbedUrl(prefill);
         iframe.width = '100%';
         iframe.height = '100%';
@@ -97,7 +97,7 @@ export function CalendlyInlineEmbed({ prefill }: CalendlyInlineEmbedProps) {
     <div
       ref={containerRef}
       className="demo-scheduling-widget demo-scheduling-widget--inline"
-      aria-label="Schedule your demo call"
+      aria-label="Schedule your demo"
     />
   );
 }

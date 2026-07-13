@@ -8,6 +8,7 @@ import { ElectricalGridBackground } from './components/ElectricalGridBackground'
 import { Footer } from './components/Footer';
 import { SiteHeader } from './components/SiteHeader';
 import { ClosingCta } from './components/ClosingCta';
+import { VisionSection } from './components/VisionSection';
 import { DemoModalProvider } from './context/DemoModalContext';
 import './App.css';
 
@@ -23,6 +24,7 @@ function App() {
         <HowItWorksSection />
         <RevenueCalculatorSection />
         <FaqSection />
+        <VisionSection />
 
         <ClosingCta />
         <Footer />

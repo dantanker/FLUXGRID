@@ -6,7 +6,7 @@ const faqItems = [
     num: '01',
     question: 'Will this alienate my older customers who hate talking to "bots"?',
     answer:
-      'No. FluxGrid doesn\'t sound like a robotic chat menu. It uses an advanced natural language engine designed to handle conversational phone dialogue smoothly. Your customers simply feel like they are talking to a highly efficient, professional live dispatcher who gets them booked immediately.',
+      'No. FluxGrid doesn\'t sound like a robotic chat menu. It uses an advanced natural language engine designed to handle conversational phone dialogue smoothly. Your customers simply feel like they are talking to a highly efficient, professional live receptionist who gets them booked immediately.',
   },
   {
     num: '02',
@@ -30,7 +30,7 @@ const faqItems = [
     num: '05',
     question: 'How long does it take to get live?',
     answer:
-      'We handle setup, testing, and CRM integration for you. Your dispatch engine will be live and protecting your revenue in exactly 7 days.',
+      'We handle setup, testing, and CRM integration for you. Your digital receptionist will be live and protecting your revenue in exactly 7 days.',
   },
 ] as const;
 

@@ -112,7 +112,7 @@ export function RevenueCalculatorSection() {
               Based on an industry-standard 70% booking rate on captured service calls.
             </p>
 
-            <DemoCtaButton className="revenue-calc-cta">See demo</DemoCtaButton>
+            <DemoCtaButton className="revenue-calc-cta">Book a demo</DemoCtaButton>
           </div>
         </div>
       </div>

@@ -178,16 +178,16 @@ export function DemoModal() {
                 </button>
               </div>
               <h2 id="demo-modal-title" className="demo-modal-sr-title">
-                Schedule your demo call
+                Schedule your demo
               </h2>
               {schedulingPrefill ? <CalendlyInlineEmbed prefill={schedulingPrefill} /> : null}
             </div>
           ) : (
             <>
-              <h2 id="demo-modal-title">See a demo call</h2>
+              <h2 id="demo-modal-title">Book a demo</h2>
               <p>
-                10 minutes on the phone is all it takes to hear the engine live, watch leads get
-                qualified, and see the full ticket hit our live dispatch board.
+                15 minutes on Zoom is all it takes to hear the engine live, watch the leads get
+                qualified, and see the full ticket hit our live board.
               </p>
 
               <form className="demo-form" onSubmit={handleSubmit}>
@@ -286,7 +286,7 @@ export function DemoModal() {
                 </div>
 
                 <button type="submit" className="cta-btn full-width" disabled={isSubmitting}>
-                  {isSubmitting ? 'Submitting…' : 'Book my demo call'}
+                  {isSubmitting ? 'Submitting…' : 'Book my demo'}
                 </button>
               </form>
             </>

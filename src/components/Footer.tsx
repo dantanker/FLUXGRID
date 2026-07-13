@@ -4,6 +4,7 @@ const siteLinks = [
   { label: 'The problem', href: '#leaks' },
   { label: 'How it works', href: '#how-it-works' },
   { label: 'FAQ', href: '#faq' },
+  { label: 'Vision', href: '#vision' },
 ];
 
 const contactLinks = [
@@ -23,7 +24,7 @@ export function Footer() {
               <FluxGridLogo size="sm" variant="light" />
             </a>
             <p className="footer-brand-tagline">
-              Our 24/7 digital dispatcher automatically qualifies leads and books them directly into
+              Our 24/7 digital receptionist automatically qualifies leads and books them directly into
               your CRM. Live in 7 days.
             </p>
           </div>

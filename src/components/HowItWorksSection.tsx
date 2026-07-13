@@ -25,7 +25,7 @@ const steps = [
     num: '03',
     title: 'Auto Book the Job',
     description:
-      'The qualified job lands on your team\'s schedule with priority tags and triage notes. Your electricians show up, clear the ticket, and the board stays current.',
+      'The qualified job lands on your schedule with priority tags and triage notes. Instantly, you get an SMS with the lead details, and the customer gets a confirmation text—so everyone knows the job is locked in before you hang up the drill.',
     image: step3JobsBoard,
     imageAlt: 'Customer intake board with booked jobs, urgency tags, and triage notes',
   },
