@@ -3,6 +3,7 @@ import { FluxGridLogo } from './FluxGridLogo';
 const siteLinks = [
   { label: 'The problem', href: '#leaks' },
   { label: 'How it works', href: '#how-it-works' },
+  { label: 'Growth Suite', href: '#growth-suite' },
   { label: 'FAQ', href: '#faq' },
   { label: 'Vision', href: '#vision' },
 ];

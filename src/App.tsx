@@ -1,6 +1,7 @@
 import { HeroScroll } from './components/HeroScroll';
 import { ProofSection } from './components/ProofSection';
 import { HowItWorksSection } from './components/HowItWorksSection';
+import { GrowthSuiteSection } from './components/GrowthSuiteSection';
 import { RevenueCalculatorSection } from './components/RevenueCalculatorSection';
 import { FaqSection } from './components/FaqSection';
 import { DemoModal } from './components/DemoModal';
@@ -23,6 +24,7 @@ function App() {
         <ProofSection />
         <HowItWorksSection />
         <RevenueCalculatorSection />
+        <GrowthSuiteSection />
         <FaqSection />
         <VisionSection />
 

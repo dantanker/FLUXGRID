@@ -15,6 +15,7 @@ export function SiteHeader() {
         <nav>
           <a href="#leaks">The problem</a>
           <a href="#how-it-works">How it works</a>
+          <a href="#growth-suite">Growth Suite</a>
           <a href="#faq">FAQ</a>
           <a href="#vision">Vision</a>
           <DemoCtaButton className="nav">Book a demo</DemoCtaButton>

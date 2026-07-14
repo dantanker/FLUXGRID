@@ -1,3 +1,4 @@
+import { AnimatePresence, motion, useReducedMotion } from 'framer-motion';
 import { useCallback, useEffect, useRef, useState } from 'react';
 import step1IncomingCall from '../assets/how-it-works/step-1-incoming-call.png';
 import step2CallDetails from '../assets/how-it-works/step-2-call-details.png';
@@ -31,6 +32,9 @@ const steps = [
   },
 ] as const;
 
+const STEP_DURATION_MS = 4800;
+const ease = [0.22, 1, 0.36, 1] as const;
+
 function usePrefersReducedMotion() {
   const [prefersReducedMotion, setPrefersReducedMotion] = useState(false);
 
@@ -43,6 +47,125 @@ function usePrefersReducedMotion() {
   }, []);
 
   return prefersReducedMotion;
+}
+
+function MobileStory() {
+  const [activeStep, setActiveStep] = useState(0);
+  const [isInView, setIsInView] = useState(false);
+  const [userPaused, setUserPaused] = useState(false);
+  const stackRef = useRef<HTMLDivElement>(null);
+  const resumeTimerRef = useRef<number | null>(null);
+  const reduceMotion = useReducedMotion();
+  const active = steps[activeStep];
+
+  useEffect(() => {
+    const node = stackRef.current;
+    if (!node) {
+      return;
+    }
+
+    const observer = new IntersectionObserver(
+      ([entry]) => setIsInView(entry.isIntersecting),
+      { threshold: 0.35 },
+    );
+
+    observer.observe(node);
+    return () => observer.disconnect();
+  }, []);
+
+  useEffect(() => {
+    if (reduceMotion || userPaused || !isInView) {
+      return;
+    }
+
+    const timer = window.setInterval(() => {
+      setActiveStep((current) => (current + 1) % steps.length);
+    }, STEP_DURATION_MS);
+
+    return () => window.clearInterval(timer);
+  }, [reduceMotion, userPaused, isInView, activeStep]);
+
+  useEffect(() => {
+    return () => {
+      if (resumeTimerRef.current !== null) {
+        window.clearTimeout(resumeTimerRef.current);
+      }
+    };
+  }, []);
+
+  const selectStep = useCallback((index: number) => {
+    setActiveStep(index);
+    setUserPaused(true);
+
+    if (resumeTimerRef.current !== null) {
+      window.clearTimeout(resumeTimerRef.current);
+    }
+
+    resumeTimerRef.current = window.setTimeout(() => {
+      setUserPaused(false);
+    }, STEP_DURATION_MS * 2);
+  }, []);
+
+  return (
+    <div ref={stackRef} className="hiw-mobile-stack">
+      <div className="hiw-mobile-stage" aria-live="polite" aria-atomic="true">
+        {steps.map((step, index) => (
+          <figure
+            key={step.num}
+            className={`hiw-mobile-stage__frame${activeStep === index ? ' is-active' : ''}`}
+            aria-hidden={activeStep !== index}
+          >
+            <img src={step.image} alt={step.imageAlt} decoding="async" draggable={false} />
+          </figure>
+        ))}
+      </div>
+
+      <div className="hiw-mobile-copy">
+        <AnimatePresence mode="wait" initial={false}>
+          <motion.div
+            key={active.num}
+            className="hiw-mobile-copy__inner"
+            initial={reduceMotion ? false : { opacity: 0, y: 12 }}
+            animate={{ opacity: 1, y: 0 }}
+            exit={reduceMotion ? undefined : { opacity: 0, y: -8 }}
+            transition={{ duration: 0.4, ease }}
+          >
+            <p className="hiw-mobile-copy__num" aria-hidden="true">
+              {active.num}
+            </p>
+            <h3 className="hiw-mobile-copy__title">{active.title}</h3>
+            <p className="hiw-mobile-copy__description">{active.description}</p>
+          </motion.div>
+        </AnimatePresence>
+      </div>
+
+      <div className="hiw-mobile-progress" role="tablist" aria-label="How FluxGrid works">
+        {steps.map((step, index) => {
+          const isActive = activeStep === index;
+
+          return (
+            <button
+              key={step.num}
+              type="button"
+              role="tab"
+              id={`hiw-mobile-tab-${index}`}
+              aria-selected={isActive}
+              aria-label={`Step ${step.num}: ${step.title}`}
+              className={`hiw-mobile-progress__dot${isActive ? ' is-active' : ''}`}
+              onClick={() => selectStep(index)}
+            >
+              {isActive && !reduceMotion ? (
+                <span
+                  key={`${activeStep}-${userPaused}`}
+                  className={`hiw-mobile-progress__fill${userPaused ? ' is-paused' : ''}`}
+                />
+              ) : null}
+            </button>
+          );
+        })}
+      </div>
+    </div>
+  );
 }
 
 function EditorialTimeline() {
@@ -94,54 +217,9 @@ function EditorialTimeline() {
     });
   }, []);
 
-  const activeStepData = steps[activeStep];
-
   return (
     <div className="hiw-editorial">
-      <div className="hiw-mobile-stack">
-        <div className="hiw-mobile-cards" role="tablist" aria-label="How FluxGrid works">
-          {steps.map((step, index) => {
-            const isActive = activeStep === index;
-
-            return (
-              <button
-                key={step.num}
-                type="button"
-                role="tab"
-                id={`hiw-mobile-tab-${index}`}
-                aria-selected={isActive}
-                aria-controls="hiw-mobile-detail-panel"
-                className={`hiw-mobile-card${isActive ? ' is-active' : ''}`}
-                onClick={() => setActiveStep(index)}
-              >
-                <span className="hiw-mobile-card__num" aria-hidden="true">
-                  {step.num}
-                </span>
-                <span className="hiw-mobile-card__title">{step.title}</span>
-              </button>
-            );
-          })}
-        </div>
-
-        <div
-          id="hiw-mobile-detail-panel"
-          role="tabpanel"
-          aria-labelledby={`hiw-mobile-tab-${activeStep}`}
-          className="hiw-mobile-detail"
-        >
-          <div className="hiw-mobile-detail__copy">
-            <p className="hiw-mobile-detail__description">{activeStepData.description}</p>
-          </div>
-          <figure className="hiw-mobile-detail__visual">
-            <img
-              src={activeStepData.image}
-              alt={activeStepData.imageAlt}
-              decoding="async"
-              draggable={false}
-            />
-          </figure>
-        </div>
-      </div>
+      <MobileStory />
 
       <div className="hiw-timeline" role="list" aria-label="How FluxGrid works">
         {steps.map((step, index) => {
