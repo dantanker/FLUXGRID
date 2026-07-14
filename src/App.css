@@ -3594,10 +3594,6 @@
   align-items: center;
 }
 
-.fluxgrid-app .growth-suite-section__actions--mobile {
-  display: none;
-}
-
 .fluxgrid-app .growth-suite-section__iframe-wrap {
   position: relative;
   width: 100%;
@@ -3620,24 +3616,10 @@
   transition: opacity 0.2s ease;
 }
 
-.fluxgrid-app .growth-suite-section__mobile-visual {
-  display: none;
-  margin: 0;
-}
-
-.fluxgrid-app .growth-suite-section__mobile-visual img {
-  display: block;
-  width: 100%;
-  height: auto;
-  border-radius: var(--radius-xl);
-  border: 1px solid var(--border-color);
-  box-shadow: var(--shadow-sm);
-}
-
 @media (max-width: 992px) {
   .fluxgrid-app .growth-suite-section__layout {
     grid-template-columns: 1fr;
-    gap: 36px;
+    gap: 0;
   }
 
   .fluxgrid-app .growth-suite-section__copy {
@@ -3645,28 +3627,14 @@
   }
 
   .fluxgrid-app .growth-suite-section__text {
-    margin-bottom: 0;
+    margin-bottom: 28px;
   }
 
-  .fluxgrid-app .growth-suite-section__actions--desktop {
+  .fluxgrid-app .growth-suite-section__media {
     display: none;
   }
 
-  .fluxgrid-app .growth-suite-section__actions--mobile {
-    display: flex;
-    justify-content: stretch;
-    margin-top: 28px;
-  }
-
-  .fluxgrid-app .growth-suite-section__iframe-wrap {
-    display: none;
-  }
-
-  .fluxgrid-app .growth-suite-section__mobile-visual {
-    display: block;
-  }
-
-  .fluxgrid-app .growth-suite-section__cta--full {
+  .fluxgrid-app .growth-suite-section__cta {
     width: 100%;
     max-width: 360px;
     justify-content: center;
@@ -3678,24 +3646,17 @@
     padding: 64px 0;
   }
 
-  .fluxgrid-app .growth-suite-section__layout {
-    gap: 28px;
-  }
-
   .fluxgrid-app .growth-suite-section__title {
     margin-bottom: 16px;
   }
 
   .fluxgrid-app .growth-suite-section__text {
+    margin-bottom: 24px;
     font-size: 16px;
     line-height: 1.7;
   }
 
-  .fluxgrid-app .growth-suite-section__actions--mobile {
-    margin-top: 24px;
-  }
-
-  .fluxgrid-app .growth-suite-section__cta--full {
+  .fluxgrid-app .growth-suite-section__cta {
     max-width: none;
   }
 }

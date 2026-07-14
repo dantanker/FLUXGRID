@@ -3,10 +3,6 @@ import { Reveal } from './motion/Reveal';
 
 export const GROWTH_SUITE_PROTOTYPE_URL = 'https://voltguard-rouge.vercel.app/';
 
-/** Replace with your high-impact website mockup image path */
-const MOBILE_MOCKUP_SRC = '/growth-suite-mockup.svg';
-const MOBILE_MOCKUP_ALT = 'Professional website prototype mockup';
-
 /** Desktop viewport size rendered inside the preview, then scaled down */
 const PREVIEW_WIDTH = 1440;
 const PREVIEW_HEIGHT = 810;
@@ -86,28 +82,13 @@ export function GrowthSuiteSection() {
               optimized for SEO to make sure you&apos;re the obvious choice when customers are
               searching for a pro.
             </p>
-            <div className="growth-suite-section__actions growth-suite-section__actions--desktop">
-              <PrototypeCta />
+            <div className="growth-suite-section__actions">
+              <PrototypeCta className="growth-suite-section__cta" />
             </div>
           </Reveal>
 
           <Reveal className="growth-suite-section__media" delay={0.1} direction="right">
             <ScaledWebsitePreview />
-
-            <figure className="growth-suite-section__mobile-visual">
-              <img
-                src={MOBILE_MOCKUP_SRC}
-                alt={MOBILE_MOCKUP_ALT}
-                width={1200}
-                height={900}
-                decoding="async"
-                draggable={false}
-              />
-            </figure>
-
-            <div className="growth-suite-section__actions growth-suite-section__actions--mobile">
-              <PrototypeCta className="growth-suite-section__cta--full" />
-            </div>
           </Reveal>
         </div>
       </div>
