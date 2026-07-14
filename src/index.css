@@ -2,14 +2,22 @@
 @tailwind components;
 @tailwind utilities;
 
-html,
+html {
+  margin: 0;
+  padding: 0;
+  width: 100%;
+  min-height: 100%;
+  background-color: #1a2332;
+  scroll-padding-top: calc(var(--header-height, 72px) + 16px);
+}
+
 body {
   margin: 0;
   padding: 0;
   width: 100%;
   min-height: 100%;
-  overflow-x: hidden;
-  background-color: #faf9f7;
+  overflow-x: visible;
+  background-color: #1a2332;
   scroll-padding-top: calc(var(--header-height, 72px) + 16px);
 }
 
@@ -20,35 +28,17 @@ body {
 #root {
   position: relative;
   min-height: 100%;
+  overflow-x: visible;
+  background-color: transparent;
 }
 
+/* Fixed navy underlay — visible on overscroll past the footer */
 .site-background {
   position: fixed;
   inset: 0;
   z-index: 0;
   pointer-events: none;
-  background-color: #faf9f7;
-  background-image:
-    linear-gradient(rgba(26, 29, 36, 0.045) 1px, transparent 1px),
-    linear-gradient(90deg, rgba(26, 29, 36, 0.045) 1px, transparent 1px);
-  background-size: 36px 36px;
-  background-position: center top;
-}
-
-@media (prefers-reduced-motion: no-preference) {
-  .site-background {
-    animation: grid-drift 56s linear infinite;
-  }
-}
-
-@keyframes grid-drift {
-  from {
-    background-position: center 0;
-  }
-
-  to {
-    background-position: center 36px;
-  }
+  background-color: #1a2332;
 }
 
 @media (prefers-reduced-motion: reduce) {

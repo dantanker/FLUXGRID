@@ -18,17 +18,20 @@ function App() {
     <DemoModalProvider>
       <ElectricalGridBackground />
       <div className="fluxgrid-app">
-        <SiteHeader />
+        <div className="fluxgrid-app__main">
+          <SiteHeader />
 
-        <HeroScroll />
-        <ProofSection />
-        <HowItWorksSection />
-        <RevenueCalculatorSection />
-        <GrowthSuiteSection />
-        <FaqSection />
-        <VisionSection />
+          <HeroScroll />
+          <ProofSection />
+          <HowItWorksSection />
+          <RevenueCalculatorSection />
+          <GrowthSuiteSection />
+          <FaqSection />
+          <VisionSection />
 
-        <ClosingCta />
+          <ClosingCta />
+        </div>
+
         <Footer />
         <DemoModal />
       </div>

@@ -6,6 +6,21 @@ export const GROWTH_SUITE_PROTOTYPE_URL = 'https://voltguard-rouge.vercel.app/';
 /** Desktop viewport size rendered inside the preview, then scaled down */
 const PREVIEW_WIDTH = 1440;
 const PREVIEW_HEIGHT = 810;
+const DESKTOP_MIN_WIDTH = 993;
+
+function useIsDesktop() {
+  const [isDesktop, setIsDesktop] = useState(false);
+
+  useEffect(() => {
+    const media = window.matchMedia(`(min-width: ${DESKTOP_MIN_WIDTH}px)`);
+    const update = () => setIsDesktop(media.matches);
+    update();
+    media.addEventListener('change', update);
+    return () => media.removeEventListener('change', update);
+  }, []);
+
+  return isDesktop;
+}
 
 function PrototypeCta({ className }: { className?: string }) {
   return (
@@ -63,6 +78,8 @@ function ScaledWebsitePreview() {
 }
 
 export function GrowthSuiteSection() {
+  const isDesktop = useIsDesktop();
+
   return (
     <section
       className="growth-suite-section"
@@ -87,9 +104,11 @@ export function GrowthSuiteSection() {
             </div>
           </Reveal>
 
-          <Reveal className="growth-suite-section__media" delay={0.1} direction="right">
-            <ScaledWebsitePreview />
-          </Reveal>
+          {isDesktop ? (
+            <Reveal className="growth-suite-section__media" delay={0.1} direction="right">
+              <ScaledWebsitePreview />
+            </Reveal>
+          ) : null}
         </div>
       </div>
     </section>

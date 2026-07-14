@@ -49,13 +49,47 @@
   z-index: 1;
   background-color: transparent;
   color: var(--text-light);
-  overflow-x: clip;
+  overflow: visible;
   line-height: 1.65;
   font-family: var(--font-sans);
   scroll-behavior: smooth;
   pointer-events: none;
-  padding-top: var(--header-height);
   -webkit-font-smoothing: antialiased;
+}
+
+.fluxgrid-app__main {
+  position: relative;
+  z-index: 1;
+  overflow-x: clip;
+  padding-top: var(--header-height);
+  background-color: #faf9f7;
+  background-image:
+    linear-gradient(rgba(26, 29, 36, 0.045) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(26, 29, 36, 0.045) 1px, transparent 1px);
+  background-size: 36px 36px;
+  background-position: center top;
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  .fluxgrid-app__main {
+    animation: grid-drift 56s linear infinite;
+  }
+}
+
+@keyframes grid-drift {
+  from {
+    background-position: center 0;
+  }
+
+  to {
+    background-position: center 36px;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .fluxgrid-app__main {
+    animation: none;
+  }
 }
 
 .fluxgrid-app::before {
@@ -96,7 +130,7 @@
 .fluxgrid-app textarea,
 .fluxgrid-app .faq-item,
 .fluxgrid-app .faq-container,
-.fluxgrid-app > header,
+.fluxgrid-app header,
 .fluxgrid-app nav,
 .fluxgrid-app .calc-box,
 .fluxgrid-app .process-card,
@@ -116,7 +150,7 @@
   pointer-events: auto;
 }
 
-.fluxgrid-app > header {
+.fluxgrid-app header {
   padding: 0;
   border-bottom: 1px solid var(--border-subtle);
   background: rgba(250, 249, 247, 0.92);
@@ -131,7 +165,7 @@
   animation: header-enter 0.55s cubic-bezier(0.22, 1, 0.36, 1) both;
 }
 
-.fluxgrid-app > header .nav-container {
+.fluxgrid-app header .nav-container {
   min-height: var(--header-height);
 }
 
@@ -2121,7 +2155,7 @@
     display: none;
   }
 
-  .fluxgrid-app > header img.fluxgrid-logo {
+  .fluxgrid-app header img.fluxgrid-logo {
     height: 32px !important;
     width: auto !important;
   }
@@ -3291,26 +3325,6 @@
   pointer-events: none;
 }
 
-.fluxgrid-app .hiw-visual::after {
-  content: '';
-  position: absolute;
-  bottom: 8%;
-  left: 50%;
-  z-index: 0;
-  width: min(68%, 440px);
-  height: 32px;
-  transform: translateX(-50%);
-  border-radius: 50%;
-  background: radial-gradient(
-    ellipse at center,
-    rgba(26, 29, 36, 0.2) 0%,
-    rgba(26, 29, 36, 0.08) 42%,
-    transparent 72%
-  );
-  filter: blur(10px);
-  pointer-events: none;
-}
-
 .fluxgrid-app .hiw-visual.is-active {
   opacity: 1;
   visibility: visible;
@@ -3331,7 +3345,6 @@
   max-height: 100%;
   height: auto;
   object-fit: contain;
-  filter: drop-shadow(0 16px 32px rgba(26, 29, 36, 0.1));
 }
 
 @media (max-width: 960px) {
@@ -3404,7 +3417,6 @@
     height: auto;
     max-height: 100%;
     object-fit: contain;
-    filter: drop-shadow(0 14px 28px rgba(26, 29, 36, 0.1));
   }
 
   .fluxgrid-app .hiw-mobile-copy {
@@ -3594,6 +3606,18 @@
   align-items: center;
 }
 
+.fluxgrid-app .growth-suite-section__media,
+.fluxgrid-app .growth-suite-section__iframe-wrap {
+  display: none;
+}
+
+@media (min-width: 993px) {
+  .fluxgrid-app .growth-suite-section__media,
+  .fluxgrid-app .growth-suite-section__iframe-wrap {
+    display: block;
+  }
+}
+
 .fluxgrid-app .growth-suite-section__iframe-wrap {
   position: relative;
   width: 100%;
@@ -3628,10 +3652,6 @@
 
   .fluxgrid-app .growth-suite-section__text {
     margin-bottom: 28px;
-  }
-
-  .fluxgrid-app .growth-suite-section__media {
-    display: none;
   }
 
   .fluxgrid-app .growth-suite-section__cta {
@@ -3990,13 +4010,18 @@
   max-width: 560px;
 }
 
-/* Footer ? dark contrast band */
+/* Footer — dark contrast band */
 .fluxgrid-app .site-footer {
+  position: relative;
+  z-index: 2;
   background: var(--bg-dark);
   color: var(--text-on-dark);
   border-top: none;
   margin-top: 0;
   padding: 32px 0 24px;
+  overflow: visible;
+  /* Navy bleed below the page — box-shadow does not add scroll height */
+  box-shadow: 0 100vh 0 100vh var(--bg-dark);
 }
 
 .fluxgrid-app .site-footer .footer-brand-tagline,
@@ -4031,13 +4056,8 @@
 }
 
 @media (max-width: 768px) {
-  html {
-    background-color: var(--bg-dark);
-  }
-
   .fluxgrid-app .site-footer {
     padding-bottom: calc(24px + env(safe-area-inset-bottom, 0px));
-    box-shadow: 0 100dvh 0 100dvh var(--bg-dark);
   }
 }
 
@@ -4090,12 +4110,12 @@
 }
 
 .fluxgrid-app .site-header,
-.fluxgrid-app > header,
+.fluxgrid-app header,
 .fluxgrid-app .closing-cta {
   pointer-events: auto;
 }
 
-.fluxgrid-app > header.is-scrolled {
+.fluxgrid-app header.is-scrolled {
   box-shadow: var(--shadow-sm);
   border-bottom-color: var(--border-color);
 }
@@ -4439,7 +4459,8 @@
     opacity: 0.35;
   }
 
-  .fluxgrid-app > header,
+  .fluxgrid-app header,
+  .fluxgrid-app__main,
   .site-background {
     animation: none;
   }
