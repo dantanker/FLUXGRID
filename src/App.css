@@ -2369,11 +2369,12 @@
     display: inline-flex;
     align-items: center;
     margin-left: auto;
+    margin-right: 4px;
     padding: 0;
     border: 0;
     background: none;
     color: var(--text-light);
-    font-size: 13px;
+    font-size: 12px;
     font-weight: 600;
     letter-spacing: -0.01em;
     text-decoration: none;
@@ -2383,8 +2384,8 @@
   .fluxgrid-app .header-mobile-cta {
     display: inline-flex;
     flex-shrink: 0;
-    padding: 10px 14px;
-    font-size: 12px;
+    padding: 9px 12px;
+    font-size: 11px;
     white-space: nowrap;
   }
 
@@ -3766,9 +3767,18 @@
   .fluxgrid-app .hiw-mobile-stage {
     position: relative;
     width: 100%;
+    max-width: 300px;
     aspect-ratio: 4 / 3;
-    max-height: min(52vh, 420px);
+    max-height: min(44vh, 320px);
     margin: 0 auto;
+  }
+
+  .fluxgrid-app .hiw-header {
+    margin-bottom: 16px;
+  }
+
+  .fluxgrid-app .hiw-mobile-stack {
+    gap: 20px;
   }
 
   .fluxgrid-app .hiw-mobile-stage__frame {
@@ -4625,9 +4635,13 @@
 }
 
 @media (max-width: 992px) {
+  .fluxgrid-app .vision-section {
+    padding: 36px 0 40px;
+  }
+
   .fluxgrid-app .vision-section__inner {
     grid-template-columns: 1fr;
-    gap: 40px;
+    gap: 20px;
   }
 
   .fluxgrid-app .vision-section__content {
@@ -4636,30 +4650,77 @@
     text-align: center;
   }
 
+  .fluxgrid-app .vision-section__eyebrow {
+    margin-bottom: 10px;
+  }
+
+  .fluxgrid-app .vision-section__title {
+    margin-bottom: 12px;
+    font-size: clamp(1.35rem, 5.5vw, 1.7rem);
+    line-height: 1.25;
+  }
+
   .fluxgrid-app .vision-section__text {
-    margin-left: auto;
-    margin-right: auto;
+    margin: 0 auto 18px;
+    max-width: 28rem;
+    font-size: 14px;
+    line-height: 1.55;
   }
 
   .fluxgrid-app .vision-section__btn {
     width: 100%;
-    max-width: 320px;
+    max-width: 260px;
+    min-width: 0;
+    padding: 12px 22px;
+    font-size: 14px;
+  }
+
+  .fluxgrid-app .vision-section__note {
+    margin-top: 12px;
+    font-size: 12px;
+  }
+
+  .fluxgrid-app .vision-section__visual {
+    order: -1;
+  }
+
+  .fluxgrid-app .vision-section .hero-phone-frame {
+    max-width: 160px;
+    margin: 0 auto;
+  }
+
+  .fluxgrid-app .vision-section .hero-phone-image {
+    width: 100%;
+    height: auto;
+  }
+
+  .fluxgrid-app .vision-section .hero-phone-ring {
+    width: 68%;
   }
 }
 
 @media (max-width: 768px) {
   .fluxgrid-app .vision-section {
-    padding: 72px 0;
+    padding: 28px 0 32px;
+  }
+
+  .fluxgrid-app .vision-section__inner {
+    gap: 16px;
   }
 
   .fluxgrid-app .vision-section__title {
-    margin-bottom: 20px;
+    margin-bottom: 10px;
+    font-size: 1.35rem;
   }
 
   .fluxgrid-app .vision-section__text {
-    margin-bottom: 28px;
-    font-size: 16px;
-    line-height: 1.7;
+    margin-bottom: 16px;
+    font-size: 13.5px;
+    line-height: 1.5;
+  }
+
+  .fluxgrid-app .vision-section .hero-phone-frame {
+    max-width: 140px;
   }
 }
 
@@ -5054,6 +5115,13 @@
 @media (min-width: 993px) {
   .fluxgrid-app .hero-section > .hero-integrations {
     padding-top: 104px;
+  }
+}
+
+@media (max-width: 992px) {
+  .fluxgrid-app .hero-section > .hero-integrations {
+    padding-top: 18px;
+    padding-bottom: 4px;
   }
 }
 
@@ -6140,9 +6208,9 @@
 
 @media (max-width: 992px) {
   .fluxgrid-app .website-roadmap {
-    grid-template-columns: minmax(0, 1fr) minmax(0, 1.05fr);
-    gap: 14px;
-    align-items: start;
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
   }
 
   .fluxgrid-app .website-roadmap__rail {
@@ -6150,17 +6218,18 @@
   }
 
   .fluxgrid-app .website-roadmap__stage {
-    order: 0;
-    margin: 0;
-    max-width: none;
-    min-height: 200px;
-    height: 200px;
+    order: -1;
+    margin: 0 auto;
+    width: 100%;
+    max-width: 360px;
+    min-height: 220px;
+    height: min(58vw, 250px);
   }
 
   .fluxgrid-app .website-roadmap__step {
     min-height: 0;
-    opacity: 0.38;
-    padding: 8px 0;
+    opacity: 0.45;
+    padding: 12px 0;
   }
 
   .fluxgrid-app .website-roadmap__step.is-active {
@@ -6229,54 +6298,66 @@
 
 @media (max-width: 992px) {
   .fluxgrid-app .feature-pin__layout {
-    grid-template-columns: minmax(0, 0.95fr) minmax(0, 1.05fr);
-    gap: 14px;
-    align-items: center;
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+    width: 100%;
+  }
+
+  .fluxgrid-app .feature-pin__copy {
+    width: 100%;
+    max-width: none;
+    align-self: stretch;
   }
 
   .fluxgrid-app .feature-pin__eyebrow {
-    margin-bottom: 10px;
+    margin-bottom: 12px;
+    text-align: center;
   }
 
   .fluxgrid-app .feature-pin__list {
-    flex-direction: column;
-    flex-wrap: nowrap;
-    gap: 0;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 8px;
+    width: 100%;
   }
 
   .fluxgrid-app .feature-pin__item {
     width: 100%;
-    padding: 6px 0 6px 10px;
-    border-left: 2px solid transparent;
-    border-radius: 0;
-    background: none;
+    box-sizing: border-box;
+    padding: 10px 12px;
+    border-left: 0;
+    border-radius: 10px;
+    background: rgba(26, 29, 36, 0.03);
+    border: 1px solid var(--border-subtle);
   }
 
   .fluxgrid-app .feature-pin__item.is-active {
-    background: none;
-    border-left-color: var(--accent);
+    background: rgba(143, 111, 26, 0.08);
+    border-color: rgba(143, 111, 26, 0.28);
   }
 
   .fluxgrid-app .feature-pin__title {
-    font-size: clamp(0.95rem, 3.4vw, 1.15rem);
+    font-size: 0.95rem;
   }
 
   .fluxgrid-app .feature-pin__stage {
-    height: 200px;
+    width: 100%;
+    height: min(52vw, 240px);
     min-height: 200px;
   }
 
   .fluxgrid-app .website-features {
-    padding: 24px 0 20px;
+    padding: 28px 0 24px;
   }
 
   .fluxgrid-app .website-features__intro,
   .fluxgrid-app .website-process__intro {
-    margin-bottom: 14px;
+    margin-bottom: 16px;
   }
 
   .fluxgrid-app .website-process {
-    padding: 24px 0 28px;
+    padding: 28px 0 32px;
   }
 }
 
@@ -6301,146 +6382,110 @@
   }
 }
 
-/* ===== Mobile: desktop style, scaled down ===== */
-.receptionist-flow {
-  display: flex;
-  flex-direction: column;
-}
-
-.receptionist-flow__hero {
-  order: 1;
-}
-
-.receptionist-flow__proof {
-  order: 2;
-}
-
-.receptionist-flow__hiw {
-  order: 3;
-}
-
-.receptionist-flow__calc {
-  order: 4;
-}
-
-.receptionist-flow__website {
-  order: 5;
-}
-
-.receptionist-flow__faq {
-  order: 6;
-}
-
-.receptionist-flow__vision {
-  order: 7;
-}
-
+/* ===== Mobile polish ===== */
 @media (max-width: 992px) {
-  .receptionist-flow__website {
-    order: 2;
-  }
-
-  .receptionist-flow__proof {
-    order: 3;
-  }
-
-  .receptionist-flow__hiw {
-    order: 4;
-  }
-
-  .receptionist-flow__calc {
-    order: 5;
-  }
-
-  .receptionist-flow__faq {
-    order: 6;
-  }
-
-  .receptionist-flow__vision {
-    order: 7;
-  }
-
   .fluxgrid-app .hero-section {
-    padding: 28px 0 20px;
+    padding: 24px 0 16px;
   }
 
   .fluxgrid-app .hero-grid {
-    gap: 16px;
+    gap: 14px;
   }
 
   .fluxgrid-app .hero-copy {
-    text-align: left;
+    text-align: center;
   }
 
   .fluxgrid-app .hero-lead,
   .fluxgrid-app .hero-trust-line {
-    margin-left: 0;
-    margin-right: 0;
+    margin-left: auto;
+    margin-right: auto;
   }
 
   .fluxgrid-app .hero-actions {
-    justify-content: flex-start;
+    justify-content: center;
   }
 
   .fluxgrid-app .hero-headline {
     margin-bottom: 10px;
-    font-size: clamp(1.5rem, 6vw, 1.85rem);
+    font-size: clamp(1.55rem, 7vw, 1.85rem);
     letter-spacing: -0.03em;
   }
 
   .fluxgrid-app .hero-lead {
-    margin: 0 0 14px;
-    max-width: 34rem;
+    margin: 0 auto 14px;
+    max-width: 28rem;
     font-size: 14px;
-    line-height: 1.55;
+    line-height: 1.5;
   }
 
   .fluxgrid-app .hero-section > .hero-integrations,
   .fluxgrid-app .hero-integrations {
     margin-top: 0;
-    padding: 28px 0 8px;
+    padding: 18px 0 4px;
   }
 
   .fluxgrid-app .integration-strip {
-    gap: 16px 22px;
-    justify-content: flex-start;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    width: min(100%, 300px);
+    margin-left: auto;
+    margin-right: auto;
+    column-gap: 20px;
+    row-gap: 14px;
+    justify-items: center;
+    align-items: center;
   }
 
   .fluxgrid-app .integration-strip__logo {
-    max-height: 26px;
+    max-height: 22px;
+    height: 22px;
+  }
+
+  .fluxgrid-app .integration-strip__logo--servicetitan {
+    height: 18px;
+  }
+
+  .fluxgrid-app .integration-strip__item--text span {
+    font-size: 12px;
+    white-space: nowrap;
   }
 
   .fluxgrid-app .video-spot {
-    border-radius: var(--radius-xl);
+    border-radius: 14px;
+    max-width: min(520px, 100%);
+    width: 100%;
+    margin: 0 auto;
+  }
+
+  .fluxgrid-app .video-spot--receptionist .video-spot__poster,
+  .fluxgrid-app .video-spot--full-package .video-spot__poster {
+    transform: none;
   }
 
   .fluxgrid-app .video-spot__toggle {
-    background: rgba(26, 29, 36, 0.12);
+    background: rgba(26, 29, 36, 0.14);
   }
 
   .fluxgrid-app .video-spot__icon {
-    width: 48px;
-    height: 48px;
+    width: 46px;
+    height: 46px;
   }
 
   .fluxgrid-app .growth-suite-section {
-    padding: 28px 0 32px;
+    padding: 40px 0;
   }
 
   .fluxgrid-app .growth-suite-section__layout {
-    gap: 16px;
+    gap: 18px;
   }
 
   .fluxgrid-app .growth-suite-section__copy {
     text-align: left;
   }
 
-  .fluxgrid-app .growth-suite-section__eyebrow {
-    margin-bottom: 10px;
-  }
-
   .fluxgrid-app .growth-suite-section__title {
-    margin-bottom: 10px;
+    margin-bottom: 12px;
     font-size: clamp(1.4rem, 5.5vw, 1.7rem);
   }
 
@@ -6454,21 +6499,23 @@
     width: auto;
     max-width: none;
     justify-content: flex-start;
-    padding: 12px 20px;
-    font-size: 14px;
   }
 
   .fluxgrid-app .website-hero {
-    padding: 28px 0 24px;
+    padding: 24px 0 20px;
   }
 
   .fluxgrid-app .website-hero__grid {
-    gap: 16px;
+    gap: 14px;
   }
 
   .fluxgrid-app .website-hero__copy {
-    text-align: left;
+    text-align: center;
     max-width: none;
+  }
+
+  .fluxgrid-app .website-hero__actions {
+    justify-content: center;
   }
 
   .fluxgrid-app .website-hero__eyebrow {
@@ -6477,100 +6524,115 @@
 
   .fluxgrid-app .website-hero__title {
     margin-bottom: 10px;
-    font-size: clamp(1.5rem, 6vw, 1.85rem);
+    font-size: clamp(1.55rem, 7vw, 1.85rem);
   }
 
   .fluxgrid-app .website-hero__lead {
-    margin-bottom: 14px;
+    margin: 0 auto 14px;
+    max-width: 28rem;
     font-size: 14px;
-    line-height: 1.55;
+    line-height: 1.5;
+  }
+
+  .fluxgrid-app .website-hero__visual .video-spot {
+    margin: 0 auto;
   }
 
   .fluxgrid-app .website-features {
-    padding: 24px 0 20px;
+    padding: 28px 0 24px;
   }
 
   .fluxgrid-app .feature-pin__layout {
-    display: grid;
-    grid-template-columns: minmax(0, 0.95fr) minmax(0, 1.05fr);
-    gap: 14px;
-    align-items: center;
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+    width: 100%;
   }
 
   .fluxgrid-app .feature-pin__copy {
+    width: 100%;
     max-width: none;
+    align-self: stretch;
   }
 
   .fluxgrid-app .feature-pin__eyebrow {
-    margin-bottom: 10px;
-    font-size: 10px;
+    margin-bottom: 12px;
+    text-align: center;
   }
 
   .fluxgrid-app .feature-pin__list {
-    flex-direction: column;
-    gap: 0;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 8px;
+    width: 100%;
   }
 
   .fluxgrid-app .feature-pin__item {
     width: 100%;
-    gap: 2px;
-    padding: 6px 0 6px 10px;
-    border-left: 2px solid transparent;
-    border-radius: 0;
-    background: none;
+    box-sizing: border-box;
+    gap: 4px;
+    padding: 10px 12px;
+    border-left: 0;
+    border-radius: 10px;
+    background: rgba(26, 29, 36, 0.03);
+    border: 1px solid var(--border-subtle);
+    opacity: 0.55;
   }
 
   .fluxgrid-app .feature-pin__item.is-active {
-    background: none;
-    border-left-color: var(--accent);
+    background: rgba(143, 111, 26, 0.08);
+    border-color: rgba(143, 111, 26, 0.28);
+    border-left: 1px solid rgba(143, 111, 26, 0.28);
+    opacity: 1;
   }
 
   .fluxgrid-app .feature-pin__num {
-    font-size: 9px;
+    font-size: 10px;
   }
 
   .fluxgrid-app .feature-pin__title {
-    font-size: clamp(0.95rem, 3.4vw, 1.15rem);
+    font-size: 0.95rem;
+    line-height: 1.2;
   }
 
   .fluxgrid-app .feature-pin__stage {
-    height: 200px;
+    width: 100%;
+    height: min(52vw, 240px);
     min-height: 200px;
+    max-height: 260px;
   }
 
   .fluxgrid-app .feature-phone {
-    width: min(100%, 110px);
+    width: min(100%, 132px);
   }
 
   .fluxgrid-app .feature-google {
-    width: min(100%, 220px);
-    gap: 10px;
+    width: min(100%, 280px);
+    gap: 12px;
   }
 
   .fluxgrid-app .feature-google__logo {
-    font-size: 1.25rem;
+    font-size: 1.45rem;
   }
 
   .fluxgrid-app .feature-google__bar {
-    min-height: 36px;
-    padding: 0 12px;
-    gap: 8px;
+    min-height: 40px;
+    padding: 0 14px;
   }
 
   .fluxgrid-app .website-process {
-    padding: 24px 0 28px;
+    padding: 28px 0 32px;
   }
 
   .fluxgrid-app .website-process__intro {
-    margin-bottom: 14px;
-    text-align: left;
+    margin-bottom: 16px;
+    text-align: center;
   }
 
   .fluxgrid-app .website-roadmap {
-    display: grid;
-    grid-template-columns: minmax(0, 1fr) minmax(0, 1.05fr);
-    gap: 14px;
-    align-items: start;
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
   }
 
   .fluxgrid-app .website-roadmap__rail {
@@ -6578,16 +6640,25 @@
   }
 
   .fluxgrid-app .website-roadmap__stage {
-    order: 0;
-    margin: 0;
-    max-width: none;
-    min-height: 200px;
-    height: 200px;
+    order: -1;
+    margin: 0 auto;
+    width: 100%;
+    max-width: 360px;
+    min-height: 220px;
+    height: min(58vw, 250px);
+  }
+
+  .fluxgrid-app .website-roadmap__steps {
+    display: flex;
+    flex-direction: column;
+    gap: 0;
+    width: 100%;
   }
 
   .fluxgrid-app .website-roadmap__step {
-    padding: 8px 0;
-    opacity: 0.38;
+    padding: 12px 0;
+    opacity: 0.45;
+    width: 100%;
   }
 
   .fluxgrid-app .website-roadmap__step.is-active {
@@ -6595,82 +6666,63 @@
   }
 
   .fluxgrid-app .website-roadmap__label {
-    font-size: 0.95rem;
+    font-size: 1rem;
   }
 
   .fluxgrid-app .website-roadmap__text {
     font-size: 13px;
-    line-height: 1.45;
+    line-height: 1.5;
   }
 
   .fluxgrid-app .website-results {
-    padding: 24px 0 32px;
+    padding: 28px 0 36px;
   }
 
   .fluxgrid-app .website-results__inner {
-    gap: 14px;
-    align-items: stretch;
+    gap: 16px;
   }
 
   .fluxgrid-app .website-results__cta {
-    justify-content: flex-start;
+    justify-content: center;
   }
 
   .fluxgrid-app .website-results__btn {
-    width: auto;
-    min-width: 180px;
-    padding: 12px 20px;
-    font-size: 14px;
+    width: 100%;
+    max-width: 280px;
   }
 
   .fluxgrid-app .vision-section {
-    padding: 40px 0;
-  }
-
-  .fluxgrid-app .vision-section__inner {
-    gap: 20px;
+    padding: 28px 0 32px;
   }
 
   .fluxgrid-app .vision-section__content {
-    text-align: left;
-    margin: 0;
+    text-align: center;
+    margin: 0 auto;
   }
 
-  .fluxgrid-app .vision-section__title {
-    margin-bottom: 12px;
-    font-size: clamp(1.35rem, 5.2vw, 1.7rem);
-  }
-
-  .fluxgrid-app .vision-section__text {
-    margin-bottom: 16px;
-    font-size: 14px;
-    line-height: 1.55;
+  .fluxgrid-app .vision-section .hero-phone-frame {
+    max-width: 140px;
   }
 }
 
-@media (max-width: 640px) {
-  .fluxgrid-app .feature-pin__layout,
-  .fluxgrid-app .website-roadmap {
+@media (max-width: 340px) {
+  .fluxgrid-app .feature-pin__list {
     grid-template-columns: 1fr;
-    gap: 14px;
   }
 
   .fluxgrid-app .feature-pin__stage {
-    height: 220px;
-    min-height: 220px;
+    height: 190px;
+    min-height: 190px;
   }
 
   .fluxgrid-app .website-roadmap__stage {
-    min-height: 220px;
-    height: 220px;
+    min-height: 190px;
+    height: 190px;
   }
 
-  .fluxgrid-app .feature-phone {
-    width: min(100%, 130px);
-  }
-
-  .fluxgrid-app .feature-google {
-    width: min(100%, 280px);
+  .fluxgrid-app .hero-headline,
+  .fluxgrid-app .website-hero__title {
+    font-size: 1.45rem;
   }
 }
 
