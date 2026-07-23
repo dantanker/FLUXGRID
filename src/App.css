@@ -6210,7 +6210,7 @@
 @media (max-width: 992px) {
   .fluxgrid-app .feature-pin__layout {
     grid-template-columns: 1fr;
-    gap: 22px;
+    gap: 20px;
   }
 
   .fluxgrid-app .feature-pin__eyebrow {
@@ -6218,42 +6218,44 @@
   }
 
   .fluxgrid-app .feature-pin__list {
-    flex-direction: row;
-    flex-wrap: wrap;
-    gap: 8px;
+    flex-direction: column;
+    flex-wrap: nowrap;
+    gap: 2px;
   }
 
   .fluxgrid-app .feature-pin__item {
-    width: auto;
-    padding: 8px 12px;
-    border-left: 0;
-    border-radius: 8px;
+    width: 100%;
+    padding: 8px 0 8px 12px;
+    border-left: 2px solid transparent;
+    border-radius: 0;
+    background: none;
   }
 
   .fluxgrid-app .feature-pin__item.is-active {
-    background: rgba(143, 111, 26, 0.08);
+    background: none;
+    border-left-color: var(--accent);
   }
 
   .fluxgrid-app .feature-pin__title {
-    font-size: 1.05rem;
+    font-size: 1.15rem;
   }
 
   .fluxgrid-app .feature-pin__stage {
-    height: 300px;
-    min-height: 300px;
+    height: 280px;
+    min-height: 280px;
   }
 
   .fluxgrid-app .website-features {
-    padding: 40px 0 28px;
+    padding: 36px 0 28px;
   }
 
   .fluxgrid-app .website-features__intro,
   .fluxgrid-app .website-process__intro {
-    margin-bottom: 22px;
+    margin-bottom: 20px;
   }
 
   .fluxgrid-app .website-process {
-    padding: 28px 0 48px;
+    padding: 28px 0 40px;
   }
 }
 
@@ -6278,98 +6280,128 @@
   }
 }
 
-/* ===== Mobile compact pass (desktop unchanged) ===== */
+/* ===== Mobile: desktop style, scaled down ===== */
 @media (max-width: 992px) {
   .fluxgrid-app .hero-section {
-    padding: 28px 0 20px;
+    padding: 32px 0 24px;
   }
 
   .fluxgrid-app .hero-grid {
-    gap: 18px;
+    gap: 20px;
+  }
+
+  .fluxgrid-app .hero-copy {
+    text-align: left;
+  }
+
+  .fluxgrid-app .hero-lead,
+  .fluxgrid-app .hero-trust-line {
+    margin-left: 0;
+    margin-right: 0;
+  }
+
+  .fluxgrid-app .hero-actions {
+    justify-content: flex-start;
   }
 
   .fluxgrid-app .hero-headline {
     margin-bottom: 12px;
-    font-size: clamp(1.55rem, 7vw, 1.9rem);
+    font-size: clamp(1.65rem, 6.5vw, 2rem);
+    letter-spacing: -0.03em;
   }
 
   .fluxgrid-app .hero-lead {
-    margin: 0 auto 16px;
+    margin: 0 0 18px;
     max-width: 34rem;
     font-size: 15px;
-    line-height: 1.55;
+    line-height: 1.6;
   }
 
   .fluxgrid-app .hero-section > .hero-integrations,
   .fluxgrid-app .hero-integrations {
     margin-top: 0;
-    padding: 28px 0 8px;
+    padding: 36px 0 12px;
   }
 
   .fluxgrid-app .integration-strip {
-    gap: 18px 22px;
-    justify-content: center;
+    gap: 20px 28px;
+    justify-content: flex-start;
   }
 
   .fluxgrid-app .integration-strip__logo {
-    max-height: 28px;
+    max-height: 30px;
   }
 
   .fluxgrid-app .video-spot {
-    border-radius: 14px;
+    border-radius: var(--radius-xl);
   }
 
   .fluxgrid-app .video-spot__icon {
-    width: 52px;
-    height: 52px;
-  }
-
-  .fluxgrid-app .video-spot__icon svg {
-    width: 22px;
-    height: 22px;
+    width: 56px;
+    height: 56px;
   }
 
   .fluxgrid-app .website-hero {
-    padding: 28px 0 24px;
+    padding: 32px 0 28px;
   }
 
   .fluxgrid-app .website-hero__grid {
-    gap: 16px;
+    gap: 20px;
+  }
+
+  .fluxgrid-app .website-hero__copy {
+    text-align: left;
+    max-width: none;
   }
 
   .fluxgrid-app .website-hero__eyebrow {
-    margin-bottom: 10px;
+    margin-bottom: 12px;
   }
 
   .fluxgrid-app .website-hero__title {
-    margin-bottom: 10px;
-    font-size: clamp(1.55rem, 7vw, 1.9rem);
+    margin-bottom: 12px;
+    font-size: clamp(1.65rem, 6.5vw, 2rem);
   }
 
   .fluxgrid-app .website-hero__lead {
-    margin-bottom: 16px;
+    margin-bottom: 18px;
     font-size: 15px;
-    line-height: 1.55;
+    line-height: 1.6;
   }
 
   .fluxgrid-app .website-features {
-    padding: 28px 0 20px;
+    padding: 32px 0 24px;
   }
 
   .fluxgrid-app .feature-pin__layout {
-    gap: 14px;
+    gap: 18px;
+  }
+
+  .fluxgrid-app .feature-pin__copy {
+    max-width: none;
   }
 
   .fluxgrid-app .feature-pin__eyebrow {
-    margin-bottom: 8px;
+    margin-bottom: 14px;
   }
 
   .fluxgrid-app .feature-pin__list {
-    gap: 6px;
+    flex-direction: column;
+    gap: 2px;
   }
 
   .fluxgrid-app .feature-pin__item {
-    padding: 7px 10px;
+    width: 100%;
+    gap: 4px;
+    padding: 8px 0 8px 12px;
+    border-left: 2px solid transparent;
+    border-radius: 0;
+    background: none;
+  }
+
+  .fluxgrid-app .feature-pin__item.is-active {
+    background: none;
+    border-left-color: var(--accent);
   }
 
   .fluxgrid-app .feature-pin__num {
@@ -6377,118 +6409,156 @@
   }
 
   .fluxgrid-app .feature-pin__title {
-    font-size: 0.95rem;
+    font-size: clamp(1.1rem, 4.5vw, 1.35rem);
   }
 
   .fluxgrid-app .feature-pin__stage {
-    height: 240px;
-    min-height: 240px;
+    height: 260px;
+    min-height: 260px;
   }
 
   .fluxgrid-app .feature-phone {
-    width: min(100%, 140px);
+    width: min(100%, 150px);
   }
 
   .fluxgrid-app .feature-google {
-    width: min(100%, 300px);
-    gap: 12px;
+    width: min(100%, 320px);
+    gap: 14px;
+  }
+
+  .fluxgrid-app .feature-google__logo {
+    font-size: 1.6rem;
+  }
+
+  .fluxgrid-app .feature-google__bar {
+    min-height: 42px;
+    padding: 0 14px;
   }
 
   .fluxgrid-app .website-process {
-    padding: 24px 0 32px;
+    padding: 28px 0 36px;
   }
 
   .fluxgrid-app .website-process__intro {
-    margin-bottom: 16px;
+    margin-bottom: 18px;
+    text-align: left;
   }
 
   .fluxgrid-app .website-roadmap {
-    gap: 16px;
+    gap: 20px;
   }
 
   .fluxgrid-app .website-roadmap__stage {
-    max-width: 100%;
-    min-height: 240px;
-    height: clamp(240px, 58vw, 320px);
+    order: 0;
+    margin: 0;
+    max-width: none;
+    min-height: 250px;
+    height: clamp(250px, 56vw, 300px);
   }
 
   .fluxgrid-app .website-roadmap__step {
-    padding: 10px 0;
+    padding: 12px 0;
+    opacity: 0.4;
+  }
+
+  .fluxgrid-app .website-roadmap__step.is-active {
+    opacity: 1;
   }
 
   .fluxgrid-app .website-roadmap__step-title {
-    font-size: 1rem;
+    font-size: 1.05rem;
   }
 
   .fluxgrid-app .website-roadmap__step-text {
     font-size: 14px;
-    line-height: 1.5;
+    line-height: 1.55;
   }
 
   .fluxgrid-app .website-results {
-    padding: 28px 0 36px;
+    padding: 32px 0 40px;
   }
 
   .fluxgrid-app .website-results__inner {
-    gap: 16px;
+    gap: 18px;
+    align-items: stretch;
+  }
+
+  .fluxgrid-app .website-results__cta {
+    justify-content: flex-start;
+  }
+
+  .fluxgrid-app .website-results__btn {
+    width: auto;
+    min-width: 200px;
   }
 
   .fluxgrid-app .growth-suite-section {
-    padding: 40px 0;
+    padding: 44px 0;
   }
 
   .fluxgrid-app .growth-suite-section__layout {
-    gap: 18px;
+    gap: 20px;
+  }
+
+  .fluxgrid-app .growth-suite-section__copy {
+    text-align: left;
   }
 
   .fluxgrid-app .growth-suite-section__title {
-    margin-bottom: 12px;
-    font-size: clamp(1.45rem, 6vw, 1.75rem);
+    margin-bottom: 14px;
+    font-size: clamp(1.5rem, 5.5vw, 1.85rem);
   }
 
   .fluxgrid-app .growth-suite-section__text {
-    margin-bottom: 18px;
+    margin-bottom: 20px;
     font-size: 15px;
-    line-height: 1.55;
+    line-height: 1.6;
+  }
+
+  .fluxgrid-app .growth-suite-section__cta {
+    width: auto;
+    max-width: none;
+    justify-content: flex-start;
   }
 
   .fluxgrid-app .vision-section {
-    padding: 48px 0;
+    padding: 52px 0;
   }
 
   .fluxgrid-app .vision-section__inner {
-    gap: 24px;
+    gap: 28px;
+  }
+
+  .fluxgrid-app .vision-section__content {
+    text-align: left;
+    margin: 0;
   }
 
   .fluxgrid-app .vision-section__title {
-    margin-bottom: 14px;
-    font-size: clamp(1.4rem, 6vw, 1.75rem);
+    margin-bottom: 16px;
+    font-size: clamp(1.45rem, 5.5vw, 1.85rem);
   }
 
   .fluxgrid-app .vision-section__text {
-    margin-bottom: 20px;
+    margin-bottom: 22px;
     font-size: 15px;
-    line-height: 1.55;
+    line-height: 1.6;
   }
 }
 
 @media (max-width: 480px) {
   .fluxgrid-app .feature-pin__stage {
-    height: 210px;
-    min-height: 210px;
+    height: 230px;
+    min-height: 230px;
   }
 
   .fluxgrid-app .website-roadmap__stage {
-    min-height: 210px;
-    height: 210px;
-  }
-
-  .fluxgrid-app .feature-pin__item {
-    padding: 6px 9px;
+    min-height: 220px;
+    height: 220px;
   }
 
   .fluxgrid-app .feature-pin__title {
-    font-size: 0.88rem;
+    font-size: 1.05rem;
   }
 }
 
