@@ -37,6 +37,7 @@ export function HeroScroll() {
             src="/videos/receptionist-hero.mov"
             poster="/videos/thumbs/receptionist-hero.jpg"
             label="Digital receptionist demo video"
+            className="video-spot--receptionist"
           />
         </Reveal>
       </div>

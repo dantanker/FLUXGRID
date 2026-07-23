@@ -5,6 +5,7 @@ type SiteVideoProps = {
   src: string;
   poster: string;
   label: string;
+  className?: string;
 };
 
 function formatTime(seconds: number) {
@@ -18,8 +19,53 @@ function formatTime(seconds: number) {
   return `${mins}:${secs.toString().padStart(2, '0')}`;
 }
 
-export function SiteVideo({ src, poster, label }: SiteVideoProps) {
+function useIsMobileVideo() {
+  const [isMobile, setIsMobile] = useState(false);
+
+  useEffect(() => {
+    const media = window.matchMedia('(max-width: 992px), (hover: none) and (pointer: coarse)');
+    const update = () => setIsMobile(media.matches);
+    update();
+    media.addEventListener('change', update);
+    return () => media.removeEventListener('change', update);
+  }, []);
+
+  return isMobile;
+}
+
+type VideoElementWithWebkit = HTMLVideoElement & {
+  webkitEnterFullscreen?: () => void;
+  webkitSupportsFullscreen?: boolean;
+};
+
+async function enterNativeFullscreen(video: HTMLVideoElement) {
+  const webkitVideo = video as VideoElementWithWebkit;
+
+  try {
+    if (typeof webkitVideo.webkitEnterFullscreen === 'function') {
+      webkitVideo.webkitEnterFullscreen();
+      return;
+    }
+
+    if (video.requestFullscreen) {
+      await video.requestFullscreen();
+      return;
+    }
+
+    const anyVideo = video as HTMLVideoElement & {
+      webkitRequestFullscreen?: () => Promise<void> | void;
+    };
+    if (typeof anyVideo.webkitRequestFullscreen === 'function') {
+      await anyVideo.webkitRequestFullscreen();
+    }
+  } catch {
+    // Fall back to in-page fullscreen shell.
+  }
+}
+
+export function SiteVideo({ src, poster, label, className }: SiteVideoProps) {
   const playerRef = useRef<HTMLVideoElement>(null);
+  const isMobile = useIsMobileVideo();
   const [open, setOpen] = useState(false);
   const [playing, setPlaying] = useState(false);
   const [currentTime, setCurrentTime] = useState(0);
@@ -63,14 +109,33 @@ export function SiteVideo({ src, poster, label }: SiteVideoProps) {
     const onTimeUpdate = () => setCurrentTime(video.currentTime);
     const onLoaded = () => setDuration(video.duration || 0);
     const onDurationChange = () => setDuration(video.duration || 0);
+    const onFullscreenChange = () => {
+      const active =
+        document.fullscreenElement === video ||
+        (document as Document & { webkitFullscreenElement?: Element | null })
+          .webkitFullscreenElement === video;
+      if (!active && isMobile && document.fullscreenElement == null) {
+        // Keep mobile shell open if browser exits fullscreen early.
+      }
+    };
 
     video.addEventListener('play', onPlay);
     video.addEventListener('pause', onPause);
     video.addEventListener('timeupdate', onTimeUpdate);
     video.addEventListener('loadedmetadata', onLoaded);
     video.addEventListener('durationchange', onDurationChange);
+    document.addEventListener('fullscreenchange', onFullscreenChange);
 
-    void video.play().catch(() => setPlaying(false));
+    void (async () => {
+      try {
+        await video.play();
+        if (isMobile) {
+          await enterNativeFullscreen(video);
+        }
+      } catch {
+        setPlaying(false);
+      }
+    })();
 
     return () => {
       video.removeEventListener('play', onPlay);
@@ -78,11 +143,16 @@ export function SiteVideo({ src, poster, label }: SiteVideoProps) {
       video.removeEventListener('timeupdate', onTimeUpdate);
       video.removeEventListener('loadedmetadata', onLoaded);
       video.removeEventListener('durationchange', onDurationChange);
+      document.removeEventListener('fullscreenchange', onFullscreenChange);
       video.pause();
     };
-  }, [open, src]);
+  }, [open, src, isMobile]);
 
   const closeLightbox = () => {
+    const video = playerRef.current;
+    if (video && document.fullscreenElement === video) {
+      void document.exitFullscreen?.();
+    }
     setOpen(false);
   };
 
@@ -118,7 +188,7 @@ export function SiteVideo({ src, poster, label }: SiteVideoProps) {
 
   return (
     <>
-      <div className="video-spot">
+      <div className={['video-spot', className].filter(Boolean).join(' ')}>
         <img className="video-spot__poster" src={poster} alt="" draggable={false} />
 
         <button
@@ -137,7 +207,12 @@ export function SiteVideo({ src, poster, label }: SiteVideoProps) {
 
       {open
         ? createPortal(
-            <div className="video-lightbox" role="dialog" aria-modal="true" aria-label={label}>
+            <div
+              className={`video-lightbox${isMobile ? ' video-lightbox--mobile' : ''}`}
+              role="dialog"
+              aria-modal="true"
+              aria-label={label}
+            >
               <button
                 type="button"
                 className="video-lightbox__backdrop"
@@ -162,67 +237,73 @@ export function SiteVideo({ src, poster, label }: SiteVideoProps) {
                     src={src}
                     poster={poster}
                     aria-label={label}
-                    playsInline
+                    controls={isMobile}
+                    playsInline={!isMobile}
                     preload="auto"
+                    controlsList={isMobile ? undefined : 'nodownload'}
                   />
 
-                  <button
-                    type="button"
-                    className={`video-lightbox__play${playing ? ' is-playing' : ''}`}
-                    onClick={togglePlayback}
-                    aria-label={playing ? `Pause ${label}` : `Play ${label}`}
-                  >
-                    <span className="video-lightbox__play-icon" aria-hidden="true">
+                  {!isMobile ? (
+                    <button
+                      type="button"
+                      className={`video-lightbox__play${playing ? ' is-playing' : ''}`}
+                      onClick={togglePlayback}
+                      aria-label={playing ? `Pause ${label}` : `Play ${label}`}
+                    >
+                      <span className="video-lightbox__play-icon" aria-hidden="true">
+                        {playing ? (
+                          <svg viewBox="0 0 24 24" width="26" height="26">
+                            <rect x="6" y="5" width="4" height="14" rx="1" fill="currentColor" />
+                            <rect x="14" y="5" width="4" height="14" rx="1" fill="currentColor" />
+                          </svg>
+                        ) : (
+                          <svg viewBox="0 0 24 24" width="26" height="26">
+                            <path d="M8 5.5v13l11-6.5-11-6.5z" fill="currentColor" />
+                          </svg>
+                        )}
+                      </span>
+                    </button>
+                  ) : null}
+                </div>
+
+                {!isMobile ? (
+                  <div className="video-lightbox__controls">
+                    <button
+                      type="button"
+                      className="video-lightbox__ctrl-btn"
+                      onClick={togglePlayback}
+                      aria-label={playing ? 'Pause' : 'Play'}
+                    >
                       {playing ? (
-                        <svg viewBox="0 0 24 24" width="26" height="26">
+                        <svg viewBox="0 0 24 24" width="18" height="18" aria-hidden="true">
                           <rect x="6" y="5" width="4" height="14" rx="1" fill="currentColor" />
                           <rect x="14" y="5" width="4" height="14" rx="1" fill="currentColor" />
                         </svg>
                       ) : (
-                        <svg viewBox="0 0 24 24" width="26" height="26">
+                        <svg viewBox="0 0 24 24" width="18" height="18" aria-hidden="true">
                           <path d="M8 5.5v13l11-6.5-11-6.5z" fill="currentColor" />
                         </svg>
                       )}
-                    </span>
-                  </button>
-                </div>
+                    </button>
 
-                <div className="video-lightbox__controls">
-                  <button
-                    type="button"
-                    className="video-lightbox__ctrl-btn"
-                    onClick={togglePlayback}
-                    aria-label={playing ? 'Pause' : 'Play'}
-                  >
-                    {playing ? (
-                      <svg viewBox="0 0 24 24" width="18" height="18" aria-hidden="true">
-                        <rect x="6" y="5" width="4" height="14" rx="1" fill="currentColor" />
-                        <rect x="14" y="5" width="4" height="14" rx="1" fill="currentColor" />
-                      </svg>
-                    ) : (
-                      <svg viewBox="0 0 24 24" width="18" height="18" aria-hidden="true">
-                        <path d="M8 5.5v13l11-6.5-11-6.5z" fill="currentColor" />
-                      </svg>
-                    )}
-                  </button>
+                    <span className="video-lightbox__time">{formatTime(currentTime)}</span>
 
-                  <span className="video-lightbox__time">{formatTime(currentTime)}</span>
+                    <label className="video-lightbox__scrub">
+                      <span className="sr-only">Seek video</span>
+                      <input
+                        type="range"
+                        min={0}
+                        max={duration || 0}
+                        step={0.1}
+                        value={currentTime}
+                        onChange={(event) => seekTo(Number(event.target.value))}
+                        style={{ ['--progress' as string]: `${progress}%` }}
+                      />
+                    </label>
 
-                  <label className="video-lightbox__scrub">
-                    <span className="sr-only">Seek video</span>
-                    <input
-                      type="range"
-                      min={0}
-                      max={duration || 0}
-                      step={0.1}
-                      value={currentTime}
-                      onChange={(event) => seekTo(Number(event.target.value))}
-                      style={{ ['--progress' as string]: `${progress}%` }}
-                    />
-                  </label>
-
-                  <span className="video-lightbox__time">{formatTime(duration)}</span>
-                </div>
+                    <span className="video-lightbox__time">{formatTime(duration)}</span>
+                  </div>
+                ) : null}
               </div>
             </div>,
             document.body,

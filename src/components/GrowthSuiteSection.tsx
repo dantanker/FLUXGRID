@@ -36,6 +36,7 @@ export function GrowthSuiteSection() {
               src="/videos/full-package.mov"
               poster="/videos/thumbs/full-package.jpg"
               label="Full package demo video"
+              className="video-spot--full-package"
             />
           </Reveal>
         </div>
