@@ -33,7 +33,7 @@ export function GrowthSuiteSection() {
 
           <Reveal className="growth-suite-section__media" delay={0.1} direction="right">
             <SiteVideo
-              src="/videos/full-package.mov"
+              src="/videos/full-package.mp4"
               poster="/videos/thumbs/full-package.jpg"
               label="Full package demo video"
               className="video-spot--full-package"

@@ -22,7 +22,7 @@ export function WebsiteHero() {
 
         <Reveal className="website-hero__visual" delay={0.12} direction="right">
           <SiteVideo
-            src="/videos/website-hero.mov"
+            src="/videos/website-hero.mp4"
             poster="/videos/thumbs/website-hero.jpg"
             label="Custom electrician website demo video"
           />

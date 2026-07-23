@@ -1,5 +1,5 @@
 import { useEffect, useRef, useState } from 'react';
-import { createPortal } from 'react-dom';
+import { createPortal, flushSync } from 'react-dom';
 
 type SiteVideoProps = {
   src: string;
@@ -35,18 +35,12 @@ function useIsMobileVideo() {
 
 type VideoElementWithWebkit = HTMLVideoElement & {
   webkitEnterFullscreen?: () => void;
-  webkitSupportsFullscreen?: boolean;
 };
 
 async function enterNativeFullscreen(video: HTMLVideoElement) {
   const webkitVideo = video as VideoElementWithWebkit;
 
   try {
-    if (typeof webkitVideo.webkitEnterFullscreen === 'function') {
-      webkitVideo.webkitEnterFullscreen();
-      return;
-    }
-
     if (video.requestFullscreen) {
       await video.requestFullscreen();
       return;
@@ -57,9 +51,15 @@ async function enterNativeFullscreen(video: HTMLVideoElement) {
     };
     if (typeof anyVideo.webkitRequestFullscreen === 'function') {
       await anyVideo.webkitRequestFullscreen();
+      return;
+    }
+
+    // iOS Safari legacy API — only works after playback has started.
+    if (typeof webkitVideo.webkitEnterFullscreen === 'function') {
+      webkitVideo.webkitEnterFullscreen();
     }
   } catch {
-    // Fall back to in-page fullscreen shell.
+    // Stay in the in-page mobile player with native controls.
   }
 }
 
@@ -109,33 +109,12 @@ export function SiteVideo({ src, poster, label, className }: SiteVideoProps) {
     const onTimeUpdate = () => setCurrentTime(video.currentTime);
     const onLoaded = () => setDuration(video.duration || 0);
     const onDurationChange = () => setDuration(video.duration || 0);
-    const onFullscreenChange = () => {
-      const active =
-        document.fullscreenElement === video ||
-        (document as Document & { webkitFullscreenElement?: Element | null })
-          .webkitFullscreenElement === video;
-      if (!active && isMobile && document.fullscreenElement == null) {
-        // Keep mobile shell open if browser exits fullscreen early.
-      }
-    };
 
     video.addEventListener('play', onPlay);
     video.addEventListener('pause', onPause);
     video.addEventListener('timeupdate', onTimeUpdate);
     video.addEventListener('loadedmetadata', onLoaded);
     video.addEventListener('durationchange', onDurationChange);
-    document.addEventListener('fullscreenchange', onFullscreenChange);
-
-    void (async () => {
-      try {
-        await video.play();
-        if (isMobile) {
-          await enterNativeFullscreen(video);
-        }
-      } catch {
-        setPlaying(false);
-      }
-    })();
 
     return () => {
       video.removeEventListener('play', onPlay);
@@ -143,17 +122,41 @@ export function SiteVideo({ src, poster, label, className }: SiteVideoProps) {
       video.removeEventListener('timeupdate', onTimeUpdate);
       video.removeEventListener('loadedmetadata', onLoaded);
       video.removeEventListener('durationchange', onDurationChange);
-      document.removeEventListener('fullscreenchange', onFullscreenChange);
-      video.pause();
     };
-  }, [open, src, isMobile]);
+  }, [open, src]);
 
   const closeLightbox = () => {
     const video = playerRef.current;
-    if (video && document.fullscreenElement === video) {
-      void document.exitFullscreen?.();
+    if (video) {
+      video.pause();
+      if (document.fullscreenElement === video) {
+        void document.exitFullscreen?.();
+      }
     }
     setOpen(false);
+  };
+
+  const openPlayer = async () => {
+    // Mount the <video> inside this tap so play() keeps the user gesture (required on iOS).
+    flushSync(() => {
+      setOpen(true);
+    });
+
+    const video = playerRef.current;
+    if (!video) {
+      return;
+    }
+
+    try {
+      video.currentTime = 0;
+      await video.play();
+      // Optional fullscreen — never block playback if the browser rejects it.
+      if (isMobile) {
+        void enterNativeFullscreen(video);
+      }
+    } catch {
+      setPlaying(false);
+    }
   };
 
   const togglePlayback = async () => {
@@ -194,7 +197,9 @@ export function SiteVideo({ src, poster, label, className }: SiteVideoProps) {
         <button
           type="button"
           className="video-spot__toggle"
-          onClick={() => setOpen(true)}
+          onClick={() => {
+            void openPlayer();
+          }}
           aria-label={`Open ${label}`}
         >
           <span className="video-spot__icon" aria-hidden="true">
@@ -238,7 +243,7 @@ export function SiteVideo({ src, poster, label, className }: SiteVideoProps) {
                     poster={poster}
                     aria-label={label}
                     controls={isMobile}
-                    playsInline={!isMobile}
+                    playsInline
                     preload="auto"
                     controlsList={isMobile ? undefined : 'nodownload'}
                   />

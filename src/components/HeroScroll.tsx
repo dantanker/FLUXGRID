@@ -34,7 +34,7 @@ export function HeroScroll() {
 
         <Reveal className="hero-visual" delay={0.12} direction="right">
           <SiteVideo
-            src="/videos/receptionist-hero.mov"
+            src="/videos/receptionist-hero.mp4"
             poster="/videos/thumbs/receptionist-hero.jpg"
             label="Digital receptionist demo video"
             className="video-spot--receptionist"
