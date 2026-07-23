@@ -29,7 +29,7 @@ export function WebsiteHero() {
             Premium sites for electricians
           </h1>
           <p className="website-hero__lead">
-            Stop losing jobs to competition. I&apos;ll build you a professional site that wins jobs
+            Stop losing jobs to competition. We&apos;ll build you a professional site that wins jobs
             and makes you the obvious choice.
           </p>
           <div className="website-hero__actions">

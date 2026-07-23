@@ -25,8 +25,8 @@ export function Footer() {
             </Link>
             <p className="footer-brand-tagline">
               {isWebsitePage
-                ? 'Custom websites built for electrical contractors—designed to rank, convert, and look like the shop you actually run.'
-                : 'Our 24/7 digital receptionist automatically qualifies leads and books them directly into your CRM. Live in 7 days.'}
+                ? "Stop losing jobs to competition. We'll build you a professional site that wins jobs and makes you the obvious choice."
+                : "Our 24/7 digital receptionist handles the noise, qualifies your leads, and books them straight into your calendar while you're on the job."}
             </p>
           </div>
 

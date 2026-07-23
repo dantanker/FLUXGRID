@@ -29,9 +29,9 @@ const MODAL_COPY = {
     scheduleTitle: 'Schedule your demo',
   },
   website: {
-    title: "I'll build a custom mockup for your shop",
+    title: "We'll build a custom mockup for your shop",
     description:
-      "Pick a time on the calendar and I'll walk you through the design.",
+      "Pick a time on the calendar and we'll walk you through the design.",
     submitLabel: 'Get my mockup',
     submittingLabel: 'Submitting…',
     closeFormLabel: 'Close mockup request form',

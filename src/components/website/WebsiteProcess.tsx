@@ -9,7 +9,7 @@ const steps = [
   {
     num: '01',
     title: 'The Blueprint',
-    text: "I build a custom visual of your new site so you can see exactly how you'll dominate your local market before we even start.",
+    text: "We build a custom visual of your new site so you can see exactly how you'll dominate your local market before we even start.",
     image: processGoLive,
     imageAlt: 'Phone preview of a live VoltGuard electrician website',
   },
