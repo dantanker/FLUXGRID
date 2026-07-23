@@ -1,6 +1,7 @@
 import { Link } from 'react-router-dom';
 import { Reveal } from './motion/Reveal';
 import { SiteVideo } from './SiteVideo';
+import { SITE_VIDEOS } from '../config/videos';
 
 export const GROWTH_SUITE_PROTOTYPE_URL = 'https://voltguard-rouge.vercel.app/';
 
@@ -33,8 +34,8 @@ export function GrowthSuiteSection() {
 
           <Reveal className="growth-suite-section__media" delay={0.1} direction="right">
             <SiteVideo
-              src="/videos/full-package.mp4"
-              poster="/videos/thumbs/full-package.jpg"
+              src={SITE_VIDEOS.fullPackage.src}
+              poster={SITE_VIDEOS.fullPackage.poster}
               label="Full package demo video"
               className="video-spot--full-package"
             />

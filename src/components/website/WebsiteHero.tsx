@@ -1,6 +1,7 @@
 import { WebsiteMockupCtaButton } from '../WebsiteMockupCtaButton';
 import { Reveal } from '../motion/Reveal';
 import { SiteVideo } from '../SiteVideo';
+import { SITE_VIDEOS } from '../../config/videos';
 
 export function WebsiteHero() {
   return (
@@ -22,8 +23,8 @@ export function WebsiteHero() {
 
         <Reveal className="website-hero__visual" delay={0.12} direction="right">
           <SiteVideo
-            src="/videos/website-hero.mp4"
-            poster="/videos/thumbs/website-hero.jpg"
+            src={SITE_VIDEOS.websiteHero.src}
+            poster={SITE_VIDEOS.websiteHero.poster}
             label="Custom electrician website demo video"
           />
         </Reveal>

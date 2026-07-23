@@ -3,6 +3,7 @@ import { DemoCtaButton } from './DemoCtaButton';
 import { IntegrationLogos } from './IntegrationLogos';
 import { Reveal } from './motion/Reveal';
 import { SiteVideo } from './SiteVideo';
+import { SITE_VIDEOS } from '../config/videos';
 import { useHeroCursor } from '../hooks/useHeroCursor';
 
 export function HeroScroll() {
@@ -34,8 +35,8 @@ export function HeroScroll() {
 
         <Reveal className="hero-visual" delay={0.12} direction="right">
           <SiteVideo
-            src="/videos/receptionist-hero.mp4"
-            poster="/videos/thumbs/receptionist-hero.jpg"
+            src={SITE_VIDEOS.receptionistHero.src}
+            poster={SITE_VIDEOS.receptionistHero.poster}
             label="Digital receptionist demo video"
             className="video-spot--receptionist"
           />
