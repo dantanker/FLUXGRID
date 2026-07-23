@@ -1,0 +1,2 @@
+# Keep huge source masters out of the Vercel output.
+public/videos/*.mov

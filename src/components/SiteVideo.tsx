@@ -23,7 +23,8 @@ function useIsMobileVideo() {
   const [isMobile, setIsMobile] = useState(false);
 
   useEffect(() => {
-    const media = window.matchMedia('(max-width: 992px), (hover: none) and (pointer: coarse)');
+    // Width-only: trackpads/Safari on MacBook must not be treated as phones.
+    const media = window.matchMedia('(max-width: 992px)');
     const update = () => setIsMobile(media.matches);
     update();
     media.addEventListener('change', update);
@@ -54,12 +55,11 @@ async function enterNativeFullscreen(video: HTMLVideoElement) {
       return;
     }
 
-    // iOS Safari legacy API — only works after playback has started.
     if (typeof webkitVideo.webkitEnterFullscreen === 'function') {
       webkitVideo.webkitEnterFullscreen();
     }
   } catch {
-    // Stay in the in-page mobile player with native controls.
+    // Stay in the in-page player with native controls.
   }
 }
 
@@ -129,6 +129,11 @@ export function SiteVideo({ src, poster, label, className }: SiteVideoProps) {
     const video = playerRef.current;
     if (video) {
       video.pause();
+      try {
+        video.currentTime = 0;
+      } catch {
+        // Safari can throw if metadata is not ready yet.
+      }
       if (document.fullscreenElement === video) {
         void document.exitFullscreen?.();
       }
@@ -137,7 +142,7 @@ export function SiteVideo({ src, poster, label, className }: SiteVideoProps) {
   };
 
   const openPlayer = async () => {
-    // Mount the <video> inside this tap so play() keeps the user gesture (required on iOS).
+    // Mount the <video> inside this click so play() keeps the user gesture (Safari/iOS).
     flushSync(() => {
       setOpen(true);
     });
@@ -148,9 +153,8 @@ export function SiteVideo({ src, poster, label, className }: SiteVideoProps) {
     }
 
     try {
-      video.currentTime = 0;
+      // Do not seek before play — Safari throws InvalidStateError and aborts playback.
       await video.play();
-      // Optional fullscreen — never block playback if the browser rejects it.
       if (isMobile) {
         void enterNativeFullscreen(video);
       }
@@ -183,8 +187,12 @@ export function SiteVideo({ src, poster, label, className }: SiteVideoProps) {
       return;
     }
 
-    video.currentTime = value;
-    setCurrentTime(value);
+    try {
+      video.currentTime = value;
+      setCurrentTime(value);
+    } catch {
+      // Ignore seek errors before metadata is ready.
+    }
   };
 
   const progress = duration > 0 ? (currentTime / duration) * 100 : 0;
@@ -239,14 +247,15 @@ export function SiteVideo({ src, poster, label, className }: SiteVideoProps) {
                   <video
                     ref={playerRef}
                     className="video-lightbox__media"
-                    src={src}
                     poster={poster}
                     aria-label={label}
                     controls={isMobile}
                     playsInline
-                    preload="auto"
+                    preload="metadata"
                     controlsList={isMobile ? undefined : 'nodownload'}
-                  />
+                  >
+                    <source src={src} type="video/mp4" />
+                  </video>
 
                   {!isMobile ? (
                     <button
