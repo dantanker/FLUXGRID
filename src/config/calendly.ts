@@ -1,7 +1,7 @@
 export type CalendlyPrefill = {
   name: string;
-  email: string;
   phone: string;
+  email?: string;
 };
 
 const DEFAULT_CALENDLY_EMBED_URL = 'https://calendly.com/peterdankov66/30min';
@@ -21,7 +21,9 @@ export function buildCalendlyEmbedUrl({ name, email, phone }: CalendlyPrefill): 
   const url = new URL(getCalendlyEventUrl());
 
   url.searchParams.set('name', name.trim());
-  url.searchParams.set('email', email.trim());
+  if (email?.trim()) {
+    url.searchParams.set('email', email.trim());
+  }
 
   const { digits, location } = formatPhoneForCalendlyPrefill(phone);
   if (digits) {
@@ -41,7 +43,7 @@ export function buildCalendlyWidgetPrefill({ name, email, phone }: CalendlyPrefi
 
   return {
     name: name.trim(),
-    email: email.trim(),
+    ...(email?.trim() ? { email: email.trim() } : {}),
     ...(digits ? { location } : {}),
   };
 }

@@ -21,3 +21,5 @@ dist-ssr
 *.sln
 *.sw?
 .env
+
+src/assets/website/process-customers-tmp.png

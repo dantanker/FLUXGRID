@@ -5,34 +5,43 @@ import { submitLead } from '../api/submitLead';
 import { type CalendlyPrefill } from '../config/calendly';
 import { useDemoModal } from '../context/DemoModalContext';
 import { formatUsPhoneInput, isCompleteUsPhone } from '../utils/formatUsPhone';
+
 type DemoFormData = {
   name: string;
   shopName: string;
   phone: string;
-  email: string;
-  crm: string;
-  crmOther: string;
-  weeklyCalls: string;
 };
 
 const initialForm: DemoFormData = {
   name: '',
   shopName: '',
   phone: '',
-  email: '',
-  crm: '',
-  crmOther: '',
-  weeklyCalls: '',
 };
 
-const CRM_OPTIONS_REQUIRING_DETAILS = new Set(['Custom', 'Other']);
-
-function needsCrmDetails(crm: string) {
-  return CRM_OPTIONS_REQUIRING_DETAILS.has(crm);
-}
+const MODAL_COPY = {
+  demo: {
+    title: 'Book a demo',
+    description:
+      '15 minutes on Zoom is all it takes to hear the engine live, watch the leads get qualified, and watch it hit our live board.',
+    submitLabel: 'Book my demo',
+    submittingLabel: 'Submitting…',
+    closeFormLabel: 'Close demo request form',
+    scheduleTitle: 'Schedule your demo',
+  },
+  website: {
+    title: "I'll build a custom mockup for your shop",
+    description:
+      "Pick a time on the calendar and I'll walk you through the design.",
+    submitLabel: 'Get my mockup',
+    submittingLabel: 'Submitting…',
+    closeFormLabel: 'Close mockup request form',
+    scheduleTitle: 'Schedule your mockup walkthrough',
+  },
+} as const;
 
 export function DemoModal() {
-  const { isDemoModalOpen, closeDemoModal } = useDemoModal();
+  const { isDemoModalOpen, modalVariant, closeDemoModal } = useDemoModal();
+  const copy = MODAL_COPY[modalVariant];
   const [form, setForm] = useState<DemoFormData>(initialForm);
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [submitted, setSubmitted] = useState(false);
@@ -88,14 +97,6 @@ export function DemoModal() {
     setForm((prev) => ({ ...prev, [field]: value }));
   };
 
-  const handleCrmChange = (value: string) => {
-    setForm((prev) => ({
-      ...prev,
-      crm: value,
-      crmOther: needsCrmDetails(value) ? prev.crmOther : '',
-    }));
-  };
-
   const handlePhoneChange = (value: string) => {
     handleChange('phone', formatUsPhoneInput(value));
   };
@@ -110,22 +111,13 @@ export function DemoModal() {
     setIsSubmitting(true);
 
     try {
-      const crm =
-        needsCrmDetails(form.crm) && form.crmOther.trim()
-          ? `${form.crm}: ${form.crmOther.trim()}`
-          : form.crm;
-
       await submitLead({
         name: form.name,
         shopName: form.shopName,
         phone: form.phone,
-        email: form.email,
-        crm,
-        weeklyCalls: form.weeklyCalls,
       });
       setSchedulingPrefill({
         name: form.name,
-        email: form.email,
         phone: form.phone,
       });
       setSubmitted(true);
@@ -159,7 +151,7 @@ export function DemoModal() {
               type="button"
               className="demo-modal-close"
               onClick={closeDemoModal}
-              aria-label="Close demo request form"
+              aria-label={copy.closeFormLabel}
             >
               <i className="fa-solid fa-xmark" aria-hidden="true" />
             </button>
@@ -178,20 +170,17 @@ export function DemoModal() {
                 </button>
               </div>
               <h2 id="demo-modal-title" className="demo-modal-sr-title">
-                Schedule your demo
+                {copy.scheduleTitle}
               </h2>
               {schedulingPrefill ? <CalendlyInlineEmbed prefill={schedulingPrefill} /> : null}
             </div>
           ) : (
             <>
-              <h2 id="demo-modal-title">Book a demo</h2>
-              <p>
-                15 minutes on Zoom is all it takes to hear the engine live, watch the leads get
-                qualified, and see the full ticket hit our live board.
-              </p>
+              <h2 id="demo-modal-title">{copy.title}</h2>
+              <p>{copy.description}</p>
 
               <form className="demo-form" onSubmit={handleSubmit}>
-                <div className="demo-form-grid">
+                <div className="demo-form-grid demo-form-grid--compact">
                   <label>
                     Your name
                     <input
@@ -228,65 +217,10 @@ export function DemoModal() {
                       placeholder="(555) 123-4567"
                     />
                   </label>
-                  <label>
-                    Email
-                    <input
-                      type="email"
-                      required
-                      disabled={isSubmitting}
-                      value={form.email}
-                      onChange={(event) => handleChange('email', event.target.value)}
-                      placeholder="you@yourshop.com"
-                    />
-                  </label>
-                  <label>
-                    CRM / software
-                    <select
-                      required
-                      disabled={isSubmitting}
-                      value={form.crm}
-                      onChange={(event) => handleCrmChange(event.target.value)}
-                    >
-                      <option value="">Select one</option>
-                      <option value="ServiceTitan">ServiceTitan</option>
-                      <option value="Jobber">Jobber</option>
-                      <option value="Housecall Pro">Housecall Pro</option>
-                      <option value="Custom">Custom</option>
-                      <option value="Other">Other</option>
-                    </select>
-                  </label>
-                  <label>
-                    Weekly inbound calls (approx.)
-                    <select
-                      required
-                      disabled={isSubmitting}
-                      value={form.weeklyCalls}
-                      onChange={(event) => handleChange('weeklyCalls', event.target.value)}
-                    >
-                      <option value="">Select range</option>
-                      <option value="Under 25">Under 25</option>
-                      <option value="25 to 75">25 to 75</option>
-                      <option value="75 to 150">75 to 150</option>
-                      <option value="150+">150+</option>
-                    </select>
-                  </label>
-                  {needsCrmDetails(form.crm) ? (
-                    <label className="demo-form-full">
-                      What CRM or software do you use?
-                      <input
-                        type="text"
-                        required
-                        disabled={isSubmitting}
-                        value={form.crmOther}
-                        onChange={(event) => handleChange('crmOther', event.target.value)}
-                        placeholder="Tell us what you run today"
-                      />
-                    </label>
-                  ) : null}
                 </div>
 
                 <button type="submit" className="cta-btn full-width" disabled={isSubmitting}>
-                  {isSubmitting ? 'Submitting…' : 'Book my demo'}
+                  {isSubmitting ? copy.submittingLabel : copy.submitLabel}
                 </button>
               </form>
             </>

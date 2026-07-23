@@ -1,12 +1,5 @@
+import { Link, useLocation } from 'react-router-dom';
 import { FluxGridLogo } from './FluxGridLogo';
-
-const siteLinks = [
-  { label: 'The problem', href: '#leaks' },
-  { label: 'How it works', href: '#how-it-works' },
-  { label: 'Growth Suite', href: '#growth-suite' },
-  { label: 'FAQ', href: '#faq' },
-  { label: 'Vision', href: '#vision' },
-];
 
 const contactLinks = [
   { label: 'fluxgridai@gmail.com', href: 'mailto:fluxgridai@gmail.com' },
@@ -15,18 +8,25 @@ const contactLinks = [
 
 export function Footer() {
   const year = new Date().getFullYear();
+  const { pathname } = useLocation();
+  const isWebsitePage = pathname.startsWith('/websites');
+
+  const crossLink = isWebsitePage
+    ? { label: 'Get Your Digital Receptionist', to: '/' }
+    : { label: 'Get Your Custom Website', to: '/websites' };
 
   return (
     <footer className="site-footer">
       <div className="container footer-inner">
         <div className="footer-main">
           <div className="footer-brand">
-            <a href="#" className="logo footer-logo">
+            <Link to="/" className="logo footer-logo">
               <FluxGridLogo size="sm" variant="light" />
-            </a>
+            </Link>
             <p className="footer-brand-tagline">
-              Our 24/7 digital receptionist automatically qualifies leads and books them directly into
-              your CRM. Live in 7 days.
+              {isWebsitePage
+                ? 'Custom websites built for electrical contractors—designed to rank, convert, and look like the shop you actually run.'
+                : 'Our 24/7 digital receptionist automatically qualifies leads and books them directly into your CRM. Live in 7 days.'}
             </p>
           </div>
 
@@ -34,11 +34,9 @@ export function Footer() {
             <div className="footer-nav-col">
               <span className="footer-nav-label">Site</span>
               <ul>
-                {siteLinks.map((link) => (
-                  <li key={link.label}>
-                    <a href={link.href}>{link.label}</a>
-                  </li>
-                ))}
+                <li>
+                  <Link to={crossLink.to}>{crossLink.label}</Link>
+                </li>
               </ul>
             </div>
 

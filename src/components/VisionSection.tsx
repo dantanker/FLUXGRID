@@ -1,3 +1,5 @@
+import heroIphone from '../assets/hero-iphone.png';
+import { DemoCtaButton } from './DemoCtaButton';
 import { Reveal } from './motion/Reveal';
 
 export function VisionSection() {
@@ -15,6 +17,25 @@ export function VisionSection() {
             handle the chaos on the phones so you can stop drowning in admin and get back to
             the freedom you started this business for.
           </p>
+
+          <DemoCtaButton className="vision-section__btn">Book a demo</DemoCtaButton>
+          <p className="vision-section__note">No commitment. Typically live within a week.</p>
+        </Reveal>
+
+        <Reveal className="vision-section__visual" delay={0.12} direction="right">
+          <div className="hero-phone-frame">
+            <span className="hero-phone-ring" aria-hidden="true" />
+            <span className="hero-phone-ring hero-phone-ring--2" aria-hidden="true" />
+            <img
+              src={heroIphone}
+              alt="FluxGrid answering an electrical service call"
+              width={925}
+              height={1976}
+              decoding="async"
+              className="hero-phone-image"
+              draggable={false}
+            />
+          </div>
         </Reveal>
       </div>
     </section>

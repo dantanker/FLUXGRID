@@ -1,8 +1,8 @@
-import heroIphone from '../assets/hero-iphone.png';
 import { CircuitLines } from './CircuitLines';
 import { DemoCtaButton } from './DemoCtaButton';
 import { IntegrationLogos } from './IntegrationLogos';
 import { Reveal } from './motion/Reveal';
+import { SiteVideo } from './SiteVideo';
 import { useHeroCursor } from '../hooks/useHeroCursor';
 
 export function HeroScroll() {
@@ -33,19 +33,11 @@ export function HeroScroll() {
         </Reveal>
 
         <Reveal className="hero-visual" delay={0.12} direction="right">
-          <div className="hero-phone-frame">
-            <span className="hero-phone-ring" aria-hidden="true" />
-            <span className="hero-phone-ring hero-phone-ring--2" aria-hidden="true" />
-            <img
-              src={heroIphone}
-              alt="FluxGrid answering an electrical service call"
-              width={925}
-              height={1976}
-              decoding="async"
-              className="hero-phone-image"
-              draggable={false}
-            />
-          </div>
+          <SiteVideo
+            src="/videos/receptionist-hero.mov"
+            poster="/videos/thumbs/receptionist-hero.jpg"
+            label="Digital receptionist demo video"
+          />
         </Reveal>
       </div>
 

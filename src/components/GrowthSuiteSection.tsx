@@ -1,85 +1,10 @@
-import { useEffect, useRef, useState } from 'react';
+import { Link } from 'react-router-dom';
 import { Reveal } from './motion/Reveal';
+import { SiteVideo } from './SiteVideo';
 
 export const GROWTH_SUITE_PROTOTYPE_URL = 'https://voltguard-rouge.vercel.app/';
 
-/** Desktop viewport size rendered inside the preview, then scaled down */
-const PREVIEW_WIDTH = 1440;
-const PREVIEW_HEIGHT = 810;
-const DESKTOP_MIN_WIDTH = 993;
-
-function useIsDesktop() {
-  const [isDesktop, setIsDesktop] = useState(false);
-
-  useEffect(() => {
-    const media = window.matchMedia(`(min-width: ${DESKTOP_MIN_WIDTH}px)`);
-    const update = () => setIsDesktop(media.matches);
-    update();
-    media.addEventListener('change', update);
-    return () => media.removeEventListener('change', update);
-  }, []);
-
-  return isDesktop;
-}
-
-function PrototypeCta({ className }: { className?: string }) {
-  return (
-    <a
-      href={GROWTH_SUITE_PROTOTYPE_URL}
-      className={['cta-btn', className].filter(Boolean).join(' ')}
-      target="_blank"
-      rel="noopener noreferrer"
-    >
-      View Website Prototype
-    </a>
-  );
-}
-
-function ScaledWebsitePreview() {
-  const wrapRef = useRef<HTMLDivElement>(null);
-  const [scale, setScale] = useState(0);
-
-  useEffect(() => {
-    const wrap = wrapRef.current;
-    if (!wrap) {
-      return;
-    }
-
-    const updateScale = () => {
-      setScale(wrap.clientWidth / PREVIEW_WIDTH);
-    };
-
-    updateScale();
-
-    const observer = new ResizeObserver(updateScale);
-    observer.observe(wrap);
-
-    return () => observer.disconnect();
-  }, []);
-
-  return (
-    <div ref={wrapRef} className="growth-suite-section__iframe-wrap">
-      <iframe
-        className="growth-suite-section__iframe"
-        src={GROWTH_SUITE_PROTOTYPE_URL}
-        title="Live website prototype"
-        loading="lazy"
-        referrerPolicy="no-referrer-when-downgrade"
-        allow="fullscreen"
-        style={{
-          width: PREVIEW_WIDTH,
-          height: PREVIEW_HEIGHT,
-          transform: `scale(${scale})`,
-          opacity: scale > 0 ? 1 : 0,
-        }}
-      />
-    </div>
-  );
-}
-
 export function GrowthSuiteSection() {
-  const isDesktop = useIsDesktop();
-
   return (
     <section
       className="growth-suite-section"
@@ -89,9 +14,9 @@ export function GrowthSuiteSection() {
       <div className="container growth-suite-section__inner">
         <div className="growth-suite-section__layout">
           <Reveal className="growth-suite-section__copy">
-            <p className="growth-suite-section__eyebrow">The Growth Suite</p>
+            <p className="growth-suite-section__eyebrow">The Full Package</p>
             <h2 id="growth-suite-heading" className="growth-suite-section__title">
-              The Growth Suite
+              The Full Package
             </h2>
             <p className="growth-suite-section__text">
               Whether you&apos;re starting from scratch or your current site needs a professional
@@ -100,15 +25,19 @@ export function GrowthSuiteSection() {
               searching for a pro.
             </p>
             <div className="growth-suite-section__actions">
-              <PrototypeCta className="growth-suite-section__cta" />
+              <Link to="/websites" className="cta-btn growth-suite-section__cta">
+                Check it out
+              </Link>
             </div>
           </Reveal>
 
-          {isDesktop ? (
-            <Reveal className="growth-suite-section__media" delay={0.1} direction="right">
-              <ScaledWebsitePreview />
-            </Reveal>
-          ) : null}
+          <Reveal className="growth-suite-section__media" delay={0.1} direction="right">
+            <SiteVideo
+              src="/videos/full-package.mov"
+              poster="/videos/thumbs/full-package.jpg"
+              label="Full package demo video"
+            />
+          </Reveal>
         </div>
       </div>
     </section>

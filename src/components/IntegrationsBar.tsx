@@ -30,7 +30,7 @@ function IntegrationsMarquee() {
               />
             </div>
             <div className="app-logo app-logo--text">
-              <i className="fa-solid fa-link" /> Custom CRM Webhooks
+              <i className="fa-solid fa-link" /> Your Schedule
             </div>
           </div>
         ))}

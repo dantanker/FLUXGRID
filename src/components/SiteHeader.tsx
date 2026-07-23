@@ -1,25 +1,41 @@
+import { Link, useLocation } from 'react-router-dom';
 import { FluxGridLogo } from './FluxGridLogo';
 import { DemoCtaButton } from './DemoCtaButton';
+import { WebsiteMockupCtaButton } from './WebsiteMockupCtaButton';
 import { useHeaderScroll } from '../hooks/useHeaderScroll';
 
 export function SiteHeader() {
   const scrolled = useHeaderScroll();
+  const { pathname } = useLocation();
+  const isWebsitePage = pathname.startsWith('/websites');
+
+  const headerCta = isWebsitePage ? (
+    <>
+      <WebsiteMockupCtaButton className="nav header-mobile-cta">
+        Get my mockup
+      </WebsiteMockupCtaButton>
+      <nav>
+        <Link to="/">Get Your Digital Receptionist</Link>
+        <WebsiteMockupCtaButton className="nav">Get my mockup</WebsiteMockupCtaButton>
+      </nav>
+    </>
+  ) : (
+    <>
+      <DemoCtaButton className="nav header-mobile-cta">Book a demo</DemoCtaButton>
+      <nav>
+        <Link to="/websites">Get Your Custom Website</Link>
+        <DemoCtaButton className="nav">Book a demo</DemoCtaButton>
+      </nav>
+    </>
+  );
 
   return (
     <header className={scrolled ? 'is-scrolled' : undefined}>
       <div className="container nav-container">
-        <a href="#" className="logo">
+        <Link to="/" className="logo">
           <FluxGridLogo size="md" />
-        </a>
-        <DemoCtaButton className="nav header-mobile-cta">Book a demo</DemoCtaButton>
-        <nav>
-          <a href="#leaks">The problem</a>
-          <a href="#how-it-works">How it works</a>
-          <a href="#growth-suite">Growth Suite</a>
-          <a href="#faq">FAQ</a>
-          <a href="#vision">Vision</a>
-          <DemoCtaButton className="nav">Book a demo</DemoCtaButton>
-        </nav>
+        </Link>
+        {headerCta}
       </div>
     </header>
   );

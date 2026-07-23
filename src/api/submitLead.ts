@@ -2,9 +2,6 @@ export type LeadFormPayload = {
   name: string;
   shopName: string;
   phone: string;
-  email: string;
-  crm: string;
-  weeklyCalls: string;
 };
 
 const SUBMIT_DELAY_MS = 1500;
