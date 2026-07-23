@@ -3179,7 +3179,7 @@
 .fluxgrid-app .proof-section {
   position: relative;
   overflow: hidden;
-  padding: var(--section-pad) 0;
+  padding: 48px 0;
   background: transparent;
   color: var(--text-light);
 }
@@ -3187,33 +3187,293 @@
 .fluxgrid-app .proof-inner {
   position: relative;
   z-index: 1;
-  max-width: 36rem;
+  display: grid;
+  grid-template-columns: minmax(0, 1.15fr) minmax(240px, 380px);
+  align-items: center;
+  gap: 40px 48px;
+  max-width: 980px;
   margin: 0 auto;
-  text-align: center;
 }
 
 .fluxgrid-app .proof-copy {
   display: flex;
   flex-direction: column;
-  align-items: center;
+  align-items: flex-start;
+  text-align: left;
+  max-width: 36rem;
+}
+
+.fluxgrid-app .proof-eyebrow {
+  margin: 0 0 10px;
+  font-size: 11px;
+  font-weight: 600;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: var(--accent);
 }
 
 .fluxgrid-app .proof-headline {
-  margin: 0 0 20px;
+  margin: 0 0 12px;
   font-family: var(--font-sans);
-  font-size: clamp(1.625rem, 2.8vw, 2rem);
+  font-size: clamp(1.5rem, 2.4vw, 1.875rem);
   font-weight: 700;
   letter-spacing: -0.02em;
-  line-height: 1.35;
+  line-height: 1.25;
   color: var(--text-light);
   text-wrap: pretty;
 }
 
 .fluxgrid-app .proof-subhead {
-  margin: 0;
-  font-size: 17px;
-  line-height: 1.7;
+  margin: 0 0 28px;
+  font-size: 16px;
+  line-height: 1.65;
   color: var(--text-muted);
+  text-wrap: pretty;
+}
+
+.fluxgrid-app .proof-contrast {
+  display: grid;
+  grid-template-columns: 1fr auto 1fr;
+  gap: 16px 18px;
+  width: 100%;
+  align-items: start;
+}
+
+.fluxgrid-app .proof-contrast__label {
+  margin: 0 0 10px;
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+}
+
+.fluxgrid-app .proof-contrast__col--chaos .proof-contrast__label {
+  color: var(--danger);
+}
+
+.fluxgrid-app .proof-contrast__col--calm .proof-contrast__label {
+  color: var(--success-green);
+}
+
+.fluxgrid-app .proof-contrast__col ul {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.fluxgrid-app .proof-contrast__col li {
+  position: relative;
+  padding-left: 14px;
+  font-size: 14px;
+  line-height: 1.45;
+  color: var(--text-muted);
+}
+
+.fluxgrid-app .proof-contrast__col li::before {
+  content: '';
+  position: absolute;
+  top: 0.55em;
+  left: 0;
+  width: 5px;
+  height: 5px;
+  border-radius: 50%;
+}
+
+.fluxgrid-app .proof-contrast__col--chaos li::before {
+  background: var(--danger);
+}
+
+.fluxgrid-app .proof-contrast__col--calm li::before {
+  background: var(--success-green);
+}
+
+.fluxgrid-app .proof-contrast__divider {
+  display: grid;
+  place-items: center;
+  align-self: center;
+  width: 28px;
+  height: 28px;
+  border-radius: 50%;
+  background: var(--accent-muted);
+  color: var(--accent);
+}
+
+.fluxgrid-app .proof-compare {
+  width: 100%;
+  max-width: 380px;
+  justify-self: end;
+}
+
+.fluxgrid-app .proof-compare__frame {
+  position: relative;
+  overflow: hidden;
+  aspect-ratio: 1 / 1;
+  width: 100%;
+  border: 1px solid var(--border-color);
+  border-radius: var(--radius-lg);
+  background: var(--bg-elevated);
+  box-shadow: var(--shadow-sm);
+  cursor: ew-resize;
+  user-select: none;
+  touch-action: none;
+}
+
+.fluxgrid-app .proof-compare__frame.is-dragging {
+  cursor: grabbing;
+}
+
+.fluxgrid-app .proof-compare__image {
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  pointer-events: none;
+}
+
+.fluxgrid-app .proof-compare__image--after {
+  position: absolute;
+  inset: 0;
+}
+
+.fluxgrid-app .proof-compare__before {
+  position: absolute;
+  inset: 0;
+  clip-path: inset(0 calc(100% - var(--compare-pos, 50%)) 0 0);
+  will-change: clip-path;
+}
+
+.fluxgrid-app .proof-compare__image--before {
+  position: absolute;
+  inset: 0;
+}
+
+.fluxgrid-app .proof-compare__divider {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: var(--compare-pos, 50%);
+  z-index: 3;
+  width: 2px;
+  transform: translateX(-50%);
+  background: #fff;
+  box-shadow: 0 0 0 1px rgba(26, 29, 36, 0.15);
+  pointer-events: none;
+}
+
+.fluxgrid-app .proof-compare__handle {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  display: grid;
+  place-items: center;
+  width: 36px;
+  height: 36px;
+  transform: translate(-50%, -50%);
+  border: 2px solid #fff;
+  border-radius: 50%;
+  background: var(--navy-main);
+  color: var(--bulb-bright);
+  box-shadow: var(--shadow-sm);
+}
+
+.fluxgrid-app .proof-compare__volt {
+  display: block;
+}
+
+.fluxgrid-app .proof-compare__hint {
+  margin: 10px 0 0;
+  text-align: center;
+  font-size: 12px;
+  font-weight: 500;
+  letter-spacing: 0.02em;
+  color: var(--text-subtle);
+}
+
+.fluxgrid-app .proof-compare__range {
+  position: absolute;
+  left: 10px;
+  right: 10px;
+  bottom: 10px;
+  z-index: 5;
+  width: auto;
+  height: 18px;
+  margin: 0;
+  opacity: 0.001;
+  cursor: ew-resize;
+  appearance: none;
+  -webkit-appearance: none;
+  background: transparent;
+}
+
+.fluxgrid-app .proof-compare__range:focus-visible {
+  opacity: 1;
+  outline: 2px solid var(--accent);
+  outline-offset: 2px;
+  border-radius: 999px;
+  background: rgba(255, 255, 255, 0.35);
+}
+
+.fluxgrid-app .proof-compare__range::-webkit-slider-runnable-track,
+.fluxgrid-app .proof-compare__range::-webkit-slider-thumb,
+.fluxgrid-app .proof-compare__range::-moz-range-track,
+.fluxgrid-app .proof-compare__range::-moz-range-thumb {
+  cursor: ew-resize;
+}
+
+@media (max-width: 860px) {
+  .fluxgrid-app .proof-section {
+    padding: 40px 0;
+  }
+
+  .fluxgrid-app .proof-inner {
+    grid-template-columns: 1fr;
+    gap: 28px;
+  }
+
+  .fluxgrid-app .proof-copy {
+    align-items: center;
+    text-align: center;
+    max-width: 34rem;
+    margin: 0 auto;
+  }
+
+  .fluxgrid-app .proof-contrast {
+    text-align: left;
+  }
+
+  .fluxgrid-app .proof-compare {
+    max-width: 320px;
+    justify-self: center;
+  }
+}
+
+@media (max-width: 560px) {
+  .fluxgrid-app .proof-contrast {
+    grid-template-columns: 1fr;
+    gap: 18px;
+  }
+
+  .fluxgrid-app .proof-contrast__divider {
+    justify-self: center;
+  }
+}
+
+@media (max-width: 480px) {
+  .fluxgrid-app .proof-section {
+    padding: 32px 0;
+  }
+
+  .fluxgrid-app .proof-compare {
+    max-width: 280px;
+  }
+
+  .fluxgrid-app .proof-compare__handle {
+    width: 32px;
+    height: 32px;
+  }
 }
 
 .fluxgrid-app .proof-journey {

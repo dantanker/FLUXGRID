@@ -56,7 +56,7 @@ export function Footer() {
         </div>
 
         <div className="footer-bottom">
-          <span>&copy; {year} FluxGrid</span>
+          <span>&copy; {year} FluxGrid. All rights reserved.</span>
           <span className="footer-bottom-meta">
             <a href="#">Privacy</a>
             <span className="footer-bottom-sep" aria-hidden="true">

@@ -8,22 +8,22 @@ import { Reveal } from '../motion/Reveal';
 const steps = [
   {
     num: '01',
-    title: 'Custom Walkthrough',
-    text: 'A quick Zoom call to see your custom site, and see exactly how your shop will stand out.',
-    image: processWalkthrough,
-    imageAlt: 'Laptop showing a Zoom walkthrough of a custom electrician website',
-  },
-  {
-    num: '02',
-    title: 'Go Live',
-    text: "I'll handle the technical side and get your professional site live fast.",
+    title: 'The Blueprint',
+    text: "I build a custom visual of your new site so you can see exactly how you'll dominate your local market before we even start.",
     image: processGoLive,
     imageAlt: 'Phone preview of a live VoltGuard electrician website',
   },
   {
+    num: '02',
+    title: 'The Polish',
+    text: 'We fine-tune every detail to match your vibe, ensuring your business looks like the premium choice for every high-value lead.',
+    image: processWalkthrough,
+    imageAlt: 'Laptop showing a Zoom walkthrough of a custom electrician website',
+  },
+  {
     num: '03',
-    title: 'Get More Customers',
-    text: 'Start winning more jobs with a site that builds instant trust.',
+    title: 'The Launch',
+    text: 'We flip the switch. Your site goes live, your professional image is locked in, and the leads start hitting your phone.',
     image: processCustomers,
     imageAlt: 'Phone showing a new electrical service lead notification',
   },
