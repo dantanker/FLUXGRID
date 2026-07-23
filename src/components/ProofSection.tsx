@@ -3,18 +3,6 @@ import chaosBefore from '../assets/proof/chaos-before.png';
 import calmAfter from '../assets/proof/calm-after.png';
 import { Reveal } from './motion/Reveal';
 
-const chaosPoints = [
-  'Missed calls stack up on the dash',
-  'High-value leads die in voicemail',
-  'You stay buried in phone tag',
-];
-
-const calmPoints = [
-  'Every call gets answered instantly',
-  'Qualified leads hit your phone',
-  'Jobs book while you keep working',
-];
-
 function VoltIcon({ className = '' }: { className?: string }) {
   return (
     <svg
@@ -100,33 +88,9 @@ export function ProofSection() {
             Stop letting high-value leads vanish into your voicemail and start winning your time
             back.
           </p>
-
-          <div className="proof-contrast">
-            <div className="proof-contrast__col proof-contrast__col--chaos">
-              <p className="proof-contrast__label">Without FluxGrid</p>
-              <ul>
-                {chaosPoints.map((point) => (
-                  <li key={point}>{point}</li>
-                ))}
-              </ul>
-            </div>
-
-            <div className="proof-contrast__divider" aria-hidden="true">
-              <VoltIcon />
-            </div>
-
-            <div className="proof-contrast__col proof-contrast__col--calm">
-              <p className="proof-contrast__label">With FluxGrid</p>
-              <ul>
-                {calmPoints.map((point) => (
-                  <li key={point}>{point}</li>
-                ))}
-              </ul>
-            </div>
-          </div>
         </Reveal>
 
-        <Reveal className="proof-compare" delay={0.08} direction="right">
+        <Reveal className="proof-compare" delay={0.08} direction="left">
           <div
             ref={frameRef}
             className={`proof-compare__frame${dragging ? ' is-dragging' : ''}`}

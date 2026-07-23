@@ -3179,7 +3179,7 @@
 .fluxgrid-app .proof-section {
   position: relative;
   overflow: hidden;
-  padding: 48px 0;
+  padding: var(--section-pad) 0;
   background: transparent;
   color: var(--text-light);
 }
@@ -3188,10 +3188,10 @@
   position: relative;
   z-index: 1;
   display: grid;
-  grid-template-columns: minmax(0, 1.15fr) minmax(240px, 380px);
+  grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
   align-items: center;
-  gap: 40px 48px;
-  max-width: 980px;
+  gap: clamp(28px, 4vw, 48px);
+  max-width: 920px;
   margin: 0 auto;
 }
 
@@ -3200,111 +3200,46 @@
   flex-direction: column;
   align-items: flex-start;
   text-align: left;
-  max-width: 36rem;
+  width: 100%;
+  max-width: 420px;
+  justify-self: start;
+  order: 2;
 }
 
 .fluxgrid-app .proof-eyebrow {
-  margin: 0 0 10px;
+  margin: 0 0 16px;
   font-size: 11px;
   font-weight: 600;
-  letter-spacing: 0.16em;
+  letter-spacing: 0.14em;
   text-transform: uppercase;
   color: var(--accent);
 }
 
 .fluxgrid-app .proof-headline {
-  margin: 0 0 12px;
+  margin: 0 0 20px;
   font-family: var(--font-sans);
-  font-size: clamp(1.5rem, 2.4vw, 1.875rem);
+  font-size: clamp(1.625rem, 3.4vw, 2.25rem);
   font-weight: 700;
-  letter-spacing: -0.02em;
-  line-height: 1.25;
+  letter-spacing: -0.03em;
+  line-height: 1.22;
   color: var(--text-light);
   text-wrap: pretty;
 }
 
 .fluxgrid-app .proof-subhead {
-  margin: 0 0 28px;
-  font-size: 16px;
-  line-height: 1.65;
+  margin: 0;
+  max-width: 520px;
+  font-size: 17px;
+  line-height: 1.75;
   color: var(--text-muted);
   text-wrap: pretty;
-}
-
-.fluxgrid-app .proof-contrast {
-  display: grid;
-  grid-template-columns: 1fr auto 1fr;
-  gap: 16px 18px;
-  width: 100%;
-  align-items: start;
-}
-
-.fluxgrid-app .proof-contrast__label {
-  margin: 0 0 10px;
-  font-size: 11px;
-  font-weight: 700;
-  letter-spacing: 0.1em;
-  text-transform: uppercase;
-}
-
-.fluxgrid-app .proof-contrast__col--chaos .proof-contrast__label {
-  color: var(--danger);
-}
-
-.fluxgrid-app .proof-contrast__col--calm .proof-contrast__label {
-  color: var(--success-green);
-}
-
-.fluxgrid-app .proof-contrast__col ul {
-  margin: 0;
-  padding: 0;
-  list-style: none;
-  display: flex;
-  flex-direction: column;
-  gap: 10px;
-}
-
-.fluxgrid-app .proof-contrast__col li {
-  position: relative;
-  padding-left: 14px;
-  font-size: 14px;
-  line-height: 1.45;
-  color: var(--text-muted);
-}
-
-.fluxgrid-app .proof-contrast__col li::before {
-  content: '';
-  position: absolute;
-  top: 0.55em;
-  left: 0;
-  width: 5px;
-  height: 5px;
-  border-radius: 50%;
-}
-
-.fluxgrid-app .proof-contrast__col--chaos li::before {
-  background: var(--danger);
-}
-
-.fluxgrid-app .proof-contrast__col--calm li::before {
-  background: var(--success-green);
-}
-
-.fluxgrid-app .proof-contrast__divider {
-  display: grid;
-  place-items: center;
-  align-self: center;
-  width: 28px;
-  height: 28px;
-  border-radius: 50%;
-  background: var(--accent-muted);
-  color: var(--accent);
 }
 
 .fluxgrid-app .proof-compare {
   width: 100%;
   max-width: 380px;
   justify-self: end;
+  order: 1;
 }
 
 .fluxgrid-app .proof-compare__frame {
@@ -3313,9 +3248,11 @@
   aspect-ratio: 1 / 1;
   width: 100%;
   border: 1px solid var(--border-color);
-  border-radius: var(--radius-lg);
+  border-radius: var(--radius-xl);
   background: var(--bg-elevated);
-  box-shadow: var(--shadow-sm);
+  box-shadow:
+    0 1px 2px rgba(26, 29, 36, 0.05),
+    0 18px 48px rgba(26, 29, 36, 0.08);
   cursor: ew-resize;
   user-select: none;
   touch-action: none;
@@ -3384,10 +3321,9 @@
 }
 
 .fluxgrid-app .proof-compare__hint {
-  margin: 10px 0 0;
+  margin: 16px 0 0;
   text-align: center;
-  font-size: 12px;
-  font-weight: 500;
+  font-size: 13px;
   letter-spacing: 0.02em;
   color: var(--text-subtle);
 }
@@ -3423,51 +3359,55 @@
   cursor: ew-resize;
 }
 
-@media (max-width: 860px) {
+@media (max-width: 992px) {
   .fluxgrid-app .proof-section {
-    padding: 40px 0;
+    padding: 48px 0;
   }
 
   .fluxgrid-app .proof-inner {
     grid-template-columns: 1fr;
-    gap: 28px;
+    gap: 24px;
   }
 
   .fluxgrid-app .proof-copy {
     align-items: center;
     text-align: center;
-    max-width: 34rem;
+    max-width: 640px;
     margin: 0 auto;
+    order: 1;
   }
 
-  .fluxgrid-app .proof-contrast {
-    text-align: left;
+  .fluxgrid-app .proof-eyebrow {
+    margin-bottom: 10px;
+  }
+
+  .fluxgrid-app .proof-headline {
+    margin-bottom: 12px;
+    font-size: clamp(1.35rem, 5.5vw, 1.7rem);
+    line-height: 1.25;
+  }
+
+  .fluxgrid-app .proof-subhead {
+    margin: 0 auto;
+    max-width: 28rem;
+    font-size: 14px;
+    line-height: 1.55;
   }
 
   .fluxgrid-app .proof-compare {
-    max-width: 320px;
+    max-width: min(100%, 360px);
     justify-self: center;
-  }
-}
-
-@media (max-width: 560px) {
-  .fluxgrid-app .proof-contrast {
-    grid-template-columns: 1fr;
-    gap: 18px;
-  }
-
-  .fluxgrid-app .proof-contrast__divider {
-    justify-self: center;
+    order: 2;
   }
 }
 
 @media (max-width: 480px) {
   .fluxgrid-app .proof-section {
-    padding: 32px 0;
+    padding: 44px 0;
   }
 
   .fluxgrid-app .proof-compare {
-    max-width: 280px;
+    max-width: min(100%, 320px);
   }
 
   .fluxgrid-app .proof-compare__handle {
@@ -4017,11 +3957,11 @@
   .fluxgrid-app .hiw-mobile-stack {
     display: flex;
     flex-direction: column;
-    gap: 28px;
+    gap: 20px;
   }
 
   .fluxgrid-app .hiw-header {
-    margin-bottom: clamp(28px, 5vw, 40px);
+    margin-bottom: 16px;
   }
 
   .fluxgrid-app .hiw-mobile-stage {
@@ -4031,14 +3971,6 @@
     aspect-ratio: 4 / 3;
     max-height: min(44vh, 320px);
     margin: 0 auto;
-  }
-
-  .fluxgrid-app .hiw-header {
-    margin-bottom: 16px;
-  }
-
-  .fluxgrid-app .hiw-mobile-stack {
-    gap: 20px;
   }
 
   .fluxgrid-app .hiw-mobile-stage__frame {
@@ -4079,7 +4011,7 @@
   }
 
   .fluxgrid-app .hiw-mobile-copy {
-    min-height: 10.5rem;
+    min-height: 0;
   }
 
   .fluxgrid-app .hiw-mobile-copy__inner {
@@ -4172,15 +4104,15 @@
 
 @media (max-width: 640px) {
   .fluxgrid-app .hiw-header {
-    margin-bottom: 28px;
+    margin-bottom: 16px;
   }
 
   .fluxgrid-app .hiw-mobile-stack {
-    gap: 24px;
+    gap: 18px;
   }
 
   .fluxgrid-app .hiw-mobile-copy {
-    min-height: 11.5rem;
+    min-height: 0;
   }
 
   .fluxgrid-app .hiw-mobile-copy__description {
@@ -4292,10 +4224,6 @@
 }
 
 @media (max-width: 768px) {
-  .fluxgrid-app .growth-suite-section {
-    padding: 64px 0;
-  }
-
   .fluxgrid-app .growth-suite-section__title {
     margin-bottom: 16px;
   }
@@ -4717,7 +4645,7 @@
 
 @media (max-width: 992px) {
   :root {
-    --section-pad: 56px;
+    --section-pad: 48px;
   }
 
   .fluxgrid-app .hero-grid,
@@ -4727,8 +4655,8 @@
   }
 
   .fluxgrid-app .hero-section {
-    padding-top: 52px;
-    padding-bottom: 16px;
+    padding-top: 28px;
+    padding-bottom: 20px;
   }
 
   .fluxgrid-app .hero-integrations-label {
@@ -4896,7 +4824,7 @@
 
 @media (max-width: 992px) {
   .fluxgrid-app .vision-section {
-    padding: 36px 0 40px;
+    padding: 48px 0;
   }
 
   .fluxgrid-app .vision-section__inner {
@@ -4961,7 +4889,7 @@
 
 @media (max-width: 768px) {
   .fluxgrid-app .vision-section {
-    padding: 28px 0 32px;
+    padding: 48px 0;
   }
 
   .fluxgrid-app .vision-section__inner {
@@ -4980,7 +4908,7 @@
   }
 
   .fluxgrid-app .vision-section .hero-phone-frame {
-    max-width: 140px;
+    max-width: 150px;
   }
 }
 
@@ -5127,6 +5055,7 @@
 .fluxgrid-app .hero-headline,
 .fluxgrid-app .section-title,
 .fluxgrid-app .vision-section__title,
+.fluxgrid-app .proof-headline,
 .fluxgrid-app .proof-stat__value {
   font-family: var(--font-sans);
   font-weight: 700;
@@ -5691,7 +5620,7 @@
 
 @media (max-width: 640px) {
   .fluxgrid-app .faq-section {
-    padding: 64px 0;
+    padding: 48px 0;
   }
 
   .fluxgrid-app .faq-header {
@@ -5861,7 +5790,7 @@
 
 @media (max-width: 768px) {
   .fluxgrid-app .website-hero {
-    padding: 40px 0 48px;
+    padding: 28px 0 24px;
   }
 
   .fluxgrid-app .website-hero__lead {
@@ -6010,11 +5939,20 @@
   color: var(--text-light);
 }
 
+.fluxgrid-app .feature-pin__title--short {
+  display: none;
+}
+
+.fluxgrid-app .feature-pin__dots {
+  display: none;
+}
+
 .fluxgrid-app .feature-pin__stage {
   position: relative;
   width: 100%;
   height: 380px;
   min-height: 380px;
+  overflow: hidden;
 }
 
 .fluxgrid-app .feature-pin__frame {
@@ -6470,7 +6408,7 @@
   .fluxgrid-app .website-roadmap {
     display: flex;
     flex-direction: column;
-    gap: 16px;
+    gap: 20px;
   }
 
   .fluxgrid-app .website-roadmap__rail {
@@ -6482,18 +6420,22 @@
     margin: 0 auto;
     width: 100%;
     max-width: 360px;
-    min-height: 220px;
-    height: min(58vw, 250px);
+    min-height: 240px;
+    height: min(62vw, 280px);
   }
 
   .fluxgrid-app .website-roadmap__step {
     min-height: 0;
-    opacity: 0.45;
-    padding: 12px 0;
+    opacity: 0.4;
+    padding: 14px 0;
   }
 
   .fluxgrid-app .website-roadmap__step.is-active {
     opacity: 1;
+  }
+
+  .fluxgrid-app .website-roadmap__step:not(.is-active) .website-roadmap__text {
+    display: none;
   }
 }
 
@@ -6560,7 +6502,8 @@
   .fluxgrid-app .feature-pin__layout {
     display: flex;
     flex-direction: column;
-    gap: 16px;
+    align-items: stretch;
+    gap: 14px;
     width: 100%;
   }
 
@@ -6568,63 +6511,224 @@
     width: 100%;
     max-width: none;
     align-self: stretch;
+    order: 2;
   }
 
   .fluxgrid-app .feature-pin__eyebrow {
-    margin-bottom: 12px;
+    margin-bottom: 10px;
     text-align: center;
   }
 
   .fluxgrid-app .feature-pin__list {
-    display: grid;
-    grid-template-columns: 1fr 1fr;
+    display: flex;
+    flex-direction: row;
+    flex-wrap: nowrap;
     gap: 8px;
     width: 100%;
+    overflow-x: auto;
+    overflow-y: hidden;
+    padding: 2px 2px 6px;
+    scroll-snap-type: x mandatory;
+    -webkit-overflow-scrolling: touch;
+    scrollbar-width: none;
+  }
+
+  .fluxgrid-app .feature-pin__list::-webkit-scrollbar {
+    display: none;
+  }
+
+  .fluxgrid-app .feature-pin__list > li {
+    flex: 0 0 auto;
+    scroll-snap-align: center;
   }
 
   .fluxgrid-app .feature-pin__item {
-    width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 3px;
+    width: auto;
+    min-width: 0;
     box-sizing: border-box;
-    padding: 10px 12px;
-    border-left: 0;
-    border-radius: 10px;
-    background: rgba(26, 29, 36, 0.03);
+    padding: 10px 14px;
     border: 1px solid var(--border-subtle);
+    border-left: 1px solid var(--border-subtle);
+    border-radius: var(--radius-md);
+    background: rgba(255, 255, 255, 0.72);
+    opacity: 0.55;
+    white-space: nowrap;
+    box-shadow: none;
+  }
+
+  .fluxgrid-app .feature-pin__item:hover {
+    opacity: 0.8;
   }
 
   .fluxgrid-app .feature-pin__item.is-active {
-    background: rgba(143, 111, 26, 0.08);
-    border-color: rgba(143, 111, 26, 0.28);
+    opacity: 1;
+    background: rgba(143, 111, 26, 0.1);
+    border-color: rgba(143, 111, 26, 0.35);
+    border-left-color: rgba(143, 111, 26, 0.35);
+    box-shadow: 0 1px 2px rgba(26, 29, 36, 0.04);
   }
 
-  .fluxgrid-app .feature-pin__title {
-    font-size: 0.95rem;
+  .fluxgrid-app .feature-pin__num {
+    font-size: 10px;
+    letter-spacing: 0.12em;
+  }
+
+  .fluxgrid-app .feature-pin__title--full {
+    display: none;
+  }
+
+  .fluxgrid-app .feature-pin__title--short {
+    display: block;
+    font-size: 0.92rem;
+    line-height: 1.2;
   }
 
   .fluxgrid-app .feature-pin__stage {
+    order: 1;
     width: 100%;
-    height: min(52vw, 240px);
-    min-height: 200px;
+    height: clamp(250px, 68vw, 320px);
+    min-height: 250px;
+    max-height: 320px;
+    border: 1px solid var(--border-color);
+    border-radius: var(--radius-xl);
+    background:
+      linear-gradient(180deg, rgba(255, 255, 255, 0.9) 0%, rgba(250, 249, 247, 0.96) 100%);
+    box-shadow: var(--shadow-sm);
+    touch-action: pan-y;
+  }
+
+  .fluxgrid-app .feature-pin__frame {
+    padding: 16px 14px;
+  }
+
+  .fluxgrid-app .feature-pin__dots {
+    display: flex;
+    justify-content: center;
+    gap: 6px;
+    order: 3;
+    margin-top: 2px;
+  }
+
+  .fluxgrid-app .feature-pin__dot {
+    width: 6px;
+    height: 6px;
+    border-radius: 50%;
+    background: rgba(26, 29, 36, 0.16);
+    transition: background 0.2s ease, transform 0.2s ease;
+  }
+
+  .fluxgrid-app .feature-pin__dot.is-active {
+    background: var(--accent);
+    transform: scale(1.15);
+  }
+
+  .fluxgrid-app .feature-visual {
+    width: 100%;
+    height: 100%;
+    max-height: 100%;
+    overflow: hidden;
+  }
+
+  .fluxgrid-app .feature-google {
+    width: min(100%, 300px);
+    gap: 12px;
+  }
+
+  .fluxgrid-app .feature-google__logo {
+    font-size: clamp(1.4rem, 6vw, 1.7rem);
+  }
+
+  .fluxgrid-app .feature-google__bar {
+    min-height: 42px;
+    padding: 0 14px;
+  }
+
+  .fluxgrid-app .feature-google__input {
+    font-size: 14px;
+  }
+
+  .fluxgrid-app .feature-visual--mobile {
+    padding: 4px 0;
+  }
+
+  .fluxgrid-app .feature-phone {
+    height: 100%;
+    width: auto;
+    max-width: 46%;
+    aspect-ratio: 9 / 19.8;
+    filter: drop-shadow(0 10px 18px rgba(26, 29, 36, 0.14));
+    transform: rotate(-2deg);
+  }
+
+  .fluxgrid-app .feature-visual--mobile.is-active .feature-phone {
+    animation: none;
+  }
+
+  .fluxgrid-app .feature-phone__bezel {
+    box-sizing: border-box;
+    width: 100%;
+    height: 100%;
+    border-radius: clamp(22px, 6vw, 28px);
+    padding: clamp(5px, 1.4vw, 7px);
+  }
+
+  .fluxgrid-app .feature-phone__screen {
+    width: 100%;
+    height: 100%;
+    aspect-ratio: auto;
+    border-radius: clamp(17px, 4.8vw, 22px);
+  }
+
+  .fluxgrid-app .feature-leads {
+    height: 100%;
+    max-height: 100%;
+  }
+
+  .fluxgrid-app .feature-leads__img {
+    width: auto;
+    height: 100%;
+    max-height: 100%;
+    max-width: min(100%, 220px);
+    object-fit: contain;
+  }
+
+  .fluxgrid-app .feature-leads__ping {
+    width: 64%;
+  }
+
+  .fluxgrid-app .feature-pro {
+    width: min(100%, 360px);
+    max-height: 100%;
+    border-radius: var(--radius-lg);
+  }
+
+  .fluxgrid-app .feature-pro__img {
+    max-height: min(100%, 240px);
+    aspect-ratio: 16 / 10;
   }
 
   .fluxgrid-app .website-features {
-    padding: 28px 0 24px;
+    padding: 48px 0 40px;
   }
 
   .fluxgrid-app .website-features__intro,
   .fluxgrid-app .website-process__intro {
-    margin-bottom: 16px;
+    margin-bottom: 24px;
   }
 
   .fluxgrid-app .website-process {
-    padding: 28px 0 32px;
+    padding: 48px 0;
   }
 }
 
 @media (max-width: 768px) {
   .fluxgrid-app .website-process,
   .fluxgrid-app .website-results {
-    padding: 36px 0;
+    padding: 48px 0;
   }
 
   .fluxgrid-app .website-features__subtitle,
@@ -6645,7 +6749,7 @@
 /* ===== Mobile polish ===== */
 @media (max-width: 992px) {
   .fluxgrid-app .hero-section {
-    padding: 24px 0 16px;
+    padding: 28px 0 24px;
   }
 
   .fluxgrid-app .hero-grid {
@@ -6682,7 +6786,7 @@
   .fluxgrid-app .hero-section > .hero-integrations,
   .fluxgrid-app .hero-integrations {
     margin-top: 0;
-    padding: 18px 0 4px;
+    padding: 20px 0 8px;
   }
 
   .fluxgrid-app .integration-strip {
@@ -6732,8 +6836,13 @@
     height: 46px;
   }
 
-  .fluxgrid-app .growth-suite-section {
-    padding: 40px 0;
+  .fluxgrid-app .proof-section,
+  .fluxgrid-app .process-section.hiw-section,
+  .fluxgrid-app .revenue-calc-section,
+  .fluxgrid-app .growth-suite-section,
+  .fluxgrid-app .faq-section,
+  .fluxgrid-app .vision-section {
+    padding: 48px 0;
   }
 
   .fluxgrid-app .growth-suite-section__layout {
@@ -6761,8 +6870,17 @@
     justify-content: flex-start;
   }
 
+  .fluxgrid-app .revenue-calc-section .revenue-calc-cta.cta-btn {
+    align-self: stretch;
+    width: 100%;
+    max-width: 320px;
+    margin-left: auto;
+    margin-right: auto;
+    text-align: center;
+  }
+
   .fluxgrid-app .website-hero {
-    padding: 24px 0 20px;
+    padding: 28px 0 24px;
   }
 
   .fluxgrid-app .website-hero__grid {
@@ -6799,100 +6917,57 @@
   }
 
   .fluxgrid-app .website-features {
-    padding: 28px 0 24px;
+    padding: 48px 0 40px;
   }
 
   .fluxgrid-app .feature-pin__layout {
-    display: flex;
-    flex-direction: column;
-    gap: 16px;
-    width: 100%;
-  }
-
-  .fluxgrid-app .feature-pin__copy {
-    width: 100%;
-    max-width: none;
-    align-self: stretch;
-  }
-
-  .fluxgrid-app .feature-pin__eyebrow {
-    margin-bottom: 12px;
-    text-align: center;
-  }
-
-  .fluxgrid-app .feature-pin__list {
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    gap: 8px;
-    width: 100%;
-  }
-
-  .fluxgrid-app .feature-pin__item {
-    width: 100%;
-    box-sizing: border-box;
-    gap: 4px;
-    padding: 10px 12px;
-    border-left: 0;
-    border-radius: 10px;
-    background: rgba(26, 29, 36, 0.03);
-    border: 1px solid var(--border-subtle);
-    opacity: 0.55;
-  }
-
-  .fluxgrid-app .feature-pin__item.is-active {
-    background: rgba(143, 111, 26, 0.08);
-    border-color: rgba(143, 111, 26, 0.28);
-    border-left: 1px solid rgba(143, 111, 26, 0.28);
-    opacity: 1;
-  }
-
-  .fluxgrid-app .feature-pin__num {
-    font-size: 10px;
-  }
-
-  .fluxgrid-app .feature-pin__title {
-    font-size: 0.95rem;
-    line-height: 1.2;
+    gap: 14px;
   }
 
   .fluxgrid-app .feature-pin__stage {
-    width: 100%;
-    height: min(52vw, 240px);
-    min-height: 200px;
-    max-height: 260px;
+    height: clamp(250px, 70vw, 300px);
+    min-height: 250px;
+    max-height: 300px;
   }
 
-  .fluxgrid-app .feature-phone {
-    width: min(100%, 132px);
+  .fluxgrid-app .feature-pin__item {
+    padding: 9px 12px;
+  }
+
+  .fluxgrid-app .feature-pin__title--short {
+    font-size: 0.88rem;
   }
 
   .fluxgrid-app .feature-google {
-    width: min(100%, 280px);
-    gap: 12px;
+    width: min(100%, 270px);
   }
 
   .fluxgrid-app .feature-google__logo {
-    font-size: 1.45rem;
+    font-size: 1.35rem;
   }
 
   .fluxgrid-app .feature-google__bar {
     min-height: 40px;
-    padding: 0 14px;
+    padding: 0 12px;
+  }
+
+  .fluxgrid-app .feature-leads__img {
+    max-width: min(100%, 190px);
   }
 
   .fluxgrid-app .website-process {
-    padding: 28px 0 32px;
+    padding: 48px 0;
   }
 
   .fluxgrid-app .website-process__intro {
-    margin-bottom: 16px;
+    margin-bottom: 24px;
     text-align: center;
   }
 
   .fluxgrid-app .website-roadmap {
     display: flex;
     flex-direction: column;
-    gap: 16px;
+    gap: 20px;
   }
 
   .fluxgrid-app .website-roadmap__rail {
@@ -6904,8 +6979,8 @@
     margin: 0 auto;
     width: 100%;
     max-width: 360px;
-    min-height: 220px;
-    height: min(58vw, 250px);
+    min-height: 240px;
+    height: min(62vw, 280px);
   }
 
   .fluxgrid-app .website-roadmap__steps {
@@ -6916,8 +6991,8 @@
   }
 
   .fluxgrid-app .website-roadmap__step {
-    padding: 12px 0;
-    opacity: 0.45;
+    padding: 14px 0;
+    opacity: 0.4;
     width: 100%;
   }
 
@@ -6925,21 +7000,25 @@
     opacity: 1;
   }
 
+  .fluxgrid-app .website-roadmap__step:not(.is-active) .website-roadmap__text {
+    display: none;
+  }
+
   .fluxgrid-app .website-roadmap__label {
     font-size: 1rem;
   }
 
   .fluxgrid-app .website-roadmap__text {
-    font-size: 13px;
-    line-height: 1.5;
+    font-size: 13.5px;
+    line-height: 1.55;
   }
 
   .fluxgrid-app .website-results {
-    padding: 28px 0 36px;
+    padding: 48px 0 56px;
   }
 
   .fluxgrid-app .website-results__inner {
-    gap: 16px;
+    gap: 20px;
   }
 
   .fluxgrid-app .website-results__cta {
@@ -6951,33 +7030,30 @@
     max-width: 280px;
   }
 
-  .fluxgrid-app .vision-section {
-    padding: 28px 0 32px;
-  }
-
   .fluxgrid-app .vision-section__content {
     text-align: center;
     margin: 0 auto;
   }
 
   .fluxgrid-app .vision-section .hero-phone-frame {
-    max-width: 140px;
+    max-width: 150px;
   }
 }
 
 @media (max-width: 340px) {
-  .fluxgrid-app .feature-pin__list {
-    grid-template-columns: 1fr;
+  .fluxgrid-app .feature-pin__stage {
+    height: 230px;
+    min-height: 230px;
+    max-height: 230px;
   }
 
-  .fluxgrid-app .feature-pin__stage {
-    height: 190px;
-    min-height: 190px;
+  .fluxgrid-app .feature-pin__item {
+    padding: 8px 10px;
   }
 
   .fluxgrid-app .website-roadmap__stage {
-    min-height: 190px;
-    height: 190px;
+    min-height: 210px;
+    height: 210px;
   }
 
   .fluxgrid-app .hero-headline,

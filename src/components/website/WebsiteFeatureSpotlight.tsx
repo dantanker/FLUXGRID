@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react';
+import { useCallback, useEffect, useRef, useState, type PointerEvent as ReactPointerEvent } from 'react';
 import { motion, useReducedMotion } from 'framer-motion';
 import processCustomers from '../../assets/website/process-customers.png';
 import featureMobilePhone from '../../assets/website/feature-mobile-phone.png';
@@ -12,13 +12,14 @@ type Feature = {
   id: FeatureId;
   num: string;
   title: string;
+  shortTitle: string;
 };
 
 const features: Feature[] = [
-  { id: 'domain', num: '01', title: 'Custom Domain' },
-  { id: 'mobile', num: '02', title: 'Mobile Optimization' },
-  { id: 'leads', num: '03', title: 'Instant Lead Capture' },
-  { id: 'pro', num: '04', title: 'Premium Brand Image' },
+  { id: 'domain', num: '01', title: 'Custom Domain', shortTitle: 'Domain' },
+  { id: 'mobile', num: '02', title: 'Mobile Optimization', shortTitle: 'Mobile' },
+  { id: 'leads', num: '03', title: 'Instant Lead Capture', shortTitle: 'Leads' },
+  { id: 'pro', num: '04', title: 'Premium Brand Image', shortTitle: 'Brand' },
 ];
 
 function DomainVisual({ active }: { active: boolean }) {
@@ -174,6 +175,57 @@ function FeatureMedia({ id, active }: { id: FeatureId; active: boolean }) {
 
 export function WebsiteFeatureSpotlight() {
   const [active, setActive] = useState(0);
+  const dragStartX = useRef<number | null>(null);
+  const listRef = useRef<HTMLUListElement>(null);
+
+  const selectFeature = useCallback((index: number) => {
+    setActive(index);
+  }, []);
+
+  useEffect(() => {
+    const list = listRef.current;
+    if (!list) {
+      return;
+    }
+
+    const activeButton = list.querySelector<HTMLButtonElement>('.feature-pin__item.is-active');
+    if (!activeButton) {
+      return;
+    }
+
+    const listRect = list.getBoundingClientRect();
+    const buttonRect = activeButton.getBoundingClientRect();
+    const nextLeft =
+      list.scrollLeft + (buttonRect.left - listRect.left) - (listRect.width - buttonRect.width) / 2;
+
+    list.scrollTo({ left: Math.max(0, nextLeft), behavior: 'smooth' });
+  }, [active]);
+
+  const onStagePointerDown = (event: ReactPointerEvent<HTMLDivElement>) => {
+    if (event.pointerType === 'mouse' && event.button !== 0) {
+      return;
+    }
+    dragStartX.current = event.clientX;
+  };
+
+  const onStagePointerUp = (event: ReactPointerEvent<HTMLDivElement>) => {
+    if (dragStartX.current === null) {
+      return;
+    }
+
+    const delta = event.clientX - dragStartX.current;
+    dragStartX.current = null;
+
+    if (Math.abs(delta) < 48) {
+      return;
+    }
+
+    if (delta < 0) {
+      setActive((prev) => Math.min(features.length - 1, prev + 1));
+    } else {
+      setActive((prev) => Math.max(0, prev - 1));
+    }
+  };
 
   return (
     <section className="website-features" id="website-features">
@@ -182,26 +234,39 @@ export function WebsiteFeatureSpotlight() {
           <div className="feature-pin__layout">
             <div className="feature-pin__copy">
               <p className="feature-pin__eyebrow">Feature spotlight</p>
-              <ul className="feature-pin__list" aria-label="Website features">
+              <ul ref={listRef} className="feature-pin__list" aria-label="Website features">
                 {features.map((feature, index) => (
                   <li key={feature.id}>
                     <button
                       type="button"
                       className={`feature-pin__item${active === index ? ' is-active' : ''}`}
-                      onMouseEnter={() => setActive(index)}
-                      onFocus={() => setActive(index)}
-                      onClick={() => setActive(index)}
+                      onMouseEnter={() => selectFeature(index)}
+                      onFocus={() => selectFeature(index)}
+                      onClick={() => selectFeature(index)}
                       aria-current={active === index ? 'true' : undefined}
                     >
                       <span className="feature-pin__num">{feature.num}</span>
-                      <span className="feature-pin__title">{feature.title}</span>
+                      <span className="feature-pin__title feature-pin__title--full">
+                        {feature.title}
+                      </span>
+                      <span className="feature-pin__title feature-pin__title--short">
+                        {feature.shortTitle}
+                      </span>
                     </button>
                   </li>
                 ))}
               </ul>
             </div>
 
-            <div className="feature-pin__stage" aria-live="polite">
+            <div
+              className="feature-pin__stage"
+              aria-live="polite"
+              onPointerDown={onStagePointerDown}
+              onPointerUp={onStagePointerUp}
+              onPointerCancel={() => {
+                dragStartX.current = null;
+              }}
+            >
               {features.map((feature, index) => (
                 <div
                   key={feature.id}
@@ -210,6 +275,15 @@ export function WebsiteFeatureSpotlight() {
                 >
                   <FeatureMedia id={feature.id} active={active === index} />
                 </div>
+              ))}
+            </div>
+
+            <div className="feature-pin__dots" aria-hidden="true">
+              {features.map((feature, index) => (
+                <span
+                  key={feature.id}
+                  className={`feature-pin__dot${active === index ? ' is-active' : ''}`}
+                />
               ))}
             </div>
           </div>
