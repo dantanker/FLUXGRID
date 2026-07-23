@@ -324,6 +324,10 @@
   display: none;
 }
 
+.fluxgrid-app .header-mobile-link {
+  display: none;
+}
+
 .fluxgrid-app .logo {
   display: flex;
   align-items: center;
@@ -2359,6 +2363,21 @@
 
   .fluxgrid-app nav {
     display: none;
+  }
+
+  .fluxgrid-app .header-mobile-link {
+    display: inline-flex;
+    align-items: center;
+    margin-left: auto;
+    padding: 0;
+    border: 0;
+    background: none;
+    color: var(--text-light);
+    font-size: 13px;
+    font-weight: 600;
+    letter-spacing: -0.01em;
+    text-decoration: none;
+    white-space: nowrap;
   }
 
   .fluxgrid-app .header-mobile-cta {
@@ -6121,8 +6140,9 @@
 
 @media (max-width: 992px) {
   .fluxgrid-app .website-roadmap {
-    grid-template-columns: 1fr;
-    gap: 28px;
+    grid-template-columns: minmax(0, 1fr) minmax(0, 1.05fr);
+    gap: 14px;
+    align-items: start;
   }
 
   .fluxgrid-app .website-roadmap__rail {
@@ -6130,17 +6150,17 @@
   }
 
   .fluxgrid-app .website-roadmap__stage {
-    order: -1;
-    margin: 0 auto;
-    max-width: 420px;
-    min-height: 340px;
-    height: clamp(340px, 70vw, 460px);
+    order: 0;
+    margin: 0;
+    max-width: none;
+    min-height: 200px;
+    height: 200px;
   }
 
   .fluxgrid-app .website-roadmap__step {
     min-height: 0;
-    opacity: 0.55;
-    padding: 14px 0;
+    opacity: 0.38;
+    padding: 8px 0;
   }
 
   .fluxgrid-app .website-roadmap__step.is-active {
@@ -6209,23 +6229,24 @@
 
 @media (max-width: 992px) {
   .fluxgrid-app .feature-pin__layout {
-    grid-template-columns: 1fr;
-    gap: 20px;
+    grid-template-columns: minmax(0, 0.95fr) minmax(0, 1.05fr);
+    gap: 14px;
+    align-items: center;
   }
 
   .fluxgrid-app .feature-pin__eyebrow {
-    margin-bottom: 12px;
+    margin-bottom: 10px;
   }
 
   .fluxgrid-app .feature-pin__list {
     flex-direction: column;
     flex-wrap: nowrap;
-    gap: 2px;
+    gap: 0;
   }
 
   .fluxgrid-app .feature-pin__item {
     width: 100%;
-    padding: 8px 0 8px 12px;
+    padding: 6px 0 6px 10px;
     border-left: 2px solid transparent;
     border-radius: 0;
     background: none;
@@ -6237,25 +6258,25 @@
   }
 
   .fluxgrid-app .feature-pin__title {
-    font-size: 1.15rem;
+    font-size: clamp(0.95rem, 3.4vw, 1.15rem);
   }
 
   .fluxgrid-app .feature-pin__stage {
-    height: 280px;
-    min-height: 280px;
+    height: 200px;
+    min-height: 200px;
   }
 
   .fluxgrid-app .website-features {
-    padding: 36px 0 28px;
+    padding: 24px 0 20px;
   }
 
   .fluxgrid-app .website-features__intro,
   .fluxgrid-app .website-process__intro {
-    margin-bottom: 20px;
+    margin-bottom: 14px;
   }
 
   .fluxgrid-app .website-process {
-    padding: 28px 0 40px;
+    padding: 24px 0 28px;
   }
 }
 
@@ -6281,13 +6302,70 @@
 }
 
 /* ===== Mobile: desktop style, scaled down ===== */
+.receptionist-flow {
+  display: flex;
+  flex-direction: column;
+}
+
+.receptionist-flow__hero {
+  order: 1;
+}
+
+.receptionist-flow__proof {
+  order: 2;
+}
+
+.receptionist-flow__hiw {
+  order: 3;
+}
+
+.receptionist-flow__calc {
+  order: 4;
+}
+
+.receptionist-flow__website {
+  order: 5;
+}
+
+.receptionist-flow__faq {
+  order: 6;
+}
+
+.receptionist-flow__vision {
+  order: 7;
+}
+
 @media (max-width: 992px) {
+  .receptionist-flow__website {
+    order: 2;
+  }
+
+  .receptionist-flow__proof {
+    order: 3;
+  }
+
+  .receptionist-flow__hiw {
+    order: 4;
+  }
+
+  .receptionist-flow__calc {
+    order: 5;
+  }
+
+  .receptionist-flow__faq {
+    order: 6;
+  }
+
+  .receptionist-flow__vision {
+    order: 7;
+  }
+
   .fluxgrid-app .hero-section {
-    padding: 32px 0 24px;
+    padding: 28px 0 20px;
   }
 
   .fluxgrid-app .hero-grid {
-    gap: 20px;
+    gap: 16px;
   }
 
   .fluxgrid-app .hero-copy {
@@ -6305,48 +6383,87 @@
   }
 
   .fluxgrid-app .hero-headline {
-    margin-bottom: 12px;
-    font-size: clamp(1.65rem, 6.5vw, 2rem);
+    margin-bottom: 10px;
+    font-size: clamp(1.5rem, 6vw, 1.85rem);
     letter-spacing: -0.03em;
   }
 
   .fluxgrid-app .hero-lead {
-    margin: 0 0 18px;
+    margin: 0 0 14px;
     max-width: 34rem;
-    font-size: 15px;
-    line-height: 1.6;
+    font-size: 14px;
+    line-height: 1.55;
   }
 
   .fluxgrid-app .hero-section > .hero-integrations,
   .fluxgrid-app .hero-integrations {
     margin-top: 0;
-    padding: 36px 0 12px;
+    padding: 28px 0 8px;
   }
 
   .fluxgrid-app .integration-strip {
-    gap: 20px 28px;
+    gap: 16px 22px;
     justify-content: flex-start;
   }
 
   .fluxgrid-app .integration-strip__logo {
-    max-height: 30px;
+    max-height: 26px;
   }
 
   .fluxgrid-app .video-spot {
     border-radius: var(--radius-xl);
   }
 
+  .fluxgrid-app .video-spot__toggle {
+    background: rgba(26, 29, 36, 0.12);
+  }
+
   .fluxgrid-app .video-spot__icon {
-    width: 56px;
-    height: 56px;
+    width: 48px;
+    height: 48px;
+  }
+
+  .fluxgrid-app .growth-suite-section {
+    padding: 28px 0 32px;
+  }
+
+  .fluxgrid-app .growth-suite-section__layout {
+    gap: 16px;
+  }
+
+  .fluxgrid-app .growth-suite-section__copy {
+    text-align: left;
+  }
+
+  .fluxgrid-app .growth-suite-section__eyebrow {
+    margin-bottom: 10px;
+  }
+
+  .fluxgrid-app .growth-suite-section__title {
+    margin-bottom: 10px;
+    font-size: clamp(1.4rem, 5.5vw, 1.7rem);
+  }
+
+  .fluxgrid-app .growth-suite-section__text {
+    margin-bottom: 16px;
+    font-size: 14px;
+    line-height: 1.55;
+  }
+
+  .fluxgrid-app .growth-suite-section__cta {
+    width: auto;
+    max-width: none;
+    justify-content: flex-start;
+    padding: 12px 20px;
+    font-size: 14px;
   }
 
   .fluxgrid-app .website-hero {
-    padding: 32px 0 28px;
+    padding: 28px 0 24px;
   }
 
   .fluxgrid-app .website-hero__grid {
-    gap: 20px;
+    gap: 16px;
   }
 
   .fluxgrid-app .website-hero__copy {
@@ -6355,26 +6472,29 @@
   }
 
   .fluxgrid-app .website-hero__eyebrow {
-    margin-bottom: 12px;
+    margin-bottom: 10px;
   }
 
   .fluxgrid-app .website-hero__title {
-    margin-bottom: 12px;
-    font-size: clamp(1.65rem, 6.5vw, 2rem);
+    margin-bottom: 10px;
+    font-size: clamp(1.5rem, 6vw, 1.85rem);
   }
 
   .fluxgrid-app .website-hero__lead {
-    margin-bottom: 18px;
-    font-size: 15px;
-    line-height: 1.6;
+    margin-bottom: 14px;
+    font-size: 14px;
+    line-height: 1.55;
   }
 
   .fluxgrid-app .website-features {
-    padding: 32px 0 24px;
+    padding: 24px 0 20px;
   }
 
   .fluxgrid-app .feature-pin__layout {
-    gap: 18px;
+    display: grid;
+    grid-template-columns: minmax(0, 0.95fr) minmax(0, 1.05fr);
+    gap: 14px;
+    align-items: center;
   }
 
   .fluxgrid-app .feature-pin__copy {
@@ -6382,18 +6502,19 @@
   }
 
   .fluxgrid-app .feature-pin__eyebrow {
-    margin-bottom: 14px;
+    margin-bottom: 10px;
+    font-size: 10px;
   }
 
   .fluxgrid-app .feature-pin__list {
     flex-direction: column;
-    gap: 2px;
+    gap: 0;
   }
 
   .fluxgrid-app .feature-pin__item {
     width: 100%;
-    gap: 4px;
-    padding: 8px 0 8px 12px;
+    gap: 2px;
+    padding: 6px 0 6px 10px;
     border-left: 2px solid transparent;
     border-radius: 0;
     background: none;
@@ -6405,81 +6526,89 @@
   }
 
   .fluxgrid-app .feature-pin__num {
-    font-size: 10px;
+    font-size: 9px;
   }
 
   .fluxgrid-app .feature-pin__title {
-    font-size: clamp(1.1rem, 4.5vw, 1.35rem);
+    font-size: clamp(0.95rem, 3.4vw, 1.15rem);
   }
 
   .fluxgrid-app .feature-pin__stage {
-    height: 260px;
-    min-height: 260px;
+    height: 200px;
+    min-height: 200px;
   }
 
   .fluxgrid-app .feature-phone {
-    width: min(100%, 150px);
+    width: min(100%, 110px);
   }
 
   .fluxgrid-app .feature-google {
-    width: min(100%, 320px);
-    gap: 14px;
+    width: min(100%, 220px);
+    gap: 10px;
   }
 
   .fluxgrid-app .feature-google__logo {
-    font-size: 1.6rem;
+    font-size: 1.25rem;
   }
 
   .fluxgrid-app .feature-google__bar {
-    min-height: 42px;
-    padding: 0 14px;
+    min-height: 36px;
+    padding: 0 12px;
+    gap: 8px;
   }
 
   .fluxgrid-app .website-process {
-    padding: 28px 0 36px;
+    padding: 24px 0 28px;
   }
 
   .fluxgrid-app .website-process__intro {
-    margin-bottom: 18px;
+    margin-bottom: 14px;
     text-align: left;
   }
 
   .fluxgrid-app .website-roadmap {
-    gap: 20px;
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) minmax(0, 1.05fr);
+    gap: 14px;
+    align-items: start;
+  }
+
+  .fluxgrid-app .website-roadmap__rail {
+    display: none;
   }
 
   .fluxgrid-app .website-roadmap__stage {
     order: 0;
     margin: 0;
     max-width: none;
-    min-height: 250px;
-    height: clamp(250px, 56vw, 300px);
+    min-height: 200px;
+    height: 200px;
   }
 
   .fluxgrid-app .website-roadmap__step {
-    padding: 12px 0;
-    opacity: 0.4;
+    padding: 8px 0;
+    opacity: 0.38;
   }
 
   .fluxgrid-app .website-roadmap__step.is-active {
     opacity: 1;
   }
 
-  .fluxgrid-app .website-roadmap__step-title {
-    font-size: 1.05rem;
+  .fluxgrid-app .website-roadmap__label {
+    font-size: 0.95rem;
   }
 
-  .fluxgrid-app .website-roadmap__step-text {
-    font-size: 14px;
-    line-height: 1.55;
+  .fluxgrid-app .website-roadmap__text {
+    font-size: 13px;
+    line-height: 1.45;
   }
 
   .fluxgrid-app .website-results {
-    padding: 32px 0 40px;
+    padding: 24px 0 32px;
   }
 
   .fluxgrid-app .website-results__inner {
-    gap: 18px;
+    gap: 14px;
     align-items: stretch;
   }
 
@@ -6489,44 +6618,17 @@
 
   .fluxgrid-app .website-results__btn {
     width: auto;
-    min-width: 200px;
-  }
-
-  .fluxgrid-app .growth-suite-section {
-    padding: 44px 0;
-  }
-
-  .fluxgrid-app .growth-suite-section__layout {
-    gap: 20px;
-  }
-
-  .fluxgrid-app .growth-suite-section__copy {
-    text-align: left;
-  }
-
-  .fluxgrid-app .growth-suite-section__title {
-    margin-bottom: 14px;
-    font-size: clamp(1.5rem, 5.5vw, 1.85rem);
-  }
-
-  .fluxgrid-app .growth-suite-section__text {
-    margin-bottom: 20px;
-    font-size: 15px;
-    line-height: 1.6;
-  }
-
-  .fluxgrid-app .growth-suite-section__cta {
-    width: auto;
-    max-width: none;
-    justify-content: flex-start;
+    min-width: 180px;
+    padding: 12px 20px;
+    font-size: 14px;
   }
 
   .fluxgrid-app .vision-section {
-    padding: 52px 0;
+    padding: 40px 0;
   }
 
   .fluxgrid-app .vision-section__inner {
-    gap: 28px;
+    gap: 20px;
   }
 
   .fluxgrid-app .vision-section__content {
@@ -6535,21 +6637,27 @@
   }
 
   .fluxgrid-app .vision-section__title {
-    margin-bottom: 16px;
-    font-size: clamp(1.45rem, 5.5vw, 1.85rem);
+    margin-bottom: 12px;
+    font-size: clamp(1.35rem, 5.2vw, 1.7rem);
   }
 
   .fluxgrid-app .vision-section__text {
-    margin-bottom: 22px;
-    font-size: 15px;
-    line-height: 1.6;
+    margin-bottom: 16px;
+    font-size: 14px;
+    line-height: 1.55;
   }
 }
 
-@media (max-width: 480px) {
+@media (max-width: 640px) {
+  .fluxgrid-app .feature-pin__layout,
+  .fluxgrid-app .website-roadmap {
+    grid-template-columns: 1fr;
+    gap: 14px;
+  }
+
   .fluxgrid-app .feature-pin__stage {
-    height: 230px;
-    min-height: 230px;
+    height: 220px;
+    min-height: 220px;
   }
 
   .fluxgrid-app .website-roadmap__stage {
@@ -6557,8 +6665,12 @@
     height: 220px;
   }
 
-  .fluxgrid-app .feature-pin__title {
-    font-size: 1.05rem;
+  .fluxgrid-app .feature-phone {
+    width: min(100%, 130px);
+  }
+
+  .fluxgrid-app .feature-google {
+    width: min(100%, 280px);
   }
 }
 

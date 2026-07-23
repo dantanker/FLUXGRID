@@ -8,14 +8,28 @@ import { VisionSection } from '../components/VisionSection';
 
 export function ReceptionistPage() {
   return (
-    <>
-      <HeroScroll />
-      <ProofSection />
-      <HowItWorksSection />
-      <RevenueCalculatorSection />
-      <GrowthSuiteSection />
-      <FaqSection />
-      <VisionSection />
-    </>
+    <div className="receptionist-flow">
+      <div className="receptionist-flow__hero">
+        <HeroScroll />
+      </div>
+      <div className="receptionist-flow__website">
+        <GrowthSuiteSection />
+      </div>
+      <div className="receptionist-flow__proof">
+        <ProofSection />
+      </div>
+      <div className="receptionist-flow__hiw">
+        <HowItWorksSection />
+      </div>
+      <div className="receptionist-flow__calc">
+        <RevenueCalculatorSection />
+      </div>
+      <div className="receptionist-flow__faq">
+        <FaqSection />
+      </div>
+      <div className="receptionist-flow__vision">
+        <VisionSection />
+      </div>
+    </div>
   );
 }

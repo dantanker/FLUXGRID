@@ -11,6 +11,9 @@ export function SiteHeader() {
 
   const headerCta = isWebsitePage ? (
     <>
+      <Link to="/" className="header-mobile-link">
+        Receptionist
+      </Link>
       <WebsiteMockupCtaButton className="nav header-mobile-cta">
         Get my mockup
       </WebsiteMockupCtaButton>
@@ -21,6 +24,9 @@ export function SiteHeader() {
     </>
   ) : (
     <>
+      <Link to="/websites" className="header-mobile-link">
+        Websites
+      </Link>
       <DemoCtaButton className="nav header-mobile-cta">Book a demo</DemoCtaButton>
       <nav>
         <Link to="/websites">Get Your Custom Website</Link>
