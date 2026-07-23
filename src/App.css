@@ -157,10 +157,11 @@
 
 .fluxgrid-app header {
   padding: 0;
-  border-bottom: 1px solid var(--border-subtle);
-  background: rgba(250, 249, 247, 0.92);
-  backdrop-filter: blur(12px);
-  -webkit-backdrop-filter: blur(12px);
+  border-bottom: 1px solid transparent;
+  background: rgba(250, 249, 247, 0.42);
+  backdrop-filter: blur(18px) saturate(1.15);
+  -webkit-backdrop-filter: blur(18px) saturate(1.15);
+  box-shadow: none;
   position: fixed;
   top: 0;
   left: 0;
@@ -168,6 +169,10 @@
   width: 100%;
   z-index: 1000;
   animation: header-enter 0.55s cubic-bezier(0.22, 1, 0.36, 1) both;
+  transition:
+    background 0.28s ease,
+    border-color 0.28s ease,
+    box-shadow 0.28s ease;
 }
 
 .fluxgrid-app header .nav-container {
@@ -822,7 +827,8 @@
 
 .fluxgrid-app .hero-integrations {
   margin-top: 0;
-  padding-top: 88px;
+  padding-top: 48px;
+  padding-bottom: 56px;
 }
 
 .fluxgrid-app .hero-scroll-section h1,
@@ -2337,7 +2343,8 @@
 
   .fluxgrid-app .hero-integrations {
     margin-top: 0;
-    padding-top: 64px;
+    padding-top: 28px;
+    padding-bottom: 40px;
   }
 
   .fluxgrid-app .hero-integrations-row {
@@ -3128,7 +3135,7 @@
 
 .fluxgrid-app .hero-integrations {
   margin-top: 0;
-  padding: 88px 0 28px;
+  padding: 48px 0 56px;
 }
 
 .fluxgrid-app .hero-integrations-label {
@@ -3188,10 +3195,11 @@
   position: relative;
   z-index: 1;
   display: grid;
-  grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+  grid-template-columns: minmax(280px, 440px) minmax(280px, 480px);
+  justify-content: center;
   align-items: center;
-  gap: clamp(28px, 4vw, 48px);
-  max-width: 920px;
+  gap: clamp(36px, 5vw, 64px);
+  max-width: 1100px;
   margin: 0 auto;
 }
 
@@ -3201,8 +3209,8 @@
   align-items: flex-start;
   text-align: left;
   width: 100%;
-  max-width: 420px;
-  justify-self: start;
+  max-width: 480px;
+  justify-self: stretch;
   order: 2;
 }
 
@@ -3237,8 +3245,8 @@
 
 .fluxgrid-app .proof-compare {
   width: 100%;
-  max-width: 380px;
-  justify-self: end;
+  max-width: 440px;
+  justify-self: stretch;
   order: 1;
 }
 
@@ -3366,6 +3374,7 @@
 
   .fluxgrid-app .proof-inner {
     grid-template-columns: 1fr;
+    justify-content: stretch;
     gap: 24px;
   }
 
@@ -4675,8 +4684,9 @@
 }
 
 .fluxgrid-app header.is-scrolled {
-  box-shadow: var(--shadow-sm);
-  border-bottom-color: var(--border-color);
+  background: rgba(250, 249, 247, 0.72);
+  border-bottom-color: rgba(26, 29, 36, 0.08);
+  box-shadow: 0 10px 28px rgba(26, 29, 36, 0.07);
 }
 
 /* Logo */
@@ -5168,13 +5178,64 @@
 .fluxgrid-app .hero-section {
   position: relative;
   overflow: visible;
-  padding: 56px 0 28px;
+  padding: 56px 0 0;
   border-bottom: none;
 }
 
 @media (min-width: 993px) {
-  .fluxgrid-app .hero-section {
-    padding: 56px 0 48px;
+  .fluxgrid-app .hero-section,
+  .fluxgrid-app .website-hero {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    box-sizing: border-box;
+    min-height: calc(100dvh - var(--header-height));
+    padding: clamp(40px, 5.5vh, 72px) 0 clamp(28px, 3.5vh, 48px);
+  }
+
+  .fluxgrid-app .hero-section .hero-grid,
+  .fluxgrid-app .website-hero .website-hero__grid {
+    flex: 1 1 auto;
+    width: 100%;
+    align-content: center;
+    gap: clamp(56px, 7vw, 88px);
+  }
+
+  .fluxgrid-app .hero-section .hero-headline {
+    margin-bottom: 20px;
+  }
+
+  .fluxgrid-app .hero-section .hero-lead {
+    margin-bottom: 32px;
+  }
+
+  .fluxgrid-app .website-hero__eyebrow {
+    margin-bottom: 18px;
+  }
+
+  .fluxgrid-app .website-hero__title {
+    margin-bottom: 20px;
+  }
+
+  .fluxgrid-app .website-hero__lead {
+    margin-bottom: 32px;
+  }
+
+  .fluxgrid-app .hero-section .video-spot,
+  .fluxgrid-app .website-hero .video-spot {
+    width: min(560px, 100%, calc(min(380px, 42vh) * 16 / 9));
+    max-width: 100%;
+    margin-left: auto;
+    aspect-ratio: 16 / 9;
+  }
+
+  .fluxgrid-app .hero-section > .hero-integrations,
+  .fluxgrid-app .website-hero > .hero-integrations {
+    flex: 0 0 auto;
+    width: 100%;
+    margin-top: 0;
+    padding-top: clamp(28px, 4vh, 48px);
+    padding-bottom: 0;
   }
 }
 
@@ -5231,19 +5292,23 @@
 }
 
 @media (hover: hover) {
-  .fluxgrid-app .hero-section.is-hovering .circuit-lines__path {
+  .fluxgrid-app .hero-section.is-hovering .circuit-lines__path,
+  .fluxgrid-app .website-hero.is-hovering .circuit-lines__path {
     stroke: rgba(143, 111, 26, 0.27);
   }
 
-  .fluxgrid-app .hero-section.is-hovering .circuit-lines__path--extend {
+  .fluxgrid-app .hero-section.is-hovering .circuit-lines__path--extend,
+  .fluxgrid-app .website-hero.is-hovering .circuit-lines__path--extend {
     stroke: rgba(143, 111, 26, 0.19);
   }
 
-  .fluxgrid-app .hero-section.is-hovering .circuit-lines__node {
+  .fluxgrid-app .hero-section.is-hovering .circuit-lines__node,
+  .fluxgrid-app .website-hero.is-hovering .circuit-lines__node {
     opacity: 0.58;
   }
 
-  .fluxgrid-app .hero-section.is-hovering .circuit-lines__node--extend {
+  .fluxgrid-app .hero-section.is-hovering .circuit-lines__node--extend,
+  .fluxgrid-app .website-hero.is-hovering .circuit-lines__node--extend {
     opacity: 0.46;
   }
 }
@@ -5256,6 +5321,7 @@
 }
 
 .fluxgrid-app .hero-grid,
+.fluxgrid-app .website-hero__grid,
 .fluxgrid-app .hero-integrations {
   position: relative;
   z-index: 1;
@@ -5263,6 +5329,12 @@
 
 .fluxgrid-app .hero-grid {
   gap: clamp(32px, 5vw, 56px);
+}
+
+@media (min-width: 993px) {
+  .fluxgrid-app .hero-grid {
+    gap: clamp(56px, 7vw, 88px);
+  }
 }
 
 .fluxgrid-app .hero-headline {
@@ -5291,26 +5363,22 @@
 
 .fluxgrid-app .hero-integrations {
   margin-top: 0;
-  padding: 88px 0 28px;
+  padding: 48px 0 56px;
   border-top: none;
 }
 
-.fluxgrid-app .hero-section > .hero-integrations {
+.fluxgrid-app .hero-section > .hero-integrations,
+.fluxgrid-app .website-hero > .hero-integrations {
   margin-top: 0;
-  padding-top: 88px;
-  padding-bottom: 28px;
-}
-
-@media (min-width: 993px) {
-  .fluxgrid-app .hero-section > .hero-integrations {
-    padding-top: 104px;
-  }
+  padding-top: 48px;
+  padding-bottom: 56px;
 }
 
 @media (max-width: 992px) {
-  .fluxgrid-app .hero-section > .hero-integrations {
-    padding-top: 18px;
-    padding-bottom: 4px;
+  .fluxgrid-app .hero-section > .hero-integrations,
+  .fluxgrid-app .website-hero > .hero-integrations {
+    padding-top: 28px;
+    padding-bottom: 40px;
   }
 }
 
@@ -5713,14 +5781,14 @@
 /* ===== Custom Website page ===== */
 .fluxgrid-app .website-hero {
   position: relative;
-  overflow: hidden;
-  padding: 56px 0 56px;
+  overflow: visible;
+  padding: 56px 0 0;
   background: transparent;
 }
 
 @media (min-width: 993px) {
-  .fluxgrid-app .website-hero {
-    padding: 56px 0 64px;
+  .fluxgrid-app .website-hero__grid {
+    gap: clamp(48px, 6vw, 80px);
   }
 }
 
@@ -5790,7 +5858,7 @@
 
 @media (max-width: 768px) {
   .fluxgrid-app .website-hero {
-    padding: 28px 0 24px;
+    padding: 28px 0 0;
   }
 
   .fluxgrid-app .website-hero__lead {
@@ -5866,15 +5934,15 @@
 
 .fluxgrid-app .feature-pin__layout {
   display: grid;
-  grid-template-columns: minmax(240px, 300px) minmax(0, 1fr);
-  gap: clamp(24px, 4vw, 56px);
-  align-items: start;
+  grid-template-columns: minmax(260px, 320px) minmax(0, 1fr);
+  gap: clamp(32px, 4vw, 64px);
+  align-items: center;
   width: 100%;
 }
 
 .fluxgrid-app .feature-pin__copy {
   position: relative;
-  align-self: start;
+  align-self: center;
 }
 
 .fluxgrid-app .feature-pin__eyebrow {
@@ -5950,9 +6018,12 @@
 .fluxgrid-app .feature-pin__stage {
   position: relative;
   width: 100%;
-  height: 380px;
-  min-height: 380px;
+  height: clamp(460px, 52vh, 540px);
+  min-height: 460px;
   overflow: hidden;
+  background: transparent;
+  border: 0;
+  box-shadow: none;
 }
 
 .fluxgrid-app .feature-pin__frame {
@@ -5961,6 +6032,7 @@
   display: flex;
   align-items: center;
   justify-content: center;
+  padding: 28px 24px;
   opacity: 0;
   visibility: hidden;
   pointer-events: none;
@@ -5977,9 +6049,11 @@
   position: relative;
   width: 100%;
   height: 100%;
+  max-height: 100%;
   display: flex;
   align-items: center;
   justify-content: center;
+  overflow: hidden;
 }
 
 .fluxgrid-app .feature-visual--domain {
@@ -5987,7 +6061,7 @@
 }
 
 .fluxgrid-app .feature-google {
-  width: min(100%, 400px);
+  width: min(100%, 420px);
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -6048,10 +6122,15 @@
 
 .fluxgrid-app .feature-visual--mobile {
   min-height: 0;
+  padding: 8px 0;
 }
 
 .fluxgrid-app .feature-phone {
-  width: min(100%, 210px);
+  width: auto;
+  height: 100%;
+  max-height: 100%;
+  max-width: min(230px, 42%);
+  aspect-ratio: 9 / 19.5;
   filter: drop-shadow(0 16px 28px rgba(26, 29, 36, 0.16));
   transform: rotate(-3deg) translate3d(0, 0, 0);
   will-change: transform;
@@ -6079,6 +6158,9 @@
 
 .fluxgrid-app .feature-phone__bezel {
   position: relative;
+  box-sizing: border-box;
+  width: 100%;
+  height: 100%;
   border-radius: 36px;
   padding: 9px;
   background: linear-gradient(160deg, #3a3a3c 0%, #1c1c1e 55%, #2c2c2e 100%);
@@ -6090,8 +6172,10 @@
 .fluxgrid-app .feature-phone__screen {
   position: relative;
   overflow: hidden;
+  width: 100%;
+  height: 100%;
   border-radius: 28px;
-  aspect-ratio: 9 / 19.5;
+  aspect-ratio: auto;
   background: #0a0a0a;
 }
 
@@ -6108,20 +6192,25 @@
 }
 
 .fluxgrid-app .feature-visual--leads {
-  padding: 0;
+  padding: 8px 0;
 }
 
 .fluxgrid-app .feature-leads {
   position: relative;
-  display: inline-flex;
+  display: flex;
   align-items: center;
   justify-content: center;
+  height: 100%;
+  max-height: 100%;
 }
 
 .fluxgrid-app .feature-leads__img {
   display: block;
-  width: min(100%, 260px);
-  height: auto;
+  width: auto;
+  height: 100%;
+  max-height: 100%;
+  max-width: min(280px, 55%);
+  object-fit: contain;
   margin: 0 auto;
   filter: drop-shadow(0 14px 28px rgba(26, 29, 36, 0.14));
   user-select: none;
@@ -6132,7 +6221,7 @@
   position: absolute;
   top: 42%;
   left: 50%;
-  width: 72%;
+  width: 68%;
   aspect-ratio: 1;
   border-radius: 50%;
   border: 1px solid rgba(143, 111, 26, 0.35);
@@ -6142,7 +6231,8 @@
 
 .fluxgrid-app .feature-pro {
   margin: 0;
-  width: min(100%, 440px);
+  width: min(100%, 560px);
+  max-height: 100%;
   overflow: hidden;
   border-radius: var(--radius-xl);
   border: 1px solid var(--border-color);
@@ -6154,6 +6244,7 @@
   display: block;
   width: 100%;
   height: auto;
+  max-height: min(100%, 420px);
   aspect-ratio: 16 / 10;
   object-fit: cover;
   object-position: center 55%;
@@ -6593,11 +6684,9 @@
     height: clamp(250px, 68vw, 320px);
     min-height: 250px;
     max-height: 320px;
-    border: 1px solid var(--border-color);
-    border-radius: var(--radius-xl);
-    background:
-      linear-gradient(180deg, rgba(255, 255, 255, 0.9) 0%, rgba(250, 249, 247, 0.96) 100%);
-    box-shadow: var(--shadow-sm);
+    background: transparent;
+    border: 0;
+    box-shadow: none;
     touch-action: pan-y;
   }
 
@@ -6784,9 +6873,10 @@
   }
 
   .fluxgrid-app .hero-section > .hero-integrations,
+  .fluxgrid-app .website-hero > .hero-integrations,
   .fluxgrid-app .hero-integrations {
     margin-top: 0;
-    padding: 20px 0 8px;
+    padding: 28px 0 40px;
   }
 
   .fluxgrid-app .integration-strip {
@@ -6880,7 +6970,7 @@
   }
 
   .fluxgrid-app .website-hero {
-    padding: 28px 0 24px;
+    padding: 28px 0 0;
   }
 
   .fluxgrid-app .website-hero__grid {

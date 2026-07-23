@@ -10,7 +10,7 @@ export function WebsitePage() {
       <WebsiteHero />
       <WebsiteFeatureSpotlight />
       <WebsiteProcess />
-      <GrowthSuiteSection ctaLabel="Get Your Digital Receptionist" ctaTo="/" />
+      <GrowthSuiteSection ctaLabel="Check it out" ctaTo="/" />
       <WebsiteResults />
     </>
   );
