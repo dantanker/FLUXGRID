@@ -1,3 +1,4 @@
+import { GrowthSuiteSection } from '../components/GrowthSuiteSection';
 import { WebsiteFeatureSpotlight } from '../components/website/WebsiteFeatureSpotlight';
 import { WebsiteHero } from '../components/website/WebsiteHero';
 import { WebsiteProcess } from '../components/website/WebsiteProcess';
@@ -9,6 +10,7 @@ export function WebsitePage() {
       <WebsiteHero />
       <WebsiteFeatureSpotlight />
       <WebsiteProcess />
+      <GrowthSuiteSection ctaLabel="Get Your Digital Receptionist" ctaTo="/" />
       <WebsiteResults />
     </>
   );

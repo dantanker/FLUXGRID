@@ -5,7 +5,15 @@ import { SITE_VIDEOS } from '../config/videos';
 
 export const GROWTH_SUITE_PROTOTYPE_URL = 'https://voltguard-rouge.vercel.app/';
 
-export function GrowthSuiteSection() {
+type GrowthSuiteSectionProps = {
+  ctaLabel?: string;
+  ctaTo?: string;
+};
+
+export function GrowthSuiteSection({
+  ctaLabel = 'Check it out',
+  ctaTo = '/websites',
+}: GrowthSuiteSectionProps) {
   return (
     <section
       className="growth-suite-section"
@@ -17,17 +25,17 @@ export function GrowthSuiteSection() {
           <Reveal className="growth-suite-section__copy">
             <p className="growth-suite-section__eyebrow">The Full Package</p>
             <h2 id="growth-suite-heading" className="growth-suite-section__title">
-              The Full Package
+              Your Business Growth System
             </h2>
             <p className="growth-suite-section__text">
               Whether you&apos;re starting from scratch or your current site needs a professional
-              overhaul, we build lead-capturing homes for your business. Each site is fully
-              optimized for SEO to make sure you&apos;re the obvious choice when customers are
-              searching for a pro.
+              overhaul, we build high converting lead capture systems for your business. We make
+              sure you&apos;re the obvious choice when customers are searching for a pro. Check out
+              the video below to see the system in action.
             </p>
             <div className="growth-suite-section__actions">
-              <Link to="/websites" className="cta-btn growth-suite-section__cta">
-                Check it out
+              <Link to={ctaTo} className="cta-btn growth-suite-section__cta">
+                {ctaLabel}
               </Link>
             </div>
           </Reveal>
