@@ -1,8 +1,23 @@
 import { useEffect, useRef, useState } from 'react';
 import { Reveal } from '../motion/Reveal';
 import { GROWTH_SUITE_PROTOTYPE_URL } from '../GrowthSuiteSection';
+import desktopPreview from '../../assets/website/desktop-preview.jpg';
 
 const DESKTOP_PREVIEW = { width: 1440, height: 810 };
+
+function useIsMobilePreview() {
+  const [isMobile, setIsMobile] = useState(false);
+
+  useEffect(() => {
+    const media = window.matchMedia('(max-width: 992px)');
+    const update = () => setIsMobile(media.matches);
+    update();
+    media.addEventListener('change', update);
+    return () => media.removeEventListener('change', update);
+  }, []);
+
+  return isMobile;
+}
 
 function ScaledWebsitePreview() {
   const wrapRef = useRef<HTMLDivElement>(null);
@@ -46,12 +61,28 @@ function ScaledWebsitePreview() {
   );
 }
 
+function StaticDesktopPreview() {
+  return (
+    <div className="website-results__static-wrap">
+      <img
+        className="website-results__static-img"
+        src={desktopPreview}
+        alt="Desktop preview of a custom electrician website"
+        decoding="async"
+        draggable={false}
+      />
+    </div>
+  );
+}
+
 export function WebsiteResults() {
+  const isMobile = useIsMobilePreview();
+
   return (
     <section className="website-results" id="website-results" aria-label="Website preview">
       <div className="container website-results__inner">
         <Reveal className="website-results__preview">
-          <ScaledWebsitePreview />
+          {isMobile ? <StaticDesktopPreview /> : <ScaledWebsitePreview />}
         </Reveal>
 
         <Reveal className="website-results__cta" delay={0.12}>

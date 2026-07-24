@@ -9,7 +9,6 @@ const steps = [
   {
     num: '01',
     title: 'Intercept the Lead',
-    shortTitle: 'Intercept',
     description:
       "FluxGrid captures those high value emergency calls you're missing and handles them instantly. No new phone number, no hassle.",
     image: step1IncomingCall,
@@ -18,7 +17,6 @@ const steps = [
   {
     num: '02',
     title: 'Instant AI Qualification',
-    shortTitle: 'Qualify',
     description:
       "Your digital receptionist instantly vets every caller, checking if it's residential or commercial, the location, and the urgency, so you know exactly which leads are worth your time.",
     image: step2CallDetails,
@@ -27,7 +25,6 @@ const steps = [
   {
     num: '03',
     title: 'Auto Book the Job',
-    shortTitle: 'Book',
     description:
       'The qualified lead lands straight on your schedule with full details. You and your customer both get an instant confirmation text, so the job is locked in before you even lift a finger.',
     image: step3JobsBoard,
@@ -110,14 +107,6 @@ function MobileStory() {
     }, STEP_DURATION_MS * 2);
   }, []);
 
-  const goPrev = useCallback(() => {
-    selectStep((activeStep - 1 + steps.length) % steps.length);
-  }, [activeStep, selectStep]);
-
-  const goNext = useCallback(() => {
-    selectStep((activeStep + 1) % steps.length);
-  }, [activeStep, selectStep]);
-
   const onPointerDown = (event: ReactPointerEvent<HTMLDivElement>) => {
     if (event.pointerType === 'mouse' && event.button !== 0) {
       return;
@@ -138,9 +127,9 @@ function MobileStory() {
     }
 
     if (delta < 0) {
-      goNext();
+      selectStep((activeStep + 1) % steps.length);
     } else {
-      goPrev();
+      selectStep((activeStep - 1 + steps.length) % steps.length);
     }
   };
 
@@ -165,31 +154,6 @@ function MobileStory() {
             <img src={step.image} alt={step.imageAlt} decoding="async" draggable={false} />
           </figure>
         ))}
-
-        <button
-          type="button"
-          className="hiw-mobile-nav hiw-mobile-nav--prev"
-          aria-label="Previous step"
-          onClick={(event) => {
-            event.stopPropagation();
-            goPrev();
-          }}
-          onPointerDown={(event) => event.stopPropagation()}
-        >
-          <span aria-hidden="true">‹</span>
-        </button>
-        <button
-          type="button"
-          className="hiw-mobile-nav hiw-mobile-nav--next"
-          aria-label="Next step"
-          onClick={(event) => {
-            event.stopPropagation();
-            goNext();
-          }}
-          onPointerDown={(event) => event.stopPropagation()}
-        >
-          <span aria-hidden="true">›</span>
-        </button>
       </div>
 
       <div className="hiw-mobile-copy">
@@ -197,41 +161,29 @@ function MobileStory() {
           <motion.div
             key={active.num}
             className="hiw-mobile-copy__inner"
-            initial={reduceMotion ? false : { opacity: 0, y: 12 }}
+            initial={reduceMotion ? false : { opacity: 0, y: 10 }}
             animate={{ opacity: 1, y: 0 }}
-            exit={reduceMotion ? undefined : { opacity: 0, y: -8 }}
-            transition={{ duration: 0.4, ease }}
+            exit={reduceMotion ? undefined : { opacity: 0, y: -6 }}
+            transition={{ duration: 0.35, ease }}
           >
-            <p className="hiw-mobile-copy__num" aria-hidden="true">
-              {active.num}
-            </p>
             <h3 className="hiw-mobile-copy__title">{active.title}</h3>
             <p className="hiw-mobile-copy__description">{active.description}</p>
           </motion.div>
         </AnimatePresence>
       </div>
 
-      <div className="hiw-mobile-steps" role="tablist" aria-label="How FluxGrid works">
-        {steps.map((step, index) => {
-          const isActive = activeStep === index;
-          const shortLabel = step.shortTitle;
-
-          return (
-            <button
-              key={step.num}
-              type="button"
-              role="tab"
-              id={`hiw-mobile-tab-${index}`}
-              aria-selected={isActive}
-              aria-label={`Step ${step.num}: ${step.title}`}
-              className={`hiw-mobile-steps__btn${isActive ? ' is-active' : ''}`}
-              onClick={() => selectStep(index)}
-            >
-              <span className="hiw-mobile-steps__num">{step.num}</span>
-              <span className="hiw-mobile-steps__label">{shortLabel}</span>
-            </button>
-          );
-        })}
+      <div className="hiw-mobile-dots" role="tablist" aria-label="How FluxGrid works">
+        {steps.map((step, index) => (
+          <button
+            key={step.num}
+            type="button"
+            role="tab"
+            aria-selected={activeStep === index}
+            aria-label={`Step ${step.num}: ${step.title}`}
+            className={`hiw-mobile-dots__dot${activeStep === index ? ' is-active' : ''}`}
+            onClick={() => selectStep(index)}
+          />
+        ))}
       </div>
     </div>
   );
