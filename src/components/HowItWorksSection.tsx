@@ -107,6 +107,14 @@ function MobileStory() {
     }, STEP_DURATION_MS * 2);
   }, []);
 
+  const goPrev = useCallback(() => {
+    selectStep((activeStep - 1 + steps.length) % steps.length);
+  }, [activeStep, selectStep]);
+
+  const goNext = useCallback(() => {
+    selectStep((activeStep + 1) % steps.length);
+  }, [activeStep, selectStep]);
+
   const onPointerDown = (event: ReactPointerEvent<HTMLDivElement>) => {
     if (event.pointerType === 'mouse' && event.button !== 0) {
       return;
@@ -127,9 +135,9 @@ function MobileStory() {
     }
 
     if (delta < 0) {
-      selectStep((activeStep + 1) % steps.length);
+      goNext();
     } else {
-      selectStep((activeStep - 1 + steps.length) % steps.length);
+      goPrev();
     }
   };
 
@@ -172,18 +180,16 @@ function MobileStory() {
         </AnimatePresence>
       </div>
 
-      <div className="hiw-mobile-dots" role="tablist" aria-label="How FluxGrid works">
-        {steps.map((step, index) => (
-          <button
-            key={step.num}
-            type="button"
-            role="tab"
-            aria-selected={activeStep === index}
-            aria-label={`Step ${step.num}: ${step.title}`}
-            className={`hiw-mobile-dots__dot${activeStep === index ? ' is-active' : ''}`}
-            onClick={() => selectStep(index)}
-          />
-        ))}
+      <div className="hiw-mobile-controls">
+        <button type="button" className="hiw-mobile-controls__btn" onClick={goPrev}>
+          Back
+        </button>
+        <p className="hiw-mobile-controls__status" aria-live="polite">
+          {activeStep + 1} of {steps.length}
+        </p>
+        <button type="button" className="hiw-mobile-controls__btn hiw-mobile-controls__btn--next" onClick={goNext}>
+          Next
+        </button>
       </div>
     </div>
   );
