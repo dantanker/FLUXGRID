@@ -3,27 +3,10 @@ import { Reveal } from '../motion/Reveal';
 import { GROWTH_SUITE_PROTOTYPE_URL } from '../GrowthSuiteSection';
 
 const DESKTOP_PREVIEW = { width: 1440, height: 810 };
-const MOBILE_PREVIEW = { width: 390, height: 780 };
-
-function useIsMobilePreview() {
-  const [isMobile, setIsMobile] = useState(false);
-
-  useEffect(() => {
-    const media = window.matchMedia('(max-width: 992px)');
-    const update = () => setIsMobile(media.matches);
-    update();
-    media.addEventListener('change', update);
-    return () => media.removeEventListener('change', update);
-  }, []);
-
-  return isMobile;
-}
 
 function ScaledWebsitePreview() {
   const wrapRef = useRef<HTMLDivElement>(null);
   const [scale, setScale] = useState(0);
-  const isMobile = useIsMobilePreview();
-  const preview = isMobile ? MOBILE_PREVIEW : DESKTOP_PREVIEW;
 
   useEffect(() => {
     const wrap = wrapRef.current;
@@ -32,7 +15,7 @@ function ScaledWebsitePreview() {
     }
 
     const updateScale = () => {
-      setScale(wrap.clientWidth / preview.width);
+      setScale(wrap.clientWidth / DESKTOP_PREVIEW.width);
     };
 
     updateScale();
@@ -41,13 +24,10 @@ function ScaledWebsitePreview() {
     observer.observe(wrap);
 
     return () => observer.disconnect();
-  }, [preview.width]);
+  }, []);
 
   return (
-    <div
-      ref={wrapRef}
-      className={`website-results__iframe-wrap${isMobile ? ' website-results__iframe-wrap--mobile' : ''}`}
-    >
+    <div ref={wrapRef} className="website-results__iframe-wrap">
       <iframe
         className="website-results__iframe"
         src={GROWTH_SUITE_PROTOTYPE_URL}
@@ -56,8 +36,8 @@ function ScaledWebsitePreview() {
         referrerPolicy="no-referrer-when-downgrade"
         allow="fullscreen"
         style={{
-          width: preview.width,
-          height: preview.height,
+          width: DESKTOP_PREVIEW.width,
+          height: DESKTOP_PREVIEW.height,
           transform: `scale(${scale})`,
           opacity: scale > 0 ? 1 : 0,
         }}

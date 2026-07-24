@@ -2393,10 +2393,6 @@
     white-space: nowrap;
   }
 
-  .fluxgrid-app header img.fluxgrid-logo {
-    height: 34px;
-  }
-
   .fluxgrid-app .audience-grid,
   .fluxgrid-app .demo-form-grid {
     grid-template-columns: 1fr;
@@ -2533,11 +2529,6 @@
 
   .fluxgrid-app .hero-mobile-cta-full {
     display: none;
-  }
-
-  .fluxgrid-app header img.fluxgrid-logo {
-    height: 32px !important;
-    width: auto !important;
   }
 
   .fluxgrid-app .footer-logo .fluxgrid-logo {
@@ -3785,12 +3776,22 @@
 }
 
 .fluxgrid-app .hiw-eyebrow {
-  margin: 0;
+  margin: 0 0 12px;
   font-size: 11px;
   font-weight: 600;
   letter-spacing: 0.16em;
   text-transform: uppercase;
   color: var(--accent);
+}
+
+.fluxgrid-app .hiw-title {
+  margin: 0;
+  font-family: var(--font-sans);
+  font-size: clamp(1.625rem, 3.4vw, 2.25rem);
+  font-weight: 700;
+  letter-spacing: -0.03em;
+  line-height: 1.2;
+  color: var(--text-light);
 }
 
 .fluxgrid-app .hiw-editorial {
@@ -3972,6 +3973,11 @@
 
   .fluxgrid-app .hiw-header {
     margin-bottom: 16px;
+    text-align: center;
+  }
+
+  .fluxgrid-app .hiw-title {
+    font-size: clamp(1.45rem, 5.5vw, 1.85rem);
   }
 
   .fluxgrid-app .hiw-mobile-stage {
@@ -3981,6 +3987,43 @@
     aspect-ratio: 4 / 3;
     max-height: min(50vh, 360px);
     margin: 0 auto;
+    touch-action: pan-y;
+    user-select: none;
+  }
+
+  .fluxgrid-app .hiw-mobile-nav {
+    position: absolute;
+    top: 50%;
+    z-index: 3;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 44px;
+    height: 44px;
+    margin: 0;
+    padding: 0;
+    border: 1px solid rgba(26, 29, 36, 0.12);
+    border-radius: 50%;
+    background: rgba(250, 249, 247, 0.92);
+    color: var(--text-light);
+    font-size: 28px;
+    line-height: 1;
+    box-shadow: 0 4px 14px rgba(26, 29, 36, 0.1);
+    cursor: pointer;
+    transform: translateY(-50%);
+    appearance: none;
+  }
+
+  .fluxgrid-app .hiw-mobile-nav--prev {
+    left: 6px;
+  }
+
+  .fluxgrid-app .hiw-mobile-nav--next {
+    right: 6px;
+  }
+
+  .fluxgrid-app .hiw-mobile-nav:active {
+    transform: translateY(-50%) scale(0.96);
   }
 
   .fluxgrid-app .hiw-mobile-stage__frame {
@@ -4056,66 +4099,60 @@
     color: var(--text-muted);
   }
 
-  .fluxgrid-app .hiw-mobile-progress {
+  .fluxgrid-app .hiw-mobile-steps {
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 8px;
+    width: 100%;
+    max-width: 360px;
+    margin: 0 auto;
+  }
+
+  .fluxgrid-app .hiw-mobile-steps__btn {
     display: flex;
+    flex-direction: column;
     align-items: center;
     justify-content: center;
-    gap: 8px;
-    padding: 4px 0;
-  }
-
-  .fluxgrid-app .hiw-mobile-progress__dot {
-    position: relative;
-    box-sizing: content-box;
-    width: 28px;
-    height: 4px;
+    gap: 4px;
+    min-height: 56px;
     margin: 0;
-    padding: 16px 8px;
-    overflow: hidden;
-    border: none;
-    border-radius: 999px;
-    background: var(--bg-subtle);
-    background-clip: content-box;
+    padding: 10px 8px;
+    border: 1px solid var(--border-subtle);
+    border-radius: var(--radius-md);
+    background: rgba(255, 255, 255, 0.72);
+    color: var(--text-muted);
     cursor: pointer;
     appearance: none;
-    transition: width 0.35s cubic-bezier(0.22, 1, 0.36, 1);
+    transition:
+      background 0.2s ease,
+      border-color 0.2s ease,
+      color 0.2s ease,
+      opacity 0.2s ease;
   }
 
-  .fluxgrid-app .hiw-mobile-progress__dot.is-active {
-    width: 48px;
-    background: rgba(143, 111, 26, 0.18);
-    background-clip: content-box;
+  .fluxgrid-app .hiw-mobile-steps__btn.is-active {
+    background: rgba(143, 111, 26, 0.12);
+    border-color: rgba(143, 111, 26, 0.35);
+    color: var(--text-light);
   }
 
-  .fluxgrid-app .hiw-mobile-progress__dot:focus-visible {
+  .fluxgrid-app .hiw-mobile-steps__num {
+    font-size: 11px;
+    font-weight: 600;
+    letter-spacing: 0.12em;
+    color: var(--accent);
+  }
+
+  .fluxgrid-app .hiw-mobile-steps__label {
+    font-size: 13px;
+    font-weight: 600;
+    letter-spacing: -0.01em;
+    line-height: 1.2;
+  }
+
+  .fluxgrid-app .hiw-mobile-steps__btn:focus-visible {
     outline: 2px solid var(--accent);
-    outline-offset: 4px;
-  }
-
-  .fluxgrid-app .hiw-mobile-progress__fill {
-    position: absolute;
-    left: 8px;
-    right: 8px;
-    top: 16px;
-    height: 4px;
-    border-radius: inherit;
-    background: var(--accent);
-    transform-origin: left center;
-    animation: hiw-progress-fill 4.8s linear forwards;
-  }
-
-  .fluxgrid-app .hiw-mobile-progress__fill.is-paused {
-    animation: none;
-    width: 100%;
-  }
-}
-
-@keyframes hiw-progress-fill {
-  from {
-    transform: scaleX(0);
-  }
-  to {
-    transform: scaleX(1);
+    outline-offset: 3px;
   }
 }
 
@@ -4148,11 +4185,6 @@
 
   .fluxgrid-app .hiw-step {
     opacity: 1;
-  }
-
-  .fluxgrid-app .hiw-mobile-progress__fill {
-    animation: none;
-    width: 100%;
   }
 }
 
@@ -6569,13 +6601,6 @@
   box-shadow: var(--shadow-md);
 }
 
-.fluxgrid-app .website-results__iframe-wrap--mobile {
-  width: min(100%, 320px);
-  margin: 0 auto;
-  aspect-ratio: 390 / 780;
-  border-radius: 22px;
-}
-
 .fluxgrid-app .website-results__iframe {
   position: absolute;
   top: 0;
@@ -6837,7 +6862,7 @@
   }
 
   .fluxgrid-app .website-results__preview {
-    max-width: 320px;
+    max-width: none;
   }
 
   .fluxgrid-app .website-results__inner {
@@ -7153,11 +7178,8 @@
   }
 
   .fluxgrid-app .website-results__preview {
-    max-width: min(100%, 340px);
-  }
-
-  .fluxgrid-app .website-results__iframe-wrap--mobile {
-    width: min(100%, 340px);
+    max-width: none;
+    width: 100%;
   }
 
   .fluxgrid-app .website-results__inner {
@@ -7229,12 +7251,6 @@
   .fluxgrid-app .hero-headline,
   .fluxgrid-app .website-hero__title {
     font-size: 1.6rem;
-  }
-
-  .fluxgrid-app .website-results__preview,
-  .fluxgrid-app .website-results__iframe-wrap--mobile {
-    max-width: 100%;
-    width: 100%;
   }
 }
 
