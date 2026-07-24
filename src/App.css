@@ -2388,17 +2388,21 @@
     display: inline-flex;
     flex: 0 0 auto;
     align-items: center;
+    justify-content: center;
+    min-height: 36px;
     margin-left: auto;
-    margin-right: 6px;
-    padding: 0;
-    border: 0;
-    background: none;
+    margin-right: 0;
+    padding: 8px 12px;
+    border: 1px solid rgba(26, 29, 36, 0.14);
+    border-radius: var(--radius-sm);
+    background: rgba(255, 255, 255, 0.72);
     color: var(--text-light);
     font-size: 12px;
     font-weight: 600;
     letter-spacing: -0.01em;
     text-decoration: none;
     white-space: nowrap;
+    box-shadow: 0 1px 2px rgba(26, 29, 36, 0.04);
   }
 
   .fluxgrid-app .header-mobile-cta {
@@ -2406,7 +2410,7 @@
     flex: 0 0 auto;
     align-items: center;
     min-height: 36px;
-    padding: 8px 10px;
+    padding: 8px 12px;
     font-size: 12px;
     white-space: nowrap;
   }
@@ -2417,7 +2421,7 @@
     flex-shrink: 0;
     width: auto;
     max-width: none;
-    height: 28px;
+    height: 26px;
   }
 
   .fluxgrid-app .audience-grid,
@@ -7228,8 +7232,12 @@
   }
 
   .fluxgrid-app .header-mobile-link {
+    padding: 8px 10px;
     font-size: 12px;
-    margin-right: 6px;
+  }
+
+  .fluxgrid-app .header-mobile-cta {
+    padding: 8px 10px;
   }
 }
 
