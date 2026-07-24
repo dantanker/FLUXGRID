@@ -2380,18 +2380,21 @@
     display: none;
   }
 
+  .fluxgrid-app .nav-container {
+    gap: 8px;
+  }
+
   .fluxgrid-app .header-mobile-link {
     display: inline-flex;
-    flex-shrink: 1;
+    flex: 0 0 auto;
     align-items: center;
-    min-width: 0;
     margin-left: auto;
-    margin-right: 8px;
+    margin-right: 6px;
     padding: 0;
     border: 0;
     background: none;
     color: var(--text-light);
-    font-size: 13px;
+    font-size: 12px;
     font-weight: 600;
     letter-spacing: -0.01em;
     text-decoration: none;
@@ -2401,11 +2404,10 @@
   .fluxgrid-app .header-mobile-cta {
     display: inline-flex;
     flex: 0 0 auto;
-    flex-shrink: 0;
     align-items: center;
-    min-height: 40px;
-    padding: 10px 14px;
-    font-size: 13px;
+    min-height: 36px;
+    padding: 8px 10px;
+    font-size: 12px;
     white-space: nowrap;
   }
 
@@ -2415,7 +2417,7 @@
     flex-shrink: 0;
     width: auto;
     max-width: none;
-    height: 36px;
+    height: 28px;
   }
 
   .fluxgrid-app .audience-grid,
@@ -3993,7 +3995,7 @@
   .fluxgrid-app .hiw-mobile-stack {
     display: flex;
     flex-direction: column;
-    gap: 18px;
+    gap: 14px;
   }
 
   .fluxgrid-app .hiw-header {
@@ -4079,48 +4081,36 @@
     color: var(--text-muted);
   }
 
-  .fluxgrid-app .hiw-mobile-controls {
-    display: grid;
-    grid-template-columns: 1fr auto 1fr;
+  .fluxgrid-app .hiw-mobile-steps {
+    display: flex;
     align-items: center;
-    gap: 12px;
-    width: 100%;
-    max-width: 340px;
-    margin: 0 auto;
+    justify-content: center;
+    gap: 6px;
   }
 
-  .fluxgrid-app .hiw-mobile-controls__btn {
-    min-height: 44px;
+  .fluxgrid-app .hiw-mobile-steps__btn {
+    min-width: 44px;
+    min-height: 36px;
     margin: 0;
-    padding: 10px 14px;
-    border: 1px solid var(--border-subtle);
-    border-radius: var(--radius-md);
-    background: rgba(255, 255, 255, 0.8);
-    color: var(--text-light);
-    font-size: 14px;
+    padding: 8px 12px;
+    border: 0;
+    border-radius: 999px;
+    background: transparent;
+    color: var(--text-subtle);
+    font-size: 12px;
     font-weight: 600;
-    letter-spacing: -0.01em;
+    letter-spacing: 0.12em;
     cursor: pointer;
     appearance: none;
+    transition: color 0.2s ease, background 0.2s ease;
   }
 
-  .fluxgrid-app .hiw-mobile-controls__btn--next {
-    justify-self: end;
+  .fluxgrid-app .hiw-mobile-steps__btn.is-active {
     background: rgba(143, 111, 26, 0.12);
-    border-color: rgba(143, 111, 26, 0.3);
-    color: var(--text-light);
+    color: var(--accent);
   }
 
-  .fluxgrid-app .hiw-mobile-controls__status {
-    margin: 0;
-    font-size: 13px;
-    font-weight: 600;
-    letter-spacing: 0.02em;
-    color: var(--text-muted);
-    white-space: nowrap;
-  }
-
-  .fluxgrid-app .hiw-mobile-controls__btn:focus-visible {
+  .fluxgrid-app .hiw-mobile-steps__btn:focus-visible {
     outline: 2px solid var(--accent);
     outline-offset: 3px;
   }

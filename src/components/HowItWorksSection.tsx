@@ -164,6 +164,22 @@ function MobileStory() {
         ))}
       </div>
 
+      <div className="hiw-mobile-steps" role="tablist" aria-label="How FluxGrid works">
+        {steps.map((step, index) => (
+          <button
+            key={step.num}
+            type="button"
+            role="tab"
+            aria-selected={activeStep === index}
+            aria-label={`Step ${step.num}: ${step.title}`}
+            className={`hiw-mobile-steps__btn${activeStep === index ? ' is-active' : ''}`}
+            onClick={() => selectStep(index)}
+          >
+            {step.num}
+          </button>
+        ))}
+      </div>
+
       <div className="hiw-mobile-copy">
         <AnimatePresence mode="wait" initial={false}>
           <motion.div
@@ -178,18 +194,6 @@ function MobileStory() {
             <p className="hiw-mobile-copy__description">{active.description}</p>
           </motion.div>
         </AnimatePresence>
-      </div>
-
-      <div className="hiw-mobile-controls">
-        <button type="button" className="hiw-mobile-controls__btn" onClick={goPrev}>
-          Back
-        </button>
-        <p className="hiw-mobile-controls__status" aria-live="polite">
-          {activeStep + 1} of {steps.length}
-        </p>
-        <button type="button" className="hiw-mobile-controls__btn hiw-mobile-controls__btn--next" onClick={goNext}>
-          Next
-        </button>
       </div>
     </div>
   );
