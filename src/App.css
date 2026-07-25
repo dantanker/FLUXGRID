@@ -487,7 +487,8 @@
   pointer-events: auto;
 }
 
-.fluxgrid-app .video-spot__poster {
+.fluxgrid-app .video-spot__poster,
+.fluxgrid-app .video-spot__media {
   position: absolute;
   inset: 0;
   display: block;
@@ -497,17 +498,138 @@
   object-position: center center;
 }
 
-.fluxgrid-app .video-spot--receptionist .video-spot__poster {
+.fluxgrid-app .video-spot--receptionist .video-spot__poster,
+.fluxgrid-app .video-spot--receptionist .video-spot__media {
   object-position: center 45%;
   transform: scale(1.02);
   transform-origin: center center;
+}
+
+.fluxgrid-app .video-spot--autoplay .video-spot__toggle {
+  background: transparent;
+}
+
+.fluxgrid-app .video-spot--autoplay .video-spot__toggle:hover {
+  background: rgba(26, 29, 36, 0.12);
+}
+
+.fluxgrid-app .video-spot__chrome {
+  display: none;
+}
+
+.fluxgrid-app .video-spot__center-btn,
+.fluxgrid-app .video-spot__side-btn {
+  position: absolute;
+  z-index: 3;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  margin: 0;
+  padding: 0;
+  border: 0;
+  color: #f5f3ef;
+  cursor: pointer;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.18s ease, background 0.18s ease, transform 0.18s ease;
+}
+
+.fluxgrid-app .video-spot__center-btn {
+  top: 50%;
+  left: 50%;
+  width: 64px;
+  height: 64px;
+  border-radius: 50%;
+  background: rgba(16, 18, 24, 0.72);
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.32);
+  backdrop-filter: blur(8px);
+  transform: translate(-50%, -50%) scale(0.96);
+}
+
+.fluxgrid-app .video-spot__side-btn {
+  top: auto;
+  bottom: 14px;
+  right: 14px;
+  width: 42px;
+  height: 42px;
+  border-radius: 50%;
+  background: rgba(16, 18, 24, 0.72);
+  box-shadow: 0 6px 18px rgba(0, 0, 0, 0.28);
+  backdrop-filter: blur(8px);
+  transform: scale(0.96);
+}
+
+.fluxgrid-app .video-spot--autoplay.is-hovering .video-spot__center-btn,
+.fluxgrid-app .video-spot--autoplay.is-hovering .video-spot__side-btn,
+.fluxgrid-app .video-spot--autoplay.is-paused .video-spot__center-btn,
+.fluxgrid-app .video-spot--autoplay:focus-within .video-spot__center-btn,
+.fluxgrid-app .video-spot--autoplay:focus-within .video-spot__side-btn,
+.fluxgrid-app .video-spot--manual.is-hovering .video-spot__center-btn,
+.fluxgrid-app .video-spot--manual.is-hovering .video-spot__side-btn,
+.fluxgrid-app .video-spot--manual.is-paused .video-spot__center-btn,
+.fluxgrid-app .video-spot--manual.is-paused .video-spot__side-btn,
+.fluxgrid-app .video-spot--manual:focus-within .video-spot__center-btn,
+.fluxgrid-app .video-spot--manual:focus-within .video-spot__side-btn {
+  opacity: 1;
+  pointer-events: auto;
+}
+
+.fluxgrid-app .video-spot--autoplay.is-hovering .video-spot__center-btn,
+.fluxgrid-app .video-spot--autoplay.is-paused .video-spot__center-btn,
+.fluxgrid-app .video-spot--autoplay:focus-within .video-spot__center-btn,
+.fluxgrid-app .video-spot--manual.is-hovering .video-spot__center-btn,
+.fluxgrid-app .video-spot--manual.is-paused .video-spot__center-btn,
+.fluxgrid-app .video-spot--manual:focus-within .video-spot__center-btn {
+  transform: translate(-50%, -50%) scale(1);
+}
+
+.fluxgrid-app .video-spot--autoplay.is-hovering .video-spot__side-btn,
+.fluxgrid-app .video-spot--autoplay:focus-within .video-spot__side-btn,
+.fluxgrid-app .video-spot--manual.is-hovering .video-spot__side-btn,
+.fluxgrid-app .video-spot--manual.is-paused .video-spot__side-btn,
+.fluxgrid-app .video-spot--manual:focus-within .video-spot__side-btn {
+  transform: scale(1);
+}
+
+.fluxgrid-app .video-spot__center-btn:hover,
+.fluxgrid-app .video-spot__side-btn:hover {
+  background: rgba(230, 122, 26, 0.92);
+}
+
+.fluxgrid-app .video-spot__center-btn:focus-visible,
+.fluxgrid-app .video-spot__side-btn:focus-visible {
+  outline: 2px solid #e67a1a;
+  outline-offset: 2px;
+  opacity: 1;
+  pointer-events: auto;
+}
+
+@media (hover: none) {
+  .fluxgrid-app .video-spot--autoplay .video-spot__center-btn,
+  .fluxgrid-app .video-spot--autoplay .video-spot__side-btn,
+  .fluxgrid-app .video-spot--manual .video-spot__center-btn,
+  .fluxgrid-app .video-spot--manual .video-spot__side-btn {
+    opacity: 1;
+    pointer-events: auto;
+  }
+
+  .fluxgrid-app .video-spot--autoplay .video-spot__center-btn,
+  .fluxgrid-app .video-spot--manual .video-spot__center-btn {
+    transform: translate(-50%, -50%) scale(1);
+  }
+
+  .fluxgrid-app .video-spot--autoplay .video-spot__side-btn,
+  .fluxgrid-app .video-spot--manual .video-spot__side-btn {
+    transform: scale(1);
+  }
 }
 
 .fluxgrid-app .video-spot--full-package {
   background: #0b0e14;
 }
 
-.fluxgrid-app .video-spot--full-package .video-spot__poster {
+.fluxgrid-app .video-spot--full-package .video-spot__poster,
+.fluxgrid-app .video-spot--full-package .video-spot__media {
   object-fit: cover;
   object-position: center top;
   transform: scale(1.12);
@@ -6945,12 +7067,29 @@
   }
 
   .fluxgrid-app .video-spot--receptionist .video-spot__poster,
+  .fluxgrid-app .video-spot--receptionist .video-spot__media,
   .fluxgrid-app .video-spot--full-package .video-spot__poster {
     transform: none;
   }
 
   .fluxgrid-app .video-spot__toggle {
     background: rgba(26, 29, 36, 0.26);
+  }
+
+  .fluxgrid-app .video-spot--autoplay .video-spot__toggle {
+    background: transparent;
+  }
+
+  .fluxgrid-app .video-spot__center-btn {
+    width: 56px;
+    height: 56px;
+  }
+
+  .fluxgrid-app .video-spot__side-btn {
+    right: 10px;
+    bottom: 10px;
+    width: 38px;
+    height: 38px;
   }
 
   .fluxgrid-app .video-spot__icon {

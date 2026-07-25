@@ -1,7 +1,4 @@
-const VIDEO_CDN = 'https://cdn.jsdelivr.net/gh/dantanker/FLUXGRID@main/public/videos';
-
-// Local public files for reliable preview/deploy; CDN kept as a secondary source after push.
-const LOCAL_VIDEOS = '/videos';
+const LOCAL_VIDEOS = '/videos'
 
 export const SITE_VIDEOS = {
   receptionistHero: {
@@ -13,7 +10,7 @@ export const SITE_VIDEOS = {
     poster: `${LOCAL_VIDEOS}/thumbs/website-hero.jpg`,
   },
   fullPackage: {
-    src: `${VIDEO_CDN}/full-package.mp4`,
-    poster: `${VIDEO_CDN}/thumbs/full-package.jpg`,
+    src: `${LOCAL_VIDEOS}/full-package.mp4`,
+    poster: `${LOCAL_VIDEOS}/thumbs/full-package.jpg`,
   },
-} as const;
+} as const

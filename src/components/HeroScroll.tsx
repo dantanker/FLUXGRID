@@ -33,14 +33,16 @@ export function HeroScroll() {
           </div>
         </Reveal>
 
-        <Reveal className="hero-visual" delay={0.12} direction="right">
+        <div className="hero-visual">
           <SiteVideo
             src={SITE_VIDEOS.receptionistHero.src}
             poster={SITE_VIDEOS.receptionistHero.poster}
             label="Digital receptionist demo video"
             className="video-spot--receptionist"
+            autoplay
+            withSound
           />
-        </Reveal>
+        </div>
       </div>
 
       <Reveal className="container hero-integrations" delay={0.2}>

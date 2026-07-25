@@ -1,10 +1,11 @@
-import { Navigate, Route, Routes, useLocation } from 'react-router-dom';
 import { useEffect } from 'react';
+import { Navigate, Route, Routes, useLocation } from 'react-router-dom';
 import { DemoModal } from './components/DemoModal';
 import { ElectricalGridBackground } from './components/ElectricalGridBackground';
 import { Footer } from './components/Footer';
 import { SiteHeader } from './components/SiteHeader';
 import { DemoModalProvider } from './context/DemoModalContext';
+import { armMediaUnlockOnGesture } from './lib/mediaUnlock';
 import { ReceptionistPage } from './pages/ReceptionistPage';
 import { WebsitePage } from './pages/WebsitePage';
 import './App.css';
@@ -19,12 +20,18 @@ function ScrollToTop() {
   return null;
 }
 
+function MediaUnlock() {
+  useEffect(() => armMediaUnlockOnGesture(), []);
+  return null;
+}
+
 function App() {
   return (
     <DemoModalProvider>
       <ElectricalGridBackground />
       <div className="fluxgrid-app">
         <ScrollToTop />
+        <MediaUnlock />
         <div className="fluxgrid-app__main">
           <SiteHeader />
           <Routes>

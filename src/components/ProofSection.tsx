@@ -22,6 +22,7 @@ function VoltIcon({ className = '' }: { className?: string }) {
 export function ProofSection() {
   const [position, setPosition] = useState(50);
   const [dragging, setDragging] = useState(false);
+  const [hoverCompare, setHoverCompare] = useState(false);
   const frameRef = useRef<HTMLDivElement>(null);
   const sliderId = useId();
 
@@ -41,6 +42,11 @@ export function ProofSection() {
   }, []);
 
   const onPointerDown = (event: PointerEvent<HTMLDivElement>) => {
+    // Mouse: hover drives the slider — no click required.
+    if (event.pointerType === 'mouse') {
+      return;
+    }
+
     if (event.button !== 0) {
       return;
     }
@@ -51,6 +57,11 @@ export function ProofSection() {
   };
 
   const onPointerMove = (event: PointerEvent<HTMLDivElement>) => {
+    if (event.pointerType === 'mouse') {
+      setFromClientX(event.clientX);
+      return;
+    }
+
     if (!event.currentTarget.hasPointerCapture(event.pointerId)) {
       return;
     }
@@ -93,12 +104,21 @@ export function ProofSection() {
         <Reveal className="proof-compare" delay={0.08} direction="left">
           <div
             ref={frameRef}
-            className={`proof-compare__frame${dragging ? ' is-dragging' : ''}`}
+            className={`proof-compare__frame${dragging ? ' is-dragging' : ''}${hoverCompare ? ' is-hovering' : ''}`}
             style={{ '--compare-pos': `${position}%` } as CSSProperties}
             onPointerDown={onPointerDown}
             onPointerMove={onPointerMove}
             onPointerUp={endDrag}
             onPointerCancel={endDrag}
+            onPointerEnter={(event) => {
+              if (event.pointerType === 'mouse') {
+                setHoverCompare(true);
+                setFromClientX(event.clientX);
+              }
+            }}
+            onPointerLeave={() => {
+              setHoverCompare(false);
+            }}
             role="img"
             aria-label="Before and after comparison of missed calls versus FluxGrid lead alerts"
           >
@@ -143,7 +163,7 @@ export function ProofSection() {
               aria-valuetext={`${Math.round(position)} percent chaos shown`}
             />
           </div>
-          <p className="proof-compare__hint">Drag the volt to compare</p>
+          <p className="proof-compare__hint">Hover to compare</p>
         </Reveal>
       </div>
     </section>

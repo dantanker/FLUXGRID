@@ -46,6 +46,7 @@ export function GrowthSuiteSection({
               poster={SITE_VIDEOS.fullPackage.poster}
               label="Full package demo video"
               className="video-spot--full-package"
+              withSound
             />
           </Reveal>
         </div>

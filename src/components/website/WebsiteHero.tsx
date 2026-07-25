@@ -37,13 +37,15 @@ export function WebsiteHero() {
           </div>
         </Reveal>
 
-        <Reveal className="website-hero__visual" delay={0.12} direction="right">
+        <div className="website-hero__visual">
           <SiteVideo
             src={SITE_VIDEOS.websiteHero.src}
             poster={SITE_VIDEOS.websiteHero.poster}
             label="Custom electrician website demo video"
+            autoplay
+            withSound
           />
-        </Reveal>
+        </div>
       </div>
 
       <Reveal className="container hero-integrations" delay={0.2}>
