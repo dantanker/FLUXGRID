@@ -1,8 +1,19 @@
 import { useEffect, useId, useRef, useState } from 'react';
 import { createPortal, flushSync } from 'react-dom';
 import { useLocation } from 'react-router-dom';
-import { markMediaUnlocked, subscribeMediaUnlocked } from '../lib/mediaUnlock';
-import { claimVideoPlayback, subscribePauseOthers } from '../lib/videoCoordinator';
+import {
+  hasRecentMediaGesture,
+  isMediaUnlocked,
+  markMediaUnlocked,
+  subscribeMediaUnlocked,
+} from '../lib/mediaUnlock';
+import {
+  claimVideoPlayback,
+  getActiveVideoOwner,
+  releaseVideoPlayback,
+  subscribePauseOthers,
+  subscribePlaybackReleased,
+} from '../lib/videoCoordinator';
 
 type SiteVideoProps = {
   src: string;
@@ -87,6 +98,8 @@ export function SiteVideo({
   const resumeAtRef = useRef(0);
   /** Only true after the user presses pause — never set by autoplay / browser policy. */
   const userPausedRef = useRef(false);
+  /** True when another SiteVideo claimed playback — autoplay heroes may resume on release. */
+  const yieldedToOtherRef = useRef(false);
   const isMobile = useIsMobileVideo();
   const [open, setOpen] = useState(false);
   const [playing, setPlaying] = useState(false);
@@ -118,8 +131,13 @@ export function SiteVideo({
       }
     }
 
-    // Another video took over — stay paused until the user presses play again.
-    userPausedRef.current = true;
+    if (autoplay) {
+      // Yield only — do not treat as a deliberate user pause or the hero never restarts.
+      yieldedToOtherRef.current = true;
+    } else {
+      // Manual clips stay paused until the user presses play again.
+      userPausedRef.current = true;
+    }
 
     if (openRef.current) {
       setOpen(false);
@@ -127,7 +145,13 @@ export function SiteVideo({
     }
   };
 
-  useEffect(() => subscribePauseOthers(ownerId, pauseSelf), [ownerId]);
+  useEffect(() => subscribePauseOthers(ownerId, pauseSelf), [ownerId, autoplay]);
+
+  useEffect(() => {
+    return () => {
+      releaseVideoPlayback(ownerId);
+    };
+  }, [ownerId]);
 
   // Manual (full package): start off — play/pause listeners only.
   useEffect(() => {
@@ -170,6 +194,7 @@ export function SiteVideo({
 
     let cancelled = false;
     userPausedRef.current = false;
+    yieldedToOtherRef.current = false;
 
     video.loop = true;
     video.playsInline = true;
@@ -182,11 +207,23 @@ export function SiteVideo({
     video.addEventListener('play', onPlay);
     video.addEventListener('pause', onPause);
 
-    const playWithSound = async () => {
+    const canAutoResume = () => {
       if (cancelled || openRef.current || userPausedRef.current) {
         return false;
       }
+      const active = getActiveVideoOwner();
+      if (active && active !== ownerId) {
+        return false;
+      }
+      return true;
+    };
 
+    const playWithSound = async () => {
+      if (!canAutoResume()) {
+        return false;
+      }
+
+      yieldedToOtherRef.current = false;
       claimVideoPlayback(ownerId);
       video.loop = true;
 
@@ -213,7 +250,7 @@ export function SiteVideo({
     };
 
     const forceSound = () => {
-      if (cancelled || userPausedRef.current || openRef.current || !withSound) {
+      if (!canAutoResume() || !withSound) {
         return;
       }
       video.muted = false;
@@ -226,6 +263,12 @@ export function SiteVideo({
     };
 
     void playWithSound();
+
+    // Nav unlock often fires before this mount — honor the session flag immediately.
+    if (isMediaUnlocked() || hasRecentMediaGesture()) {
+      forceSound();
+      void playWithSound();
+    }
 
     const onReady = () => {
       void playWithSound();
@@ -249,6 +292,14 @@ export function SiteVideo({
 
     const unsubscribeUnlock = subscribeMediaUnlocked(forceSound);
 
+    const unsubscribeRelease = subscribePlaybackReleased(ownerId, () => {
+      if (!canAutoResume()) {
+        return;
+      }
+      yieldedToOtherRef.current = false;
+      void playWithSound();
+    });
+
     // First interaction on the site = turn sound on (browser policy fallback).
     const onGesture = () => {
       forceSound();
@@ -256,6 +307,20 @@ export function SiteVideo({
     window.addEventListener('pointerdown', onGesture, true);
     window.addEventListener('keydown', onGesture, true);
     window.addEventListener('touchstart', onGesture, true);
+
+    // Cursor/tab hide pauses media; resume when the page is visible again.
+    const onVisible = () => {
+      if (document.visibilityState !== 'visible') {
+        return;
+      }
+      if (!canAutoResume()) {
+        return;
+      }
+      void playWithSound();
+    };
+    document.addEventListener('visibilitychange', onVisible);
+    window.addEventListener('pageshow', onVisible);
+    window.addEventListener('focus', onVisible);
 
     const retries = [0, 100, 250, 500, 1000, 2000].map((ms) =>
       window.setTimeout(() => {
@@ -268,13 +333,18 @@ export function SiteVideo({
       retries.forEach((id) => window.clearTimeout(id));
       observer?.disconnect();
       unsubscribeUnlock();
+      unsubscribeRelease();
       window.removeEventListener('pointerdown', onGesture, true);
       window.removeEventListener('keydown', onGesture, true);
       window.removeEventListener('touchstart', onGesture, true);
+      document.removeEventListener('visibilitychange', onVisible);
+      window.removeEventListener('pageshow', onVisible);
+      window.removeEventListener('focus', onVisible);
       video.removeEventListener('loadeddata', onReady);
       video.removeEventListener('canplay', onReady);
       video.removeEventListener('play', onPlay);
       video.removeEventListener('pause', onPause);
+      releaseVideoPlayback(ownerId);
     };
   }, [autoplay, withSound, src, ownerId, pathname]);
 
@@ -347,6 +417,9 @@ export function SiteVideo({
 
     const preview = previewRef.current;
     if (!preview || userPausedRef.current) {
+      if (userPausedRef.current) {
+        releaseVideoPlayback(ownerId);
+      }
       return;
     }
 
@@ -368,6 +441,7 @@ export function SiteVideo({
   const openPlayer = async () => {
     // Opening expand counts as choosing this video — pause others and allow resume after close.
     userPausedRef.current = false;
+    yieldedToOtherRef.current = false;
     claimVideoPlayback(ownerId);
 
     const preview = previewRef.current;
@@ -424,6 +498,7 @@ export function SiteVideo({
     if (video.paused) {
       // Manual play — always with sound.
       userPausedRef.current = false;
+      yieldedToOtherRef.current = false;
       claimVideoPlayback(ownerId);
       video.loop = true;
       video.muted = false;
@@ -442,6 +517,7 @@ export function SiteVideo({
     userPausedRef.current = true;
     resumeAtRef.current = video.currentTime;
     video.pause();
+    releaseVideoPlayback(ownerId);
   };
 
   const togglePlayback = async () => {
@@ -462,6 +538,7 @@ export function SiteVideo({
     }
 
     video.pause();
+    releaseVideoPlayback(ownerId);
   };
 
   const seekTo = (value: number) => {
