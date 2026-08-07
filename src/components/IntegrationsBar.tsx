@@ -30,7 +30,7 @@ function IntegrationsMarquee() {
               />
             </div>
             <div className="app-logo app-logo--text">
-              <i className="fa-solid fa-link" /> Your Schedule
+              <i className="fa-solid fa-link" /> or Your Schedule
             </div>
           </div>
         ))}

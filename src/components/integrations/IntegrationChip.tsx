@@ -8,7 +8,7 @@ export const INTEGRATIONS: { id: IntegrationId; label: string }[] = [
   { id: 'servicetitan', label: 'ServiceTitan' },
   { id: 'jobber', label: 'Jobber' },
   { id: 'housecallpro', label: 'Housecall Pro' },
-  { id: 'webhooks', label: 'Your Schedule' },
+  { id: 'webhooks', label: 'or Your Schedule' },
 ];
 
 type IntegrationChipProps = {
@@ -50,7 +50,7 @@ export function IntegrationChip({ id, label, className = '' }: IntegrationChipPr
       {id === 'webhooks' && (
         <span className="hero-integration-chip__webhooks">
           <i className="fa-solid fa-link" aria-hidden />
-          <span className="hero-integration-chip__webhooks-text">Your Schedule</span>
+          <span className="hero-integration-chip__webhooks-text">or Your Schedule</span>
         </span>
       )}
     </div>

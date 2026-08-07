@@ -33,7 +33,7 @@ export function IntegrationLogos() {
 
         return (
           <div key={item.id} className="integration-strip__item integration-strip__item--text" title={item.label}>
-            <span>Your Schedule</span>
+            <span>or Your Schedule</span>
           </div>
         );
       })}
