@@ -96,7 +96,7 @@ export function ProofSection() {
             The Chaos vs. The Calm
           </h2>
           <p className="proof-subhead">
-            Stop letting high-value leads vanish into your voicemail and start winning your time
+            Stop letting high value leads vanish into your voicemail and start winning your time
             back.
           </p>
         </Reveal>
